@@ -37,5 +37,8 @@
     "mongoose": "^4.4.8",
     "passport-facebook": "^2.1.0",
     "redis": "^2.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "~1.0.17"
   }
 }
