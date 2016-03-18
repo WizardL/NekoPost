@@ -2,7 +2,7 @@
 
 <img align="right" src="http://amazonmandy.com/wp-content/uploads/2015/05/misatoref.png" alt="misato" />
 
-Platform that allow user to spread words anonymously.
+Open Source Platform that allow user to spread words anonymously.
 
 ## Getting Started
 
