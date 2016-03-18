@@ -15,4 +15,4 @@ npm start
 ```
 
 ## license
-[![](https://raw.githubusercontent.com/zypeh/Misato/master/LICENSE)](https://img.shields.io/badge/License-BSD%203%20Clause-blue.svg?style=flat-square)
+[![](https://img.shields.io/badge/License-BSD%203%20Clause-blue.svg?style=flat-square)](https://raw.githubusercontent.com/zypeh/Misato/master/LICENSE)
