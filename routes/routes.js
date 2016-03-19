@@ -18,7 +18,7 @@ module.exports = function(app, passport) {
     .get('/auth/facebook', passport.authenticate('facebook'))
     .get('/auth/facebook/callback', passport.authenticate('facebook', {
       successRedirect: '/magic',
-      faileureRedirect: '/'
+      failureRedirect: '/'
     }))
     ;
     // Views... TODO
