@@ -14,5 +14,15 @@ npm install
 npm start
 ```
 
-## license
+## License
 [![](https://img.shields.io/badge/License-BSD%203%20Clause-blue.svg?style=flat-square)](https://raw.githubusercontent.com/zypeh/Misato/master/LICENSE)
+
+## Contributors
+* Zypeh
+* hang333
+
+---
+
+> [zypeh.github.io](https://zypeh.github.io) &nbsp;&middot;&nbsp;
+> GitHub [@zypeh](https://github.com/zypeh) &nbsp;&middot;&nbsp;
+> Twitter [@ZhengyanPeh](https://twitter.com/ZhengyanPeh)
