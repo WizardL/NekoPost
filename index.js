@@ -12,7 +12,7 @@ const passport = require('koa-passport')
 const app = koa();
 
 // Configs
-const config = require('config');
+const config = require('./config');
 
 // Database
 mongoose.connect(config.mongo.url);
