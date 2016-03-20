@@ -15,7 +15,7 @@ module.exports = function(app, passport) {
   const route = new Router();
 
   route
-    .get('/auth/facebook', passport.authenticate('facebook'))
+    .get('/auth/facebook', passport.authenticate('facebook', { scope: ['public_profile', 'email', 'manage_pages'] })))
     .get('/auth/facebook/callback', passport.authenticate('facebook', {
       successRedirect: '/magic',
       failureRedirect: '/'
