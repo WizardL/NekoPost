@@ -19,9 +19,10 @@ module.exports = function(app, passport) {
     .get('/', pages.index)
     .get('/abuse/:id', pages.abuse)
     .get('/auth/facebook', passport.authenticate('facebook'))
+    .get('/auth/facebook', passport.authenticate('facebook', { scope: ['public_profile', 'email', 'manage_pages'] }))
     .get('/auth/facebook/callback', passport.authenticate('facebook', {
       successRedirect: '/magic',
-      faileureRedirect: '/'
+      failureRedirect: '/'
     }))
     ;
     // Views... TODO
