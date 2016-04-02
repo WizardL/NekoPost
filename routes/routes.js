@@ -3,6 +3,7 @@
 // Dependencies
 var Router = require('koa-router')
   , pages = require('./pages')
+  , handlers = require('./handlers')
   ;
 
 // Secured path middleware
@@ -16,14 +17,15 @@ module.exports = function(app, passport) {
   const route = new Router();
 
   route
-    .get('/', pages.index)
-    .get('/abuse/:id', pages.abuse)
-    .get('/auth/facebook', passport.authenticate('facebook'))
-    .get('/auth/facebook', passport.authenticate('facebook', { scope: ['public_profile', 'email', 'manage_pages'] }))
+    .get('/auth/facebook', passport.authenticate('facebook', { scope: ['public_profile'] }))
     .get('/auth/facebook/callback', passport.authenticate('facebook', {
       successRedirect: '/magic',
       failureRedirect: '/'
     }))
+
+    .get('/', pages.index)
+    .get('/abuse/:id', pages.abuse)
+
+    .post('/upload', handlers.upload);
     ;
-    // Views... TODO
 }
