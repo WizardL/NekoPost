@@ -1,7 +1,8 @@
 "use strict";
 
 // Dependencies
-var Schema = require('mongoose').Schema;
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema;
 
 // Model 'User'
 var PostSchema = new Schema({
