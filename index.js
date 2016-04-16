@@ -22,7 +22,7 @@ mongoose.connection.on('error', function() {
 });
 
 mongoose.connection.once('open', function() {
-  console.log('[ * ] Database connection open.'.gren);
+  console.log('[ * ] Database connection open.'.green);
 });
 
 // Module
