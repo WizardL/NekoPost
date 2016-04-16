@@ -1,6 +1,6 @@
 "use strict";
 // Dependencies
-const passport = require('koa-passport')
+var   passport = require('koa-passport')
     , mongoose = require('mongoose')
     , colors = require('colors')
     , http = require('http')
@@ -23,6 +23,14 @@ mongoose.connection.on('error', function() {
 
 mongoose.connection.once('open', function() {
   console.log('[ * ] Database connection open.'.green);
+});
+
+// Models
+const modelsPath = config.app.root + "./models";
+fs.readdirSync(modelsPath).forEach(function(file) {
+  if(~file.indexOf("js")) {
+    require(modelsPath + '/' + file);
+  }
 });
 
 // Module
