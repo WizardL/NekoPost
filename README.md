@@ -1,10 +1,9 @@
 # Misato
+[![Build Status](https://travis-ci.org/WizardL/Misato.svg?branch=master)](https://travis-ci.org/WizardL/Misato)
 
 <img align="right" src="http://amazonmandy.com/wp-content/uploads/2015/05/misatoref.png" alt="misato" />
 
 Open Source Platform that allow user to spread words anonymously.
-<br>
-[![Build Status](https://travis-ci.org/WizardL/Misato.svg?branch=master)](https://travis-ci.org/WizardL/Misato)
 
 ## Getting Started
 
