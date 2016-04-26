@@ -7,13 +7,13 @@ var Router = require('koa-router')
   ;
 
 // Secured path middleware
-var secured = function *(next) {
+var secured = function* (next) {
   if (!this.isAuthenticated()) this.status = 401;
   yield next;
 };
 
 // Routes
-module.exports = function(app, passport) {
+module.exports = function (app, passport) {
   const route = new Router();
 
   route
@@ -27,5 +27,5 @@ module.exports = function(app, passport) {
     .get('/abuse/:id', pages.abuse)
 
     .post('/upload', handlers.upload);
-    ;
+  ;
 }

@@ -1,12 +1,12 @@
 "use strict";
 // Dependencies
-var   passport = require('koa-passport')
-    , mongoose = require('mongoose')
-    , colors = require('colors')
-    , http = require('http')
-    , koa = require('koa')
-    , fs = require('fs')
-    ;
+var passport = require('koa-passport')
+  , mongoose = require('mongoose')
+  , colors = require('colors')
+  , http = require('http')
+  , koa = require('koa')
+  , fs = require('fs')
+  ;
 
 // Koa app
 const app = koa();
@@ -17,18 +17,18 @@ const config = require('./config');
 // Database
 mongoose.connect(config.mongo.url);
 
-mongoose.connection.on('error', function() {
+mongoose.connection.on('error', function () {
   console.error.bind('[ ! ] Connection error: '.red);
 });
 
-mongoose.connection.once('open', function() {
+mongoose.connection.once('open', function () {
   console.log('[ * ] Database connection open.'.green);
 });
 
 // Models
 const modelsPath = config.app.root + "./models";
-fs.readdirSync(modelsPath).forEach(function(file) {
-  if(~file.indexOf("js")) {
+fs.readdirSync(modelsPath).forEach(function (file) {
+  if (~file.indexOf("js")) {
     require(modelsPath + '/' + file);
   }
 });
