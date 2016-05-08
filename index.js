@@ -41,4 +41,4 @@ require('./lib/koa')(app, config, passport);
 require('./routes/routes')(app, passport);
 
 // HTTP Server Instance
-http.create(app.callback()).listen(3000);
+http.createServer(app.callback()).listen(3000);
