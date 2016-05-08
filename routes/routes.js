@@ -2,8 +2,7 @@
 
 // Dependencies
 var Router = require('koa-router')
-, handler = require('./handler')
-, mount = require('koa-mount')
+, handler = require('./handlers')
 , pages = require('./pages')
 ;
 
@@ -25,9 +24,11 @@ module.exports = function (app, passport) {
     }))
 
     .get('/', pages.index)
-    .get('/abuse/:id', pages.abuse)
+    .get('/abuse/:postid', pages.abuse)
 
-    .post('/upload', handlers.upload);
+    .post('/upload', handler.upload)
+  ;
+  
   app.use(route.routes()); 
 
 };
