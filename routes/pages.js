@@ -2,7 +2,8 @@
 
 // Index page
 exports.index = function* (next) {
-  this.render('index_page');
+  console.log(JSON.stringify(this));
+  yield this.render('index_page.html');
   return yield next;
 };
 
