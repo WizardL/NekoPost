@@ -34,6 +34,7 @@
     "koa-ratelimit": "^2.2.0",
     "koa-redis": "^2.0.1",
     "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0",
     "lodash": "^4.11.1",
     "mongoose": "^4.4.12",
     "passport-facebook": "^2.1.0",

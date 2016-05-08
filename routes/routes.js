@@ -2,6 +2,7 @@
 
 // Dependencies
 var Router = require('koa-router')
+  , Mount = require('koa-mount')
   , pages = require('./pages')
   , handlers = require('./handlers')
   ;
@@ -28,4 +29,7 @@ module.exports = function(app, passport) {
 
     .post('/upload', handlers.upload);
     ;
+
+  app.use(route.routes());
+  app.use(mount())
 }
