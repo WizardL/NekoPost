@@ -2,10 +2,10 @@
 
 // Dependencies
 var Router = require('koa-router')
-  , mount = require('koa-mount')
-  , pages = require('./pages')
-  , handlers = require('./handlers')
-  ;
+, handler = require('./handler')
+, mount = require('koa-mount')
+, pages = require('./pages')
+;
 
 // Secured path middleware
 var secured = function* (next) {
@@ -15,8 +15,8 @@ var secured = function* (next) {
 
 // Routes
 module.exports = function (app, passport) {
-  const route = new Router();
-
+  // Register router
+  var route = new Router();
   route
     .get('/auth/facebook', passport.authenticate('facebook', { scope: ['public_profile'] }))
     .get('/auth/facebook/callback', passport.authenticate('facebook', {
@@ -28,6 +28,6 @@ module.exports = function (app, passport) {
     .get('/abuse/:id', pages.abuse)
 
     .post('/upload', handlers.upload);
-  app.use(route.routes());
-  app.use(mount(route));
-}
+  app.use(route.routes()); 
+
+};
