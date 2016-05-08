@@ -10,8 +10,8 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var base = {
   app: {
     root: path.normalize(path.join(__dirname, './')),
-    env: env,
-  },
+    env: env
+  }
 };
 
 var specific = {
@@ -22,7 +22,7 @@ var specific = {
       port: 3000,
       name: "misato-test",
       SITEURL: "http://localhost",
-      keys: ['secret'],
+      keys: ['secret']
     },
     mongo: {
       url: "mongodb://localhost/misato-test",
@@ -39,10 +39,10 @@ var specific = {
       port: process.env.PORT || 80,
       name: "misato-production",
       SITEURL: "http://localhost",
-      keys: ['deep secret'],
+      keys: ['deep secret']
     },
     mongo: {
-      url: "mongodb://localhost/misato-prod",
+      url: "mongodb://localhost/misato-prod"
     },
     auth: {
       fb_clientid: "",
