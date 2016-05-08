@@ -21,6 +21,7 @@ var specific = {
     app: {
       port: 3000,
       name: "misato-test",
+      SITEURL: "http://localhost",
       keys: ['secret'],
     },
     mongo: {
@@ -37,6 +38,7 @@ var specific = {
     app: {
       port: process.env.PORT || 80,
       name: "misato-production",
+      SITEURL: "http://localhost",
       keys: ['deep secret'],
     },
     mongo: {

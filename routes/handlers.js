@@ -1,6 +1,6 @@
 'use strict';
 
 // Dependencies
-exports.upload = function *() {
+exports.upload = function* () {
   // TODO
 }

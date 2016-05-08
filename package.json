@@ -4,7 +4,7 @@
   "description": "Facebook Bot that allow user to spread words anonymously.",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js",
+    "test": "node index.js",
     "start": "node --harmony index.js"
   },
   "repository": {
