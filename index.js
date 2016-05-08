@@ -25,7 +25,7 @@ mongoose.connection.once('open', function () {
 });
 
 // Models 
-require('models/post');
+require('./models/post');
 
 // Module
 // require('./lib/passport')(passport, config);

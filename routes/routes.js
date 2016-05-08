@@ -28,12 +28,6 @@ module.exports = function (app, passport) {
     .get('/abuse/:id', pages.abuse)
 
     .post('/upload', handlers.upload);
-<<<<<<< HEAD
-    ;
-
   app.use(route.routes());
-  app.use(mount())
-=======
-  ;
->>>>>>> 5cc228d629e8d7658792aaf385b7e401f0a20025
+  app.use(mount());
 }
