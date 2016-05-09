@@ -28,11 +28,11 @@ mongoose.connection.once('open', function () {
 require('./models/post');
 
 // Module
-// require('./lib/passport')(passport, config);
+require('./lib/passport')(passport, config);
 require('./lib/koa')(app, config, passport);
 
 // Routes
 require('./routes/routes')(app, passport);
 
 // HTTP Server Instance
-http.createServer(app.callback()).listen(3030);
+http.createServer(app.callback()).listen(config.app.port);
