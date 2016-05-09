@@ -25,7 +25,6 @@ module.exports = function (app, passport) {
 
     .get('/', pages.index)
     .get('/abuse/:postid', pages.abuse)
-    .get('/404', pages.404)
     .post('/upload', handler.upload)
   ;
   
