@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // Index page
 exports.index = function* (next) {
