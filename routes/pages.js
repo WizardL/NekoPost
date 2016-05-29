@@ -8,7 +8,7 @@ exports.index = function* (next) {
 };
 
 exports.abuse = function* (next) {
-  var id = this.params.postid;
-  this.render('abuse_page.html', { post_id: id });
+  var id = this.postid;
+  yield this.render('abuse_page.html', { post_id: id });
   return yield next;
 };
