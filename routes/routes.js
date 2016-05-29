@@ -29,6 +29,11 @@ module.exports = function (app, passport) {
     //Index
     .get('/', pages.index)
     //Abuse Reporting Page
+    .param('postid',function* (postid,next){
+      this.postid = Number(postid);
+      if (typeof this.postid != 'number' || isNaN(this.postid) === true) return this.status = 404;
+      yield next;
+    })
     .get('/abuse/:postid', pages.abuse)
     
     //POST REQUEST
