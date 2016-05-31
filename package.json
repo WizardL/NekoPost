@@ -40,7 +40,8 @@
     "lodash": "^4.11.2",
     "mongoose": "^4.4.15",
     "passport-facebook": "^2.1.0",
-    "redis": "^2.5.3"
+    "redis": "^2.5.3",
+    "recaptcha-validator": "^1.0.6"
   },
   "devDependencies": {
     "nodemon": "~1.0.17"
