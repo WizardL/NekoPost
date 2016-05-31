@@ -42,7 +42,7 @@
     "passport-facebook": "^2.1.0",
     "redis": "^2.5.3",
     "recaptcha-validator": "^1.0.6",
-    "co-body":"^4.2.0"
+    "koa-bodyparser":"^4.2.0"
   },
   "devDependencies": {
     "nodemon": "~1.0.17"
