@@ -16,7 +16,7 @@ module.exports = function* (next) {
       this.body = { error: true, msg: 'Please remember to complete the human verification.' };
       return;
     }
-    yield recaptcha.promise(config.recaptcha.recaptcha_sitesecret, this.request.body["g-recaptcha-response"], request.ip);
+    yield recaptcha.promise(config.recaptcha.site_secret, this.request.body["g-recaptcha-response"], request.ip);
     this.body = { error: false, msg: 'Good!' };
   } catch (ex) {
     if (typeof ex === 'string')

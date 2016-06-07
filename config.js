@@ -32,8 +32,8 @@ var specific = {
       fb_secret: ""
     },
     recaptcha: {
-      recaptcha_sitekey: "",
-      recaptcha_sitesecret: ""
+      site_key: "",
+      site_secret: ""
     }
   },
 
@@ -53,8 +53,8 @@ var specific = {
       fb_secret: ""
     },
     recaptcha: {
-      recaptcha_sitekey: "",
-      recaptcha_sitesecret: ""
+      site_key: "",
+      site_secret: ""
     }
   },
 };
