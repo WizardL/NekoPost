@@ -24,6 +24,9 @@ mongoose.connection.once('open', function () {
   console.log('[ * ] Database connection open.'.green);
 });
 
+// Models 
+require('./models/post');
+
 // Module
 require('./lib/passport')(passport, config);
 require('./lib/koa')(app, config, passport);

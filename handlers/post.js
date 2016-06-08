@@ -7,7 +7,7 @@ var mongoose = require('mongoose')
 
 const config = require('../config');
 //Models
-const PostModel = require('../models/post');
+const Post = require('mongoose').model('Post')
 
 module.exports = function* (next) {
   //Verify Recatpcha
