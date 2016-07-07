@@ -11,7 +11,9 @@
     <title>Misato</title>
     <meta content="Semantic empowers designers and developers by creating a shared vocabulary for UI." name="description">
     <meta content="html5, ui, library, framework, javascript" name="keywords">
-    <link rel="import" href="/public/components/semantic.html">
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="./public/js/semantic.min.js"></script>
+    <link class="ui" href="./public/css/semantic.min.css" rel="stylesheet" type="text/css">
     <style type="text/css">
         body {
             font-family: sinkin_sans600_semibold, 'Microsoft YaHei New', 'Microsoft Yahei', 微软雅黑, 宋体, SimSun, STXihei, 华文细黑, sans-serif;
@@ -50,39 +52,71 @@
             color: #331D1D;
         }
     </style>
+    <script>
+        $(document)
+    .ready(function() {
+      $('.ui.menu .ui.dropdown').dropdown({
+        on: 'hover'
+      });
+      $('.ui.menu a.item')
+        .on('click', function() {
+          $(this)
+            .addClass('active')
+            .siblings()
+            .removeClass('active')
+          ;
+        })
+      ;
+    })
+  ;
+    </script>
 </head>
 
 <body>
+    <!-- Navbar Start -->
     <div class="ui fixed inverted menu">
         <div class="ui container">
-            <a class="header item" href="#"><img class="logo" src="/public/images/Misato.png"> Misato
-            </a> <a class="item" href="#">Home</a>
-            <div class="ui simple dropdown item">
-                Dropdown <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" href="#">Link Item</a> <a class="item" href="#">Link Item</a>
-                    <div class="divider"></div>
-                    <div class="header">
-                        Header Item
+            <a class="header item" href="#"><img class="logo" src="./public/images/Misato.png"> Misato</a>
+            <a class="item" href="#">Home</a>
+            <div class="right menu">
+                <div class="ui dropdown item">
+                    About
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href="#"><i class="connectdevelop icon"></i>Developers</a>
+                        <a class="item" href="https://github.com/WizardL/Misato"><i class="github icon"></i>GitHub</a>
+                        <div class="divider"></div>
+                        <a class="item" href="#"><i class="configure icon"></i>Admin Backend</a>
                     </div>
-                    <div class="item">
-                        <i class="dropdown icon"></i> Sub Menu
-                        <div class="menu">
-                            <a class="item" href="#">Link Item</a> <a class="item" href="#">Link Item</a>
-                        </div>
-                    </div><a class="item" href="#">Link Item</a>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Navbar END -->
+
+    <!-- Body Start -->
     <div class="ui main container" style="min-height:500px;">
-        <img src="/public/images/banner.png" width="100%">
-        <p align="center" style="padding-top:80px;"><img class="ui circular image" src="/public/images/Misato.png"></p>
-        <a class="misato-wrap" href="#">
-            <h1 align="center" class="ui header misato">Misato</h1></a>
-        <h4 align="center">Misato 是个‘允许你在脸书匿名发布一些羞羞人的话语’平台</h4>
-        <p align="center">此站尚未完成，敬请期待。</p>
+        <img src="./public/images/banner.png" width="100%">
+        <div class="ui divider"></div>
+        <div class="ui text container">
+            <div class="ui form">
+                <div class="field">
+                    <label>Text</label>
+                    <textarea></textarea>
+                </div>
+            </div>
+        </div>
+        <!--
+		<p align="center" style="padding-top:80px;"><img class="ui circular image" src="./public/images/Misato.png"></p>
+		<a class="misato-wrap" href="#">
+                <h1 align="center" class="ui header misato">Misato</h1>
+            </a>
+            <h4 align="center">Misato 是个‘允许你在脸书匿名发布一些羞羞人的话语’平台</h4>
+            <p align="center">此站尚未完成，敬请期待。</p>!-->
     </div>
+    <!-- Body End -->
+
+    <!-- Footer Start -->
     <div class="ui inverted vertical footer segment">
         <div class="ui center aligned container">
             <div class="ui stackable inverted divided grid">
@@ -93,12 +127,11 @@
             </div>
             <div class="ui inverted section divider"></div>
             <div class="ui horizontal inverted small divided link list">
-                <a class="item" href="http://wizardl.github.io/"><img class="ui centered mini image" src="/public/images/wizard.jpg" style="margin-right:10px;">Wizardry-lab</a>
-                <a class="item" href="https://twitter.com/ZhengyanPeh"><span style=
-                "color:#96CDFF;">@ZhengyanPeh</span></a>
+                <a class="item" href="http://wizardl.github.io/"><img class="ui centered mini image" src="./public/images/wizard.jpg" style="margin-right:10px;">Wizardry-lab</a>
             </div>
         </div>
     </div>
+    <!-- Footer End -->
 </body>
 
 </html>

@@ -30,6 +30,10 @@ var specific = {
     auth: {
       fb_clientid: "",
       fb_secret: ""
+    },
+    recaptcha: {
+      site_key: "",
+      site_secret: ""
     }
   },
 
@@ -47,6 +51,10 @@ var specific = {
     auth: {
       fb_clientid: "",
       fb_secret: ""
+    },
+    recaptcha: {
+      site_key: "",
+      site_secret: ""
     }
   },
 };
