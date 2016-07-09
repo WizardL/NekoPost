@@ -10,7 +10,11 @@ export function DatabaseConnector(uri) {
       .on('close', () => console.log(`[${'!'.red}]Database connection closed`))
       .once('open', () => resolve(mongoose.connections[0]))
 
-    mongoose.connect(uri) 
+    mongoose.connect(uri)
+
+    // Gracefully shutdown when INTERRUPT signal occurred
+    process.on('SIGINT', () => mongoose.connection.close(() => process.exit(0)))
   })
+  
 }
 

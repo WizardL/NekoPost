@@ -17,7 +17,4 @@ const DBConfig = (process.env.NODE_DEV == 'production') ? production : developme
   await app.listen(port) 
   console.log(`[${'@'.green}]  Server listening on port ${port}`)
   
-  // Gracefully close when INTERRUPT Signal occurred.
-  process.on('SIGINT', () => mongoose.connection.close(() => process.exit(0)))
-  
 })()
