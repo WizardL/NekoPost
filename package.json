@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zypeh/Misato.git"
+    "url": "git+https://github.com/WizardL/Misato.git"
   },
   "keywords": [
     "koa",
@@ -21,7 +21,7 @@
   "author": "zypeh",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/zypeh/Misato/issues"
+    "url": "https://github.com/WizardL/Misato/issues"
   },
   "homepage": "https://github.com/zypeh/Misato#readme",
   "dependencies": {
