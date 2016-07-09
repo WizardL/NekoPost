@@ -12,7 +12,15 @@ Install the dependencies
 git clone https://github.com/zypeh/Misato
 cd Misato
 npm install
-npm start
+```
+
+Running the code
+```
+# For development, instead
+npm run test
+
+# For production, use
+npm run production
 ```
 
 ## License
