@@ -15,7 +15,8 @@ export default function middleware(app) {
     errorhandling,
 
     // Ratelimiting
-    ratelimit(),
+    /* TODO  Routes */
+    //ratelimit(),
 
     // Body Parser
     convert(bodyParser()),
