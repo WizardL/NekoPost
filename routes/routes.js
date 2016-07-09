@@ -23,21 +23,16 @@ module.exports = function (app, passport) {
     //Facebook Auth
     .get('/auth/facebook', passport.authenticate('facebook', { scope: ['public_profile'] }))
     .get('/auth/facebook/callback', passport.authenticate('facebook', {
-      successRedirect: '/magic',
+      successRedirect: '/authed/',
       failureRedirect: '/'
     }))
-    //Index
+  //Index
     .get('/', pages.index)
-    //Abuse Reporting Page
-    .param('postid',function* (postid,next){
-      this.postid = Number(postid);
-      if (typeof this.postid != 'number' || isNaN(this.postid) === true) return this.status = 404;
-      yield next;
-    })
-    .get('/abuse/:postid', pages.abuse)
+  //Abuse Reporting Page
+    .get('/abuse/:postid', secured, pages.abuse)
     
-    //POST REQUEST
-    //Confession Post
+  //POST REQUEST
+  //Confession Post
     .post('/post', post)
   ;
   
