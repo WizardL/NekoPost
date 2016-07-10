@@ -1,29 +1,29 @@
 "use strict";
 
 //Dependencies
-var mongoose = require('mongoose')
-  , recaptcha = require('recaptcha-validator')
-  ;
+import mongoose from 'mongoose';
+import * as recaptcha from 'recaptcha-validator';
+import { recaptcha_development, recaptcha_test, recaptcha_production } from '../config'
+const RecaptchaConfig = (process.env.NODE_DEV == 'production') ? recaptcha_production : ((process.env.NODE_DEV == 'development') ? recaptcha_development : recaptcha_test)
 
-const config = require('../config');
 //Models
-const Post = require('mongoose').model('Post')
+import { Post } from '../models/post'
 
-module.exports = function* (next) {
+export async function (ctx,next) {
   //Verify Recatpcha
   try {
-    if (!this.request.body["g-recaptcha-response"]) {
-      this.body = { error: true, msg: 'Please remember to complete the human verification.' };
+    if (!ctx.body["g-recaptcha-response"]) {
+      ctx.throw(500, 'Please remember to complete the human verification.')
       return;
     }
-    yield recaptcha.promise(config.recaptcha.site_secret, this.request.body["g-recaptcha-response"], request.ip);
-    this.body = { error: false, msg: 'Good!' };
-  } catch (ex) {
-    if (typeof ex === 'string')
-      this.body = { error: true, msg: 'Error from google: ' + ex };
+    await recaptcha.promise(RecaptchaConfig.secret, this.body["g-recaptcha-response"], ctx.request.ip);
+    ctx.body = { msg: 'Good!' };
+  } catch (err) {
+    if (typeof err === 'string')
+      ctx.throw(500, err);
     else
-      this.body = { error: true, msg: 'General exception: ' + ex };
+      ctx.throw(500, err);
   }
   
-  return yield next;
+  await next();
 };
