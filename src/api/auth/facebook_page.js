@@ -1,6 +1,6 @@
 "use strict"
 
-import shortid from 'shordid'
+import shortid from 'shortid'
 
 export default (router) => {
 
