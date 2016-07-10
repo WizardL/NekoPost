@@ -1,8 +1,8 @@
 "use strict";
 
 //Dependencies
-import mongoose from 'mongoose';
-import * as recaptcha from 'recaptcha-validator';
+import mongoose from 'mongoose'
+import * as recaptcha from 'recaptcha-validator'
 import { recaptcha_development, recaptcha_test, recaptcha_production } from '../config'
 const RecaptchaConfig = (process.env.NODE_DEV == 'production') ? recaptcha_production : ((process.env.NODE_DEV == 'development') ? recaptcha_development : recaptcha_test)
 
