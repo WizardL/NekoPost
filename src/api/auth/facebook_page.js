@@ -1,6 +1,7 @@
 "use strict"
 
 import shortid from 'shortid'
+import * as recaptcha from 'recaptcha'
 
 export default (router) => {
 
