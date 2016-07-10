@@ -4,6 +4,7 @@ import app from './src'
 import colors from 'colors'
 
 import { development, test, production } from './config'
+import { DatabaseConnector } from './src/db'
 const port = process.env.PORT || 3000
 const DBConfig = (process.env.NODE_DEV == 'production') ? production : development
 
