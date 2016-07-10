@@ -1,5 +1,7 @@
 "use strict"
 
+import * as recaptcha from 'recaptcha'
+
 export default (router) => {
 
   router
@@ -24,6 +26,6 @@ async function complain_handler (ctx, next) {
     else
       ctx.throw(500, err);
   }
-  
+
   // TODO
 }
