@@ -1,6 +1,6 @@
 "use strict"
 
-import * as recaptcha from 'recaptcha'
+import * as recaptcha from 'recaptcha-validator'
 
 export default (router) => {
 
