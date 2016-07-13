@@ -19,7 +19,7 @@ const idGenerator = (ctx, callback) => {
 }
 
 const PostSchema = new mongoose.Schema({
-  _id: { type: String, unique: true },
+  _id: { type: mongoose.Schema.Types.ObjectId },
   status: { delivered: { type: Boolean } },
   reporter: [{ type: String }],
   created_on: { type: Date, default: Date.now }
