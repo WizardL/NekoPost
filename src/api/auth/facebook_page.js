@@ -1,13 +1,17 @@
 "use strict"
 
+//Dependencies
 import shortid from 'shortid'
 import FB from 'fb';
 import * as recaptcha from 'recaptcha-validator'
 
+//Config
 import { recaptcha_development, recaptcha_test, recaptcha_production } from '../../../config' //Recaptcha Config
 import { access_token, page_username, need_approve } from '../../../config' //Facebook Config
 const RecaptchaConfig = (process.env.NODE_DEV == 'production') ? recaptcha_production : ((process.env.NODE_DEV == 'development') ? recaptcha_development : recaptcha_test)
 
+//Models
+import PostModel from '../../model/post'
 
 export default (router) => {
 
@@ -40,6 +44,10 @@ async function post_handler(ctx, next) {
       response = await FB.api(`${page_username}/photos`, 'post', { message: content, link: link })
     else
       response = await FB.api(`${page_username}/feed`, 'post', { message: content, url: pic })
+
+    PostModel.findOne().sort('-_id').exec(function(err, item) {
+      var id = item.id + 1
+    });
 
   } catch(error) {
     if(error.response.error.code === 'ETIMEDOUT') {
