@@ -19,15 +19,15 @@ async function complain_handler (ctx, next) {
   try {
     if (!ctx.body["g-recaptcha-response"]) {
       ctx.throw(500, 'Please remember to complete the human verification.')
-      return;
+      return
     }
     await recaptcha.promise(RecaptchaConfig.secret, ctx.body["g-recaptcha-response"], ctx.request.ip);
-    ctx.body = { msg: 'Good!' };
+    ctx.body = { msg: 'Good!' }
   } catch (err) {
     if (typeof err === 'string')
-      ctx.throw(500, err);
+      ctx.throw(500, err)
     else
-      ctx.throw(500, err);
+      ctx.throw(500, err)
   }
 
   // TODO
