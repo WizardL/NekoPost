@@ -1,7 +1,8 @@
 "use strict"
 
 import * as recaptcha from 'recaptcha-validator'
-import { recaptcha_development, recaptcha_test, recaptcha_production } from '../../../config'
+
+import { recaptcha_development, recaptcha_test, recaptcha_production } from '../../../config' //Recaptcha Config
 const RecaptchaConfig = (process.env.NODE_DEV == 'production') ? recaptcha_production : ((process.env.NODE_DEV == 'development') ? recaptcha_development : recaptcha_test)
 
 export default (router) => {

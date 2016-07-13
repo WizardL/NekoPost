@@ -49,7 +49,9 @@
     "passport-facebook": "^2.1.1",
     "recaptcha-validator": "^1.0.4444",
     "import-dir": "^0.0.1",
-    "shortid": "^2.2.6"
+    "shortid": "^2.2.6",
+    "bcrypt":"^0.8.7",
+    "fb":"^1.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
