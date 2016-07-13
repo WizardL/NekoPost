@@ -37,9 +37,9 @@ async function post_handler(ctx, next) {
   try {
     const content = ctx.body["content"]
     if (ctx.body["type"] == 'image')
-      const response = await FB.api(`${page_username}/photos`, 'post', { message: content, link: link})
+      response = await FB.api(`${page_username}/photos`, 'post', { message: content, link: link })
     else
-      const response = await FB.api(`${page_username}/feed`, 'post', { message: content, link: link})
+      response = await FB.api(`${page_username}/feed`, 'post', { message: content, url: pic })
 
   } catch(error) {
     if(error.response.error.code === 'ETIMEDOUT') {
