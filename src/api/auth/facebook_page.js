@@ -39,15 +39,21 @@ async function post_handler(ctx, next) {
   FB.setAccessToken(access_token)
   /*TODO*/
   try {
-    const content = ctx.body["content"]
-    if (ctx.body["type"] == 'image')
-      response = await FB.api(`${page_username}/photos`, 'post', { message: content, link: link })
-    else
-      response = await FB.api(`${page_username}/feed`, 'post', { message: content, url: pic })
-
+    /*damn increment
     PostModel.findOne().sort('-_id').exec(function(err, item) {
+      if (err) ctx.throw(500, err)
       var id = item.id + 1
     });
+    */
+    const format = `#告白独中${id}\n发文请至\n举报 ${report_link}\n`
+    const content = `${format} ${ctx.body["content"]}`
+
+    if (ctx.body["type"] == 'image')
+      response = await FB.api(`${page_username}/photos`, 'post', { message: content, url: link })
+    else
+      response = await FB.api(`${page_username}/feed`, 'post', { message: content, link: pic })
+    const PostEntity = new PostModel({ _id: id, postid: response.postid, ip: ctx.request.ip })
+    PostEntity.save()
 
   } catch(error) {
     if(error.response.error.code === 'ETIMEDOUT') {
