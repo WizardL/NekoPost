@@ -17,3 +17,8 @@ export const recaptcha_test        = { key: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXj
 export const access_token  = ''
 export const page_username = ''
 export const need_approve  = false //Post need admin to approve before posted.
+
+//Bitly related
+export const bitly_enabled  = true //Enable bitly or not.
+export const bitly_username = ''   //Bitly username
+export const bitly_apikey   = ''   //Bitly API KEY
