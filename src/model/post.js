@@ -18,11 +18,16 @@ const idGenerator = (ctx, callback) => {
   })
 }
 
+const Postid = new mongoose.Schema({
+  next: { type: Number, default: 1 }
+})
+
 const PostSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId },
   postid: { type: String },
+  reporter: [{ type: Array }],
   status: { delivered: { type: Boolean } },
-  ip: [{ type: String }],
+  ip: { type: String },
   created_on: { type: Date, default: Date.now }
 })
 
@@ -30,6 +35,13 @@ const PostSchema = new mongoose.Schema({
 PostSchema.pre('save', function(next) {
   const post = this
   idGenerator(post, next)
+  Postid.findById(postid_id, { $inc: { next: 1} }, (err, postid) => {
+    if (err)
+      next(err)
+    post.post_id = postid.next - 1 
+    next()
+  })
+  return next()
 })
 
 // Model initialization

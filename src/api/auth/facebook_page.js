@@ -39,12 +39,6 @@ async function post_handler(ctx, next) {
   FB.setAccessToken(access_token)
   /*TODO*/
   try {
-    /*damn increment
-    PostModel.findOne().sort('-_id').exec(function(err, item) {
-      if (err) ctx.throw(500, err)
-      var id = item.id + 1
-    });
-    */
     const format = `#告白独中${id}\n发文请至\n举报 ${report_link}\n`
     const content = `${format} ${ctx.body["content"]}`
 
