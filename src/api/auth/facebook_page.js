@@ -2,6 +2,7 @@
 
 //Dependencies
 import shortid from 'shortid'
+import sleep from 'sleep-promise'
 import FB from 'fb';
 import * as recaptcha from 'recaptcha-validator'
 
@@ -22,6 +23,10 @@ export default (router) => {
 }
 
 async function post_handler(ctx, next) {
+  //Verify Content
+  if(!ctx.body["content"] || !ctx.body["type"])
+    ctx.throw(500, 'Please type the content you want to post.')
+  
   //Verify Recatpcha
   try {
     if (!ctx.body["g-recaptcha-response"]) {
@@ -39,13 +44,16 @@ async function post_handler(ctx, next) {
   FB.setAccessToken(access_token)
   /*TODO*/
   try {
+    await sleep('120000') //sleep 2 minute to prevent fb spam ban
     const format = `#告白独中${id}\n发文请至\n举报 ${report_link}\n`
     const content = `${format} ${ctx.body["content"]}`
-
+    
     if (ctx.body["type"] == 'image')
-      response = await FB.api(`${page_username}/photos`, 'post', { message: content, url: link })
+      response = await FB.api(`${page_username}/photos`, 'post', { message: content, url: pic })
     else
-      response = await FB.api(`${page_username}/feed`, 'post', { message: content, link: pic })
+      const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
+      const link = urlregex.exec(ctx.body["content"]) ? urlregex.exec(ctx.body["content"]) : ''
+      response = await FB.api(`${page_username}/feed`, 'post', { message: content, link: link })
     const PostEntity = new PostModel({ _id: id, postid: response.postid, ip: ctx.request.ip })
     PostEntity.save()
 
