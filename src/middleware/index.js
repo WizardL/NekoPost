@@ -4,7 +4,6 @@ import bodyParser from 'koa-better-body'
 import ratelimit from 'koa2-rate-limit'
 import compose from 'koa-compose'
 import convert from 'koa-convert'
-import serve from 'koa-static'
 
 export default function middleware(app) {
   return compose([
@@ -19,9 +18,6 @@ export default function middleware(app) {
     /* TODO  Routes */
     //ratelimit(),
 
-    // static page
-    serve('public'),
-    
     // Body Parser
     convert(bodyParser()),
 
