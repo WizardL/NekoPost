@@ -8,7 +8,7 @@ import * as recaptcha from 'recaptcha-validator'
 
 //Config
 import { recaptcha_development, recaptcha_test, recaptcha_production } from '../../../config' //Recaptcha Config
-import { access_token, page_username, need_approve } from '../../../config' //Facebook Config
+import { page_username, need_approve } from '../../../config' //Facebook Config
 const RecaptchaConfig = (process.env.NODE_DEV == 'production') ? recaptcha_production : ((process.env.NODE_DEV == 'development') ? recaptcha_development : recaptcha_test)
 
 //Models
