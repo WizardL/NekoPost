@@ -127,7 +127,7 @@ a, a:hover, a:focus {
                 color: inherit;
             }
 
-body { font-family: "Source Sans Pro", sans-serif; font-weight: 400; font-size: 18px; line-height: 28px; }
+body { font-family: "Source Sans Pro", sans-serif, "Microsoft YaHei"; font-weight: 400; font-size: 18px; line-height: 28px; }
 
 .header { width: 100%; max-width: 960px; display: inline-block; margin-bottom: 20px; }
 .header h3 { font-size: 36px; font-weight: 900; line-height: 1em; border-bottom: 5px solid #D21A1A; }
