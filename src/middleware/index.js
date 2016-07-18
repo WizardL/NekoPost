@@ -8,7 +8,7 @@ import serve from 'koa-static'
 import passport from 'koa-passport'
 import FacebookStrategy from 'passport-facebook'
 
-import { appId, appSecret, siteUrl } from '../../config'
+import { appId, appSecret, siteUrl, email } from '../../config'
 
 export default function middleware(app) {
   return compose([
@@ -75,9 +75,8 @@ async function passportinit(ctx, next) {
     profileFields: ['id', 'displayName', 'email']
   },
     function(accessToken, refreshToken, profile, cb) {
-      User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-        return cb(err, user);
-      });
+      if(!(email.includes(profile.email)))
+        ctx.throw(500, 'You are not in admin list.')
     }
   ));
   passport.initialize()
