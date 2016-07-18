@@ -43,7 +43,12 @@ sup { top: -0.5em; }
 
 sub { bottom: -0.25em; }
 
-img { border: 0; }
+img {
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
 
 svg:not(:root) { overflow: hidden; }
 
@@ -115,10 +120,16 @@ td, th { padding: 0; }
     max-width: 960px; 
 }
 
-.col { text-align: center; margin: 0px auto; width: 100%; padding-bottom: 60px; }
+.s-wrapper {
+    width: 100%;
+    padding-bottom: 60px; 
+}
+
+.col { text-align: center; margin: 0px auto; width: 100%; padding-bottom: 10px; }
 .list { display: block; }
 .seperator { margin: 0 5px; }
 
+.media { margin: 0px auto; }
 
 h1, h2, h3, h4, h5, h6 { display: inline-block; margin: 0px; padding: 0px; font-weight: 400; font-size: 18px; line-height: 1em; }
 
