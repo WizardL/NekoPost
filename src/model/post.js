@@ -24,6 +24,7 @@ const Postid = new mongoose.Schema({
 
 const PostSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId },
+  type: { type: String },
   postid: { type: String },
   reporter: [{ type: Array }],
   status: { delivered: { type: Boolean } },
