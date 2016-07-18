@@ -5,6 +5,10 @@ import ratelimit from 'koa2-rate-limit'
 import compose from 'koa-compose'
 import convert from 'koa-convert'
 import serve from 'koa-static'
+import passport from 'koa-passport'
+import FacebookStrategy from 'passport-facebook'
+
+import { appId, appSecret, siteUrl } from '../../config'
 
 export default function middleware(app) {
   return compose([
@@ -27,6 +31,8 @@ export default function middleware(app) {
 
     // Echo
     verbose,
+
+    passportinit,
 
   ])
 }
@@ -59,4 +65,19 @@ async function errorhandling(ctx, next) {
     if (status == 500)
       ctx.app.emit('error', err, ctx)
   }
+}
+
+async function passportinit(ctx, next) {
+  passport.use(new FacebookStrategy({
+    clientID: appId,
+    clientSecret: appSecret,
+    callbackURL: `${siteUrl}auth/login/callback`
+  },
+    function(accessToken, refreshToken, profile, cb) {
+      User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+        return cb(err, user);
+      });
+    }
+  ));
+  passport.initialize()
 }
