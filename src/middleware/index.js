@@ -71,7 +71,8 @@ async function passportinit(ctx, next) {
   passport.use(new FacebookStrategy({
     clientID: appId,
     clientSecret: appSecret,
-    callbackURL: `${siteUrl}auth/login/callback`
+    callbackURL: `${siteUrl}login/callback`,
+    profileFields: ['id', 'displayName', 'email', 'manage_pages', 'publish_pages']
   },
     function(accessToken, refreshToken, profile, cb) {
       User.findOrCreate({ facebookId: profile.id }, function (err, user) {
