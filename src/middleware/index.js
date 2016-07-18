@@ -72,7 +72,7 @@ async function passportinit(ctx, next) {
     clientID: appId,
     clientSecret: appSecret,
     callbackURL: `${siteUrl}login/callback`,
-    profileFields: ['id', 'displayName', 'email', 'manage_pages', 'publish_pages']
+    profileFields: ['id', 'displayName', 'email']
   },
     function(accessToken, refreshToken, profile, cb) {
       User.findOrCreate({ facebookId: profile.id }, function (err, user) {
