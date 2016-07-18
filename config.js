@@ -1,7 +1,7 @@
 "use strict"
 
 //Site URL
-export const siteUrl   = '' // eg: http://meow.com/
+export const siteUrl   = 'http://localhost:3000/' // eg: http://meow.com/
 export const postUrl   = `${siteUrl}` // eg: http://meow.com/
 export const reportUrl = `${siteUrl}abuse/` // eg: http://meow.com/abuse/
 
