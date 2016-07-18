@@ -42,21 +42,22 @@ async function post_handler(ctx, next) {
   }
 
   FB.setAccessToken(access_token)
-
-  setTimeout(120000, //set 2 minute timeout to prevent fb spam ban
-  (function () {
+  //PostModel.find({}).sort({date: -1}).execFind(function(err,docs){})
+  setTimeout((async function (){ 
     try {
       const format = `#告白独中${id}\n发文请至\n举报 ${report_link}\n`
       const content = `${format} ${ctx.body["content"]}`
-    
-      if (ctx.body["type"] == 'image')
+  
+      if (ctx.body["type"] == 'image') {
         response = await FB.api(`${page_username}/photos`, 'post', { message: content, url: pic })
-      else
+
+      } else {
         const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
         const link = urlregex.exec(ctx.body["content"]) ? urlregex.exec(ctx.body["content"]) : ''
         response = await FB.api(`${page_username}/feed`, 'post', { message: content, link: link })
-  
-      const PostEntity = new PostModel({ _id: id, postid: response.postid, ip: ctx.request.ip })
+      }
+
+      const PostEntity = new PostModel({ _id: id, type: 'post', postid: response.postid, ip: ctx.request.ip })
       PostEntity.save()
 
     } catch(error) {
@@ -66,6 +67,5 @@ async function post_handler(ctx, next) {
         console.log('error', error.message)
       }
     }
-  }))
-
+  }), 120000)
 }
