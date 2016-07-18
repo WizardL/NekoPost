@@ -42,7 +42,8 @@ async function post_handler(ctx, next) {
   }
 
   FB.setAccessToken(access_token)
-  //PostModel.find({}).sort({date: -1}).execFind(function(err,docs){})
+  
+  PostModel.findOne({ type: 'post' }, 'created_on', { sort: { 'created_on' : -1 } }, (function(err, post){ var oldtime = post.created_on }))
   setTimeout((async function (){ 
     try {
       const format = `#告白独中${id}\n发文请至\n举报 ${report_link}\n`
@@ -67,5 +68,5 @@ async function post_handler(ctx, next) {
         console.log('error', error.message)
       }
     }
-  }), 120000)
+  }), oldtime + 120000)
 }
