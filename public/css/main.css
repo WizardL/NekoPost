@@ -56,9 +56,13 @@ figure { margin: 1em 40px; }
 
 hr { -moz-box-sizing: content-box; box-sizing: content-box; height: 0; }
 
-pre { overflow: auto; }
+pre {
+    padding: 0;
+    margin: 15px 0 15px 0;
+    white-space: pre;
+}
 
-code, kbd, pre, samp { font-family: monospace, monospace; font-size: 1em; }
+code, kbd, pre, samp { font-family: monospace, monospace; display: block; }
 
 form {
     display: inline-block;
@@ -122,10 +126,25 @@ td, th { padding: 0; }
 
 .s-wrapper {
     width: 100%;
-    padding-bottom: 60px; 
+    padding-bottom: 60px;
+    overflow: hidden;
 }
 
-.col { text-align: center; margin: 0px auto; width: 100%; padding-bottom: 10px; }
+.meta {
+    margin-top: 1em;
+    max-width: 550px;
+}
+
+.desc {
+    font: 12px  'helvetica', helvetica neue, arial, sans-serif;
+    color: #BEBEBE;
+    display: inline;
+    line-height: 16px;
+    font-weight: normal;
+    margin-right: 5px;
+}
+
+.col { text-align: center; margin: 0px auto; width: 100%; }
 .list { display: block; }
 .seperator { margin: 0 5px; }
 
