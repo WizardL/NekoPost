@@ -8,7 +8,7 @@ import * as recaptcha from 'recaptcha-validator'
 
 //Config
 import { recaptcha_development, recaptcha_test, recaptcha_production } from '../../../config' //Recaptcha Config
-import { page_username, need_approve } from '../../../config' //Facebook Config
+import { fbconf } from '../../../config' //Facebook Config
 const RecaptchaConfig = (process.env.NODE_DEV == 'production') ? recaptcha_production : ((process.env.NODE_DEV == 'development') ? recaptcha_development : recaptcha_test)
 
 //Models
@@ -42,7 +42,7 @@ async function post_handler(ctx, next) {
   }
 
   FB.setAccessToken(access_token)
-  
+
   PostModel.findOne({ type: 'post' }, 'created_on', { sort: { 'created_on' : -1 } }, (function(err, post){ var oldtime = post.created_on }))
   setTimeout((async function (){ 
     try {
@@ -50,12 +50,12 @@ async function post_handler(ctx, next) {
       const content = `${format} ${ctx.body["content"]}`
   
       if (ctx.body["type"] == 'image') {
-        response = await FB.api(`${page_username}/photos`, 'post', { message: content, url: pic })
+        response = await FB.api(`${fbconf.page.page_username}/photos`, 'post', { message: content, url: pic })
 
       } else {
         const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
         const link = urlregex.exec(ctx.body["content"]) ? urlregex.exec(ctx.body["content"]) : ''
-        response = await FB.api(`${page_username}/feed`, 'post', { message: content, link: link })
+        response = await FB.api(`${fbconf.page.page_username}/feed`, 'post', { message: content, link: link })
       }
 
       const PostEntity = new PostModel({ _id: id, type: 'post', postid: response.postid, ip: ctx.request.ip })

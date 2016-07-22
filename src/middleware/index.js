@@ -7,8 +7,9 @@ import convert from 'koa-convert'
 import serve from 'koa-static'
 import passport from 'koa-passport'
 import FacebookStrategy from 'passport-facebook'
+import session from koa-generic-session
 
-import { appId, appSecret, siteUrl, email } from '../../config'
+import { siteconf, fbconf, email, sesskey } from '../../config'
 
 export default function middleware(app) {
   return compose([
@@ -31,6 +32,8 @@ export default function middleware(app) {
 
     // Echo
     verbose,
+
+    sessinit,
 
     passportinit,
 
@@ -67,11 +70,16 @@ async function errorhandling(ctx, next) {
   }
 }
 
+async function sessinit(ctx, next) {
+  ctx.keys = sesskey
+  convert(session())
+}
+
 async function passportinit(ctx, next) {
   passport.use(new FacebookStrategy({
-    clientID: appId,
-    clientSecret: appSecret,
-    callbackURL: `${siteUrl}login/callback`,
+    clientID: fbconf.appId,
+    clientSecret: fbconf.appSecret,
+    callbackURL: `${siteconf.siteUrl}login/callback`,
     profileFields: ['id', 'displayName', 'email']
   },
     function(accessToken, refreshToken, profile, cb) {
@@ -80,4 +88,5 @@ async function passportinit(ctx, next) {
     }
   ));
   passport.initialize()
+  passport.session()
 }
