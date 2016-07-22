@@ -1,17 +1,10 @@
 "use strict"
 
-//Site URL
-export const siteconf = {
-  siteUrl: 'http://localhost:3000/', // eg: http://meow.com/
-  postUrl: function() { return `${this.siteUrl}` }, // eg: http://meow.com/
-  reportUrl: function() { return `${this.siteUrl}abuse/` }, // eg: http://meow.com/abuse/
-}
-
-//Admin email
-export const email = ["jonathan.goh333@gmail.com", "zypeh.geek@gmail.com"]
-
-//Session Secret
-export const sesskey = ['secret']
+// Admin email
+export const adminEmail = [
+  "jonathan.goh333@gmail.com",
+  "zypeh.geek@gmail.com",
+]
 
 // Database related
 export const development = 'mongodb://localhost/misato-dev'
@@ -24,17 +17,17 @@ export const recaptcha_prodution   = { key: '', secret: '' }
 export const recaptcha_test        = { key: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI', secret: '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe' } //test key from https://developers.google.com/recaptcha/docs/faq
 
 // Facebook related
-export const fbconf = {
-  appId: '',
-  appSecret: '',
+export const fbConf = {
+  appId: 'facebook-app-id-here',
+  appSecret: 'facebook-app-secret-here',
   page: {
-    name: '', //Facebook Page Name eg: 靠北工程师
-    username: '', //Facebook Page Username eg: kobeengineer
+    name: '告白独中', //Facebook Page Name eg: 靠北工程师
+    username: 'sss', //Facebook Page Username eg: kobeengineer
   },
   need_approve: false, //Post need admin to approve before posted. 
 }
 
-//Bitly related
+// Bitly related
 export const bitlyconf = {
   enabled: true, //Enable bitly or not.
   username: '',  //Bitly username 

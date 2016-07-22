@@ -5,11 +5,6 @@ import ratelimit from 'koa2-rate-limit'
 import compose from 'koa-compose'
 import convert from 'koa-convert'
 import serve from 'koa-static'
-import passport from 'koa-passport'
-import FacebookStrategy from 'passport-facebook'
-import session from koa-generic-session
-
-import { siteconf, fbconf, email, sesskey } from '../../config'
 
 export default function middleware(app) {
   return compose([
@@ -32,10 +27,6 @@ export default function middleware(app) {
 
     // Echo
     verbose,
-
-    sessinit,
-
-    passportinit,
 
   ])
 }
@@ -70,23 +61,3 @@ async function errorhandling(ctx, next) {
   }
 }
 
-async function sessinit(ctx, next) {
-  ctx.keys = sesskey
-  convert(session())
-}
-
-async function passportinit(ctx, next) {
-  passport.use(new FacebookStrategy({
-    clientID: fbconf.appId,
-    clientSecret: fbconf.appSecret,
-    callbackURL: `${siteconf.siteUrl}login/callback`,
-    profileFields: ['id', 'displayName', 'email']
-  },
-    function(accessToken, refreshToken, profile, cb) {
-      if(!(email.includes(profile.email)))
-        ctx.throw(500, 'You are not in admin list.')
-    }
-  ));
-  passport.initialize()
-  passport.session()
-}
