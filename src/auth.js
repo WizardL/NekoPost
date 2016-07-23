@@ -37,3 +37,11 @@ export default function auth() {
   ])
 }
 
+export function isAuthenticated() {
+  return async (ctx, next) => {
+    if (ctx.isAuthenticated())
+      await next()
+    else
+      ctx.throw(401)
+  }
+}
