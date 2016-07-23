@@ -6,7 +6,8 @@ import Router from 'koa-router'
 
 const routerConfig = [
   { folder: 'abuse', prefix: '' },
-  { folder: 'auth', prefix: '' },
+  { folder: 'post', prefix: '' },
+  { folder: 'admin', prefix: '' },
 ]
 
 export default function api() {
