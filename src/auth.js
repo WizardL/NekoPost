@@ -10,6 +10,19 @@ import session from 'koa-generic-session'
 import  mongoStore from 'koa-generic-session-mongo'
 import { Strategy as FacebookStrategy } from 'passport-facebook'
 
+// Recaptcha
+import {
+  recaptcha_development,
+  recaptcha_test,
+  recaptcha_production } from '../config'
+
+import * as recaptcha from 'recaptcha-validator'
+
+const RecaptchaConfig =
+        (process.env.NODE_ENV == 'production') ? recaptcha_production :
+        (process.env.NODE_ENV == 'development') ? recaptcha_development :
+        recaptcha_test
+
 passport.use(new FacebookStrategy({
   clientID:     fbConf.appId,
   clientSecret: fbConf.appSecret,
@@ -37,6 +50,30 @@ export default function auth() {
   ])
 }
 
+export function recaptchaCheck() {
+  return async (ctx, next) => {
+    if (process.env.NODEDEV == 'development') {
+      console.log('Dev mode, skipping recaptcha')
+      await next()
+    }
+
+    if (!ctx.body['g-recaptcha-response'])
+      ctx.throw(500, `Please remember to complete the human test.`)
+
+    try {
+      await recaptcha.promise(
+        RecaptchaConfig.secret,
+        ctx.body['g-recaptcha-response'],
+        ctx.request.ip
+      )
+    } catch (err) {
+      if (typeof err === 'string')
+        ctx.throw(500, err)
+      else
+        ctx.throw(500, err)
+    }
+  }
+}
 export function isAuthenticated() {
   return async (ctx, next) => {
     if (ctx.isAuthenticated())
