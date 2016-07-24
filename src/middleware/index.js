@@ -21,7 +21,7 @@ export default function middleware(app) {
 
     // static page
     serve('public'),
-    
+
     // Body Parser
     convert(bodyParser()),
 
@@ -40,7 +40,7 @@ async function misato(ctx, next) {
 async function verbose(ctx, next) {
   console.log('  Request Header: '.yellow, ctx.header)
   console.log('  Request Body: '.yellow, ctx.body)
-  await next() 
+  await next()
 }
 
 async function errorhandling(ctx, next) {
@@ -60,4 +60,3 @@ async function errorhandling(ctx, next) {
       ctx.app.emit('error', err, ctx)
   }
 }
-
