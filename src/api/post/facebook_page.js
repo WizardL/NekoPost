@@ -6,6 +6,7 @@ import sleep from 'sleep-promise'
 import FB from 'fb';
 
 import { recaptchaCheck } from '../../auth'
+import { siteConf, fbConf } from '../../../config'
 
 // Models
 import PostModel from '../../model/post'
@@ -42,7 +43,7 @@ async function post_handler(ctx, next) {
 
   setTimeout((async function (){ 
     try {
-      const format = `#告白独中${id}\n发文请至\n举报 ${report_link}\n`
+      const format = `#${fbConf.page.name}${id}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
       const content = `${format} ${ctx.body["content"]}`
   
       if (ctx.body["type"] == 'image') {
