@@ -28,7 +28,18 @@ async function post_handler(ctx, next) {
   
   FB.setAccessToken(access_token)
 
-  PostModel.findOne({ type: 'post' }, 'created_on', { sort: { 'created_on' : -1 } }, (function(err, post){ var oldtime = post.created_on }))
+  PostModel.findOne({ type: 'post' }, 'created_on', { sort: { 'created_on' : -1 } }, 
+    (function(err, post){ 
+      if(post.created_on < 120000) {
+        var time = (Date.now() - post.created_on) + 120000
+      } else {
+        var time = 120000
+      }
+    }))
+  
+  const PostEntity = new PostModel({ _id: id, type: 'post', status: { delivered: false }, ip: ctx.request.ip })
+  PostEntity.save()
+
   setTimeout((async function (){ 
     try {
       const format = `#告白独中${id}\n发文请至\n举报 ${report_link}\n`
@@ -43,8 +54,7 @@ async function post_handler(ctx, next) {
         response = await FB.api(`${fbconf.page.page_username}/feed`, 'post', { message: content, link: link })
       }
 
-      const PostEntity = new PostModel({ _id: id, type: 'post', postid: response.postid, ip: ctx.request.ip })
-      PostEntity.save()
+      PostModel.findOneAndUpdate({ _id: id }, { postid: response.postid, status: { delivered: true } });
 
     } catch(error) {
       if(error.response.error.code === 'ETIMEDOUT') {
@@ -53,5 +63,5 @@ async function post_handler(ctx, next) {
         console.log('error', error.message)
       }
     }
-  }), oldtime + 120000)
+  }), time)
 }
