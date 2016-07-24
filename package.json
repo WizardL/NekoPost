@@ -28,6 +28,7 @@
     "babel-cli": "^6.11.4",
     "babel-polyfill": "^6.9.1",
     "bcrypt": "^0.8.7",
+    "bitly": "^4.1.1",
     "colors": "^1.1.2",
     "es6-module-loader": "^0.17.11",
     "es6-promise": "^3.2.1",

@@ -35,8 +35,7 @@ export const fbConf = {
 }
 
 // Bitly related
-export const bitlyconf = {
+export const bitlyConf = {
   enabled : true, //Enable bitly or not.
-  username: '',   //Bitly username 
   apikey  : '',   //Bitly API KEY
 }
