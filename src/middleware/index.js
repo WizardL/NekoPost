@@ -32,8 +32,8 @@ export default function middleware(app) {
 }
 
 async function misato(ctx, next) {
-  ctx.set('X-Written-By', 'Unistay-Dev-Team')
-  ctx.set('X-Powered-By', 'Unistay-Engine')
+  ctx.set('X-Written-By', 'Wizard-League')
+  ctx.set('X-Powered-By', 'Wizard-Engine')
   await next()
 }
 
