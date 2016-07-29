@@ -26,8 +26,9 @@ const PostSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId },
   type: { type: String },
   postid: { type: String },
+  content: { type: String },
   reporter: [{ type: Array }],
-  status: { delivered: { type: Boolean } },
+  status: { delivered: { type: Boolean }, need_approve: { type: Boolean } },
   ip: { type: String },
   created_on: { type: Date, default: Date.now }
 })
