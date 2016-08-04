@@ -40,7 +40,7 @@ async function post_handler(ctx, next) {
         }
       }))
   
-    const PostEntity = new PostModel({ _id: id, type: 'post', status: { delivered: false }, ip: ctx.request.ip })
+    const PostEntity = new PostModel({ _id: id, type: 'post', content: content, status: { delivered: false }, ip: ctx.request.ip })
     PostEntity.save()
 
     setTimeout((async function () { 
@@ -72,7 +72,7 @@ async function post_handler(ctx, next) {
 
     const format = `#${fbConf.page.name}${id}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
     const content = `${format} ${ctx.body["content"]}`
-    //TODO
+    
     const PostEntity = new PostModel({ _id: id, type: 'post', content: content, status: { delivered: false, need_approve: true }, ip: ctx.request.ip })
     PostEntity.save()
 
