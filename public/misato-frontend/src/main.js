@@ -1,8 +1,20 @@
 import Vue from 'vue'
-import App from './App'
+import VueRouter from 'vue-router'
 
-/* eslint-disable no-new */
-new Vue({
-  el: 'body',
-  components: { App }
+import { configRouter } from './router-config'
+
+Vue.use(VueRouter)
+
+const App = Vue.extend('./App')
+
+const router = new VueRouter({
+  history: true
 })
+
+// configure router
+configRouter(router)
+
+router.start(App, "#app")
+
+// debugging
+window.router = router
