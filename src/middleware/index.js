@@ -16,11 +16,14 @@ export default function middleware(app) {
     // Error handling
     errorhandling,
 
+    // No cache
+    nocache,
+
     // Ratelimiting
     /* TODO  Routes */
     //ratelimit(),
 
-    //compress response
+    // Compress response
     compress({
       filter: function (content_type) {
         return /text/i.test(content_type)
@@ -51,6 +54,7 @@ async function nocache(ctx, next) {
   ctx.set('Cache-Control', 'no-cache, no-store, must-revalidate')
   ctx.set('Pragma', 'no-cache')
   ctx.set('Expire', '0')
+  await next()
 }
 
 async function verbose(ctx, next) {
