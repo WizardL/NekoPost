@@ -1,15 +1,15 @@
 "use strict";
 
-var request = require('supertest');
-var assert = require('assert');
+import Misato from '../src'
+import supertest from 'supertest'
 
-var Misato = require('../index.js');
+const request = supertest.agent(Misato.listen())
 
 describe('GET /', function () {
 	it('Start Misato web server', function(done) {
-		request(global.Misato.app)
+		request
 			.get('/')
-			.expect('Content-Type', /html/)
+			.expect('Content-Type', 'text/html; charset=utf-8')
 			.expect(200, done);
 	});
 });

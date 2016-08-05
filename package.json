@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "babel-node": "babel-node",
-    "test": "nodemon index.js",
+    "test": "mocha --compilers js:babel-register --harmony",
     "production": "NODE_ENV=production nodemon index.js"
   },
   "repository": {
@@ -64,6 +64,9 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
     "babel-watch": "^2.0.2",
-    "nodemon": "^1.9.2"
+    "mocha": "^3.0.1",
+    "nodemon": "^1.9.2",
+    "should": "^10.0.0",
+    "supertest": "^2.0.0"
   }
 }
