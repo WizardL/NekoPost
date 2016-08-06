@@ -51,6 +51,7 @@
     "koa2-rate-limit": "^1.0.1",
     "koajs-nunjucks": "^1.0.1",
     "mongoose": "^4.5.5",
+    "mongoose-auto-increment": "^5.0.1",
     "nodemon": "^1.9.2",
     "passport-facebook": "^2.1.1",
     "recaptcha-validator": "^1.0.7",
