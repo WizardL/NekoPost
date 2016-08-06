@@ -55,7 +55,7 @@
     "nodemon": "^1.10.0",
     "passport-facebook": "^2.1.1",
     "recaptcha-validator": "^1.0.7",
-    "shortid": "^2.2.6",
+    "shortid": "^2.2.6"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
