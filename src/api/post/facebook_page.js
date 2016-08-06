@@ -16,7 +16,7 @@ export default (router) => {
   router
 
     .post('/post',
-          //recaptchaCheck(),
+          recaptchaCheck(),
           post_handler)
 
 }
