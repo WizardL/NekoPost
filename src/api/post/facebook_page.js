@@ -67,8 +67,10 @@ async function post_handler(ctx, next) {
       } catch(error) {
         if(error.response.error.code === 'ETIMEDOUT') {
           console.log('request timeout')
+          ctx.throw('request timeout')
         } else {
           console.log('error', error.message)
+          ctx.throw(error.message)
         }
       }
     }), time)
