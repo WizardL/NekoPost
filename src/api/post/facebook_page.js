@@ -2,7 +2,6 @@
 
 // Dependencies
 import shortid from 'shortid'
-import sleep from 'sleep-promise'
 import FB from 'fb';
 
 import { recaptchaCheck } from '../../auth'
