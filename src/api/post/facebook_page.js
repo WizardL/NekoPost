@@ -16,7 +16,7 @@ export default (router) => {
   router
 
     .post('/post',
-          recaptchaCheck(),
+          //recaptchaCheck(),
           post_handler)
 
 }
@@ -27,37 +27,42 @@ async function post_handler(ctx, next) {
   if(!ctx.body["content"] || !ctx.body["type"])
     ctx.throw(500, 'Please type the content you want to post.')
   
-  FB.setAccessToken(access_token)
+  FB.setAccessToken(fbConf.accessToken)
+  
+  const id = await getCount()
 
   if(fbConf.need_approve === false) {
 
-    PostModel.findOne({ type: 'post' }, 'created_on', { sort: { 'created_on' : -1 } }, 
-      (function(err, post){ 
-        if(post.created_on < 120000) {
-          var time = (Date.now() - post.created_on) + 120000
-        } else {
-          var time = 120000
-        }
-      }))
-  
-    const PostEntity = new PostModel({ _id: id, type: 'post', content: content, status: { delivered: false }, ip: ctx.request.ip })
+    const postQuery =  PostModel.findOne(null, 'created_on', { sort: { 'created_on' : -1 } })
+    const post = await postQuery.exec()
+    if(post === null) {
+      var time = 120000
+    } else {
+      if ((Date.now() - post.created_on) < 120000)
+        var time = ((Date.now() - post.created_on) + 120000)
+      else
+        var time = 120000
+    }
+
+    const format = `#${fbConf.page.name}${id}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
+    const content = `${format} ${ctx.body["content"]}`
+
+    const PostEntity = new PostModel({ content: content, status: { delivered: false }, ip: ctx.request.ip })
     PostEntity.save()
 
     setTimeout((async function () { 
       try {
-        const format = `#${fbConf.page.name}${id}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
-        const content = `${format} ${ctx.body["content"]}`
-  
         if (ctx.body["type"] == 'image') {
           //TODO
           response = await FB.api(`${fbconf.page.page_username}/photos`, 'post', { message: content, url: pic })
+          PostModel.findOneAndUpdate({ _id: id }, { imgLink: pic, postid: response.postid, status: { delivered: true } }).exec();
         } else {
           const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
           const link = urlregex.exec(ctx.body["content"]) ? urlregex.exec(ctx.body["content"]) : ''
           response = await FB.api(`${fbconf.page.page_username}/feed`, 'post', { message: content, link: link })
+          PostModel.findOneAndUpdate({ _id: id }, { postid: response.postid, status: { delivered: true } }).exec();
         }
 
-        PostModel.findOneAndUpdate({ _id: id }, { postid: response.postid, status: { delivered: true } });
 
       } catch(error) {
         if(error.response.error.code === 'ETIMEDOUT') {
@@ -73,8 +78,14 @@ async function post_handler(ctx, next) {
     const format = `#${fbConf.page.name}${id}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
     const content = `${format} ${ctx.body["content"]}`
     
-    const PostEntity = new PostModel({ _id: id, type: 'post', content: content, status: { delivered: false, need_approve: true }, ip: ctx.request.ip })
+    const PostEntity = new PostModel({ content: content, status: { delivered: false, need_approve: true }, ip: ctx.request.ip })
     PostEntity.save()
 
   }
+}
+
+function getCount() {
+  return new Promise((resolve, reject) => {
+    PostModel.nextCount((err, count) => { resolve(count) })
+  });
 }
