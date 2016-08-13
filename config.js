@@ -30,7 +30,7 @@ export const fbConf = {
   accessToken: '',
   page: {
     name    : '匿名独中', //Facebook Page Name eg: 靠北工程师
-    username: 'AnonChungHwa'     , //Facebook Page Username eg: kobeengineer
+    username: 'AnonChungHwa', //Facebook Page Username eg: kobeengineer
   },
   need_approve: false, //Post need admin to approve before posted. 
 }
@@ -38,5 +38,5 @@ export const fbConf = {
 // Bitly related
 export const bitlyConf = {
   enabled : true, //Enable bitly or not.
-  apikey  : '',   //Bitly API KEY
+  apiKey  : 'bitly-api-key-here',   //Bitly API KEY
 }
