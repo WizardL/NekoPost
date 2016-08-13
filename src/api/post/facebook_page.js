@@ -62,6 +62,7 @@ async function post_handler(ctx, next) {
           PostModel.findOneAndUpdate({ _id: id }, { postid: response.postid, status: { delivered: true } }).exec();
         }
 
+        ctx.body = { success: true }
 
       } catch(error) {
         if(error.response.error.code === 'ETIMEDOUT') {
@@ -81,6 +82,8 @@ async function post_handler(ctx, next) {
     
     const PostEntity = new PostModel({ content: content, status: { delivered: false, need_approve: true }, ip: ctx.request.ip })
     PostEntity.save()
+
+    ctx.body = { success: true, need_approve: true }
 
   }
 }
