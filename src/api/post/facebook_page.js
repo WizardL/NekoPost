@@ -74,7 +74,7 @@ async function post_handler(ctx, next) {
       }
     }), time)
 
-    ctx.body = { success: true, id: id, countdown: msToTime(time)}
+    ctx.body = { success: true, id: id, countdown: msToTime(time) }
 
   } else {
 
