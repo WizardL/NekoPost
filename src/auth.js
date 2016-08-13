@@ -26,12 +26,21 @@ const RecaptchaConfig =
 passport.use(new FacebookStrategy({
   clientID:     fbConf.appId,
   clientSecret: fbConf.appSecret,
-  callbackURL: `http://localhost:${process.env.PORT || 3000}/auth/facebook/callback`,
+  callbackURL: `http://localhost:${process.env.PORT || 3000}/api/auth/fb/callback`,
+  profileFields: ['id', 'displayName', 'email'],
   enableProof: true
-}, function(token, tokenSecret, profile, done) {
+}, function(token, tokenSecret, profile, cb) {
   // retrieve user ...
-  done(null, user)
+  return cb(null, profile);
 }))
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 export default function auth() {
   return compose([

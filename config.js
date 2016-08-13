@@ -27,6 +27,7 @@ export const recaptcha_test        = { key: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXj
 export const fbConf = {
   appId    : 'facebook-app-id-here'    ,
   appSecret: 'facebook-app-secret-here',
+  accessToken: '',
   page: {
     name    : '匿名独中', //Facebook Page Name eg: 靠北工程师
     username: 'AnonChungHwa'     , //Facebook Page Username eg: kobeengineer
