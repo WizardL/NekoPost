@@ -62,7 +62,6 @@ async function post_handler(ctx, next) {
           PostModel.findOneAndUpdate({ _id: id }, { postid: response.postid, status: { delivered: true } }).exec();
         }
 
-        ctx.body = { success: true }
 
       } catch(error) {
         if(error.response.error.code === 'ETIMEDOUT') {
@@ -75,6 +74,8 @@ async function post_handler(ctx, next) {
       }
     }), time)
 
+    ctx.body = { success: true, id: id, countdown: msToTime(time)}
+
   } else {
 
     const format = `#${fbConf.page.name}${id}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
@@ -83,7 +84,7 @@ async function post_handler(ctx, next) {
     const PostEntity = new PostModel({ content: content, status: { delivered: false, need_approve: true }, ip: ctx.request.ip })
     PostEntity.save()
 
-    ctx.body = { success: true, need_approve: true }
+    ctx.body = { success: true, id: id, need_approve: true }
 
   }
 }
@@ -92,4 +93,20 @@ function getCount() {
   return new Promise((resolve, reject) => {
     PostModel.nextCount((err, count) => { resolve(count) })
   });
+}
+
+function msToTime(s) {
+
+  function addZ(n) {
+    return (n<10? '0':'') + n;
+  }
+
+  const ms = s % 1000;
+  s = (s - ms) / 1000;
+  const secs = s % 60;
+  s = (s - secs) / 60;
+  const mins = s % 60;
+  const hrs = (s - mins) / 60;
+
+  return addZ(hrs) + ':' + addZ(mins) + ':' + addZ(secs) + '.' + ms;
 }
