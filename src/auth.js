@@ -16,7 +16,7 @@ import {
   recaptcha_test,
   recaptcha_production } from '../config'
 
-import * as recaptcha from 'recaptcha-validator'
+import recaptcha from 'recaptcha-validator'
 
 const RecaptchaConfig =
         (process.env.NODE_ENV == 'production') ? recaptcha_production :
