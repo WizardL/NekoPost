@@ -5,9 +5,9 @@ import compose from 'koa-compose'
 import Router from 'koa-router'
 
 const routerConfig = [
-  { folder: 'abuse', prefix: '' },
+  { folder: 'abuse', prefix: '/api' },
   { folder: 'post', prefix: '/api' },
-  { folder: 'admin', prefix: '' },
+  { folder: 'admin', prefix: '/moderate' },
 ]
 
 export default function api() {
