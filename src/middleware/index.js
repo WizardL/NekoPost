@@ -6,6 +6,7 @@ import compose from 'koa-compose'
 import compress from 'koa-compress'
 import convert from 'koa-convert'
 import serve from 'koa-static'
+import path from 'path'
 
 export default function middleware(app) {
   return compose([
@@ -36,7 +37,9 @@ export default function middleware(app) {
     serve('public'),
 
     // Body Parser
-    convert(bodyParser()),
+    convert(bodyParser({
+      uploadDir: path.join(__dirname, '/../../public/temp')
+    })),
 
     // Echo
     verbose,
