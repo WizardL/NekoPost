@@ -18,6 +18,11 @@ export default (router) => {
 
 async function complain_handler (ctx, next) {
   
-  await PostModel.findByIdAndUpdate(ctx.params.postid, { $push: { reporter: ctx.state.user.id } }, { safe: true, upsert: true }).exec()
+  const complainResult = await PostModel.findByIdAndUpdate(ctx.params.postid, { $addToSet: { reporter: ctx.state.user.id } }, { safe: true, upsert: true }).exec()
+  if(complainResult === null) {
+    await PostModel.find({ _id: ctx.params.postid }).remove().exec()
+    ctx.throw('Post not found.')
+  }
+  ctx.body = { success: true }
 
 }
