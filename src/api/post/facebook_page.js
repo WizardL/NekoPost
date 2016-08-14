@@ -2,6 +2,7 @@
 
 // Dependencies
 import shortid from 'shortid'
+import Random from 'random-js'
 import FB from 'fb';
 
 import { recaptchaCheck } from '../../auth'
@@ -32,16 +33,9 @@ async function post_handler(ctx, next) {
 
   if(fbConf.need_approve === false) {
 
-    const postQuery =  PostModel.findOne(null, 'created_on', { sort: { 'created_on' : -1 } })
-    const post = await postQuery.exec()
-    if(post === null) {
-      var time = 120000
-    } else {
-      if ((Date.now() - post.created_on) < 120000)
-        var time = ((Date.now() - post.created_on) + 120000)
-      else
-        var time = 120000
-    }
+    const randomEngine = Random.engines.mt19937().autoSeed();
+    const randomInt = Random.integer(10, 200)
+    const time = (randomInt(randomEngine)) * 1000
 
     const format = `#${fbConf.page.name}${id}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
     const content = `${format} ${ctx.body["content"]}`
@@ -54,12 +48,12 @@ async function post_handler(ctx, next) {
         if (ctx.body["type"] == 'image') {
           //TODO
           response = await FB.api(`${fbconf.page.page_username}/photos`, 'post', { message: content, url: pic })
-          PostModel.findOneAndUpdate({ _id: id }, { imgLink: pic, postid: response.postid, status: { delivered: true } }).exec();
+          await PostModel.findOneAndUpdate({ _id: id }, { imgLink: pic, postid: response.postid, status: { delivered: true } }).exec();
         } else {
           const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
           const link = urlregex.exec(ctx.body["content"]) ? urlregex.exec(ctx.body["content"]) : ''
           response = await FB.api(`${fbconf.page.page_username}/feed`, 'post', { message: content, link: link })
-          PostModel.findOneAndUpdate({ _id: id }, { postid: response.postid, status: { delivered: true } }).exec();
+          await PostModel.findOneAndUpdate({ _id: id }, { postid: response.postid, status: { delivered: true } }).exec();
         }
 
 
@@ -82,7 +76,7 @@ async function post_handler(ctx, next) {
     const content = `${format} ${ctx.body["content"]}`
     
     const PostEntity = new PostModel({ content: content, status: { delivered: false, need_approve: true }, ip: ctx.request.ip })
-    PostEntity.save()
+    await PostEntity.save()
 
     ctx.body = { success: true, id: id, need_approve: true }
 
