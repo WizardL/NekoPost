@@ -14,7 +14,7 @@ export default (router) => {
          post_dashboard)
   
     .get('/post/:postid/accept',
-         //isAuthenticated(),
+         isAuthenticated(),
          post_accepted)
 
     .get('/post/:postid/reject',
