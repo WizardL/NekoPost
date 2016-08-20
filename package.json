@@ -50,12 +50,12 @@
     "koa-views": "^5.0.2",
     "koa2-rate-limit": "^1.0.1",
     "koajs-nunjucks": "^1.0.1",
-    "mongoose": "^4.5.8",
+    "mongoose": "^4.5.9",
     "mongoose-auto-increment": "^5.0.1",
     "nodemon": "^1.10.0",
     "passport-facebook": "^2.1.1",
     "random-js":"^1.0.8",
-    "recaptcha-validator": "^1.0.7",
+    "recaptcha-validator": "^1.0.4444",
     "shortid": "^2.2.6"
   },
   "devDependencies": {
@@ -65,8 +65,8 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.11.6",
     "babel-watch": "^2.0.2",
-    "mocha": "^3.0.1",
-    "nodemon": "^1.10.0",
+    "mocha": "^3.0.2",
+    "nodemon": "^1.10.2",
     "should": "^10.0.0",
     "supertest": "^2.0.0"
   }
