@@ -1,31 +1,21 @@
 export function configRouter(router) {
 
-  // normal routes
+  /** normal routes
   router.map({
 
-    /** TODO
-    ---
-    1. API documentation needed (for development)
-    2. Bot integration
-    ---
-    
     '/about': {
-      component: require('./component/About.vue')
+      component: require('./components/About.vue')
     },
 
-    '/post': {
-      component: require('./component/Post.vue')
+    // 404 Not found handler
+    '*': {
+      component: require('./components/NotFound.vue')
     },
 
-    '/report': {
-      component: require('./components/Report.vue')
-    },
-
-    '/reply': {
-      component: require('./components/Reply.vue')
-    }
-
-    */
+  })
+  */
+  router.redirect({
+    '/info': '/about',
   })
 
   router.beforeEach((transition) => {
@@ -33,7 +23,7 @@ export function configRouter(router) {
 
     console.info()
 
-    if (toPath.replace(/[^/]/g,"").length > 1)
+    if (toPath.replace(/[^/]/g,"").length>1)
       router.app.isIndex = false
     else
       router.app.isIndex = true

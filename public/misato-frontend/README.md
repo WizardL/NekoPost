@@ -1,6 +1,6 @@
 # misato-frontend
 
-> Misato's simple frontend
+> Misato's frontend
 
 ## Build Setup
 

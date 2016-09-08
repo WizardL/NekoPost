@@ -5,16 +5,17 @@ import { configRouter } from './router-config'
 
 Vue.use(VueRouter)
 
-const App = Vue.extend('./App')
+const App = Vue.extend(require('./App'))
 
 const router = new VueRouter({
-  history: true
+  history: true,
+  saveScrollPosition: true
 })
 
 // configure router
 configRouter(router)
 
-router.start(App, "#app")
+router.start(App, '#app')
 
 // debugging
 window.router = router
