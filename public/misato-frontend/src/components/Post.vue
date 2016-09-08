@@ -7,7 +7,7 @@
       <div class="col">
         <div class="meta">
           <div class="desc"><a href="#">18/7/2016</a></div>
-          <div class="desc"><a href="#">#酒</a></div>
+          <div class="desc"><a href="#">#色气</a></div>
           <div class="desc"><a href="#">#动漫</a></div>
         </div>
       </div>
