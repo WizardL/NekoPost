@@ -14,9 +14,9 @@ const PostSchema = new mongoose.Schema({
   created_on: { type: Date, default: Date.now }
 })
 
-//Initialize auto increment
+// Initialize auto increment
 autoIncrement.initialize(mongoose.connection)
-//id increment
+// ID increment
 PostSchema.plugin(autoIncrement.plugin, 'Post')
 
 // Model initialization

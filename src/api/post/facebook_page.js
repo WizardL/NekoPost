@@ -34,8 +34,10 @@ async function post_handler(ctx, next) {
   if(fbConf.need_approve === false) {
 
     const randomEngine = Random.engines.mt19937().autoSeed();
-    const randomInt = Random.integer(10, 200)
-    const time = (randomInt(randomEngine)) * 1000
+    //const randomInt = Random.integer(10, 200)
+    //const time = (randomInt(randomEngine)) * 1000
+    //const lastPost = await PostModel.findOne().sort('-created_on').exec();
+    // ALL FUCKING TODO
 
     const format = `#${fbConf.page.name}${id}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
     const content = `${format} ${ctx.body["content"]}`
