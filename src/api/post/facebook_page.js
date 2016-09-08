@@ -48,7 +48,7 @@ async function post_handler(ctx, next) {
     setTimeout((async function () { 
       try {
         if (ctx.body["type"] == 'image') {
-          //TODO
+          // TODO
           response = await FB.api(`${fbconf.page.page_username}/photos`, 'post', { message: content, url: pic })
           await PostModel.findOneAndUpdate({ _id: id }, { imgLink: pic, postid: response.postid, status: { delivered: true } }).exec();
         } else {
