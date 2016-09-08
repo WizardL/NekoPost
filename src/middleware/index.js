@@ -3,8 +3,10 @@
 import bodyParser from 'koa-better-body'
 import ratelimit from 'koa2-rate-limit'
 import compose from 'koa-compose'
+import compress from 'koa-compress'
 import convert from 'koa-convert'
 import serve from 'koa-static'
+import path from 'path'
 
 export default function middleware(app) {
   return compose([
@@ -15,15 +17,29 @@ export default function middleware(app) {
     // Error handling
     errorhandling,
 
+    // No cache
+    nocache,
+
     // Ratelimiting
     /* TODO  Routes */
     //ratelimit(),
 
+    // Compress response
+    compress({
+      filter: function (content_type) {
+        return /text/i.test(content_type)
+      },
+      threshold: 2048,
+      flush: require('zlib').Z_SYNC_FLUSH
+    }),
+
     // static page
     serve('public'),
-    
+
     // Body Parser
-    convert(bodyParser()),
+    convert(bodyParser({
+      uploadDir: path.join(__dirname, '/../../public/temp')
+    })),
 
     // Echo
     verbose,
@@ -32,15 +48,22 @@ export default function middleware(app) {
 }
 
 async function misato(ctx, next) {
-  ctx.set('X-Written-By', 'Unistay-Dev-Team')
-  ctx.set('X-Powered-By', 'Unistay-Engine')
+  ctx.set('X-Written-By', 'Wizard-League')
+  ctx.set('X-Powered-By', 'Wizard-Engine')
+  await next()
+}
+
+async function nocache(ctx, next) {
+  ctx.set('Cache-Control', 'no-cache, no-store, must-revalidate')
+  ctx.set('Pragma', 'no-cache')
+  ctx.set('Expire', '0')
   await next()
 }
 
 async function verbose(ctx, next) {
   console.log('  Request Header: '.yellow, ctx.header)
   console.log('  Request Body: '.yellow, ctx.body)
-  await next() 
+  await next()
 }
 
 async function errorhandling(ctx, next) {

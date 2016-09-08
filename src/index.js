@@ -1,14 +1,20 @@
 "use strict"
 
 import Koa from 'koa'
+import uuid from 'uuid'
 
 import middleware from './middleware'
+import auth from './auth'
 import api from './api'
 
 const app = new Koa()
 
-app 
+// Generate the keys on runtime, totally random
+app.keys = [`${uuid.v4()}-${uuid.v4()}-${uuid.v4()}`]
+
+app
   .use(middleware())
+  .use(auth())
   .use(api())
   .use(ctx => ctx.status = 404)
 

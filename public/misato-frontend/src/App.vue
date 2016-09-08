@@ -1,3 +1,24 @@
+<template>
+  <div id="app">
+    <swag></swag>
+    <post></post>
+  </div>
+</template>
+
+<script>
+import Hello from './components/Hello'
+import Swag from './components/Header'
+import Post from './components/Post'
+export default {
+  components: {
+    Hello,
+    Swag,
+    Post
+  }
+}
+</script>
+
+<style>
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900,300italic,400italic);
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
@@ -77,7 +98,7 @@ button, input, optgroup, select, textarea {
     font: inherit;
     border: 0;
     border-radius: 0;
-    padding: 0; 
+    padding: 0;
     margin: 0;
     overflow: hidden;
 }
@@ -120,8 +141,8 @@ td, th { padding: 0; }
 
 .wrapper {
     margin: 0px auto;
-    padding: 40px 40px 0px 40px; 
-    max-width: 960px; 
+    padding: 40px 40px 0px 40px;
+    max-width: 960px;
 }
 
 .s-wrapper {
@@ -173,4 +194,4 @@ nav li, .nav li { padding: 0px 10px; margin: 0px; list-style: none; float: right
 nav a:hover, .nav a:hover { border-bottom: 1px solid #000; }
 
 #header, #footer { width: 100%;  overflow: hidden; }
-
+</style>

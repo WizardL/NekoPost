@@ -1,5 +1,6 @@
 # Misato
-[![Build Status](https://travis-ci.org/WizardL/Misato.svg?branch=master)](https://travis-ci.org/WizardL/Misato)
+[![Build Status](https://img.shields.io/travis/WizardL/Misato.svg?style=flat-square)](https://travis-ci.org/WizardL/Misato)
+[![Dependency Status](https://img.shields.io/david/WizardL/Misato.svg?style=flat-square)](https://david-dm.org/WizardL/Misato)
 
 <img align="right" src="http://amazonmandy.com/wp-content/uploads/2015/05/misatoref.png" alt="misato" />
 
