@@ -82,5 +82,5 @@ async function postRejected(ctx, next) {
 function getCount() {
   return new Promise((resolve, reject) => {
     IDModel.nextCount((err, count) => { resolve(count) })
-  });
+  })
 }

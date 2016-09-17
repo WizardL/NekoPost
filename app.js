@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 import app from './src'
 import colors from 'colors'

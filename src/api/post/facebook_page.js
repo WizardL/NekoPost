@@ -3,7 +3,7 @@
 // Dependencies
 import shortid from 'shortid'
 import Random from 'random-js'
-import FB from 'fb';
+import FB from 'fb'
 
 import { recaptchaCheck } from '../../auth'
 import { siteConf, fbConf } from '../../../config'
@@ -31,10 +31,10 @@ async function post_handler(ctx, next) {
 
   if(fbConf.need_approve === false) {
 
-    const randomEngine = Random.engines.mt19937().autoSeed();
+    const randomEngine = Random.engines.mt19937().autoSeed()
     //const randomInt = Random.integer(10, 200)
     //const time = (randomInt(randomEngine)) * 1000
-    //const lastPost = await PostModel.findOne().sort('-created_on').exec();
+    //const lastPost = await PostModel.findOne().sort('-created_on').exec()
     // ALL FUCKING TODO
     const time = await getTimeout()
     var id = await getCount('Post')
@@ -55,12 +55,12 @@ async function post_handler(ctx, next) {
         if (ctx.body["type"] == 'image') {
           // TODO
           response = await FB.api(`${fbconf.page.page_username}/photos`, 'post', { message: content, url: pic })
-          await PostModel.findOneAndUpdate({ _id: id }, { imgLink: pic, postid: response.postid, status: { delivered: true } }).exec();
+          await PostModel.findOneAndUpdate({ _id: id }, { imgLink: pic, postid: response.postid, status: { delivered: true } }).exec()
         } else {
           const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
           const link = urlregex.exec(ctx.body["content"]) ? urlregex.exec(ctx.body["content"]) : ''
           response = await FB.api(`${fbconf.page.page_username}/feed`, 'post', { message: content, link: link })
-          await PostModel.findOneAndUpdate({ _id: id }, { postid: response.postid, status: { delivered: true } }).exec();
+          await PostModel.findOneAndUpdate({ _id: id }, { postid: response.postid, status: { delivered: true } }).exec()
         }
 
 
@@ -92,10 +92,10 @@ async function post_handler(ctx, next) {
 
 const getCount = (model) => {
   return new Promise((resolve, reject) => {
-    if(model === 'Post')
-      PostModel.nextCount((err, count) => { resolve(count) })
-    else
+    if(model === 'ID')
       IDModel.nextCount((err, count) => { resolve(count) })
+    else
+      PostModel.nextCount((err, count) => { resolve(count) })
   })
 }
 
@@ -119,15 +119,15 @@ const getTimeout = () => {
 const msToTime = (s) => {
 
   const addZ = (n) => {
-    return (n<10? '0':'') + n;
+    return (n<10? '0':'') + n
   }
 
-  const ms = s % 1000;
-  s = (s - ms) / 1000;
-  const secs = s % 60;
-  s = (s - secs) / 60;
-  const mins = s % 60;
-  const hrs = (s - mins) / 60;
+  const ms = s % 1000
+  s = (s - ms) / 1000
+  const secs = s % 60
+  s = (s - secs) / 60
+  const mins = s % 60
+  const hrs = (s - mins) / 60
 
   return addZ(hrs) + ':' + addZ(mins) + ':' + addZ(secs) + '.' + ms
 
