@@ -31,11 +31,11 @@
     "bitly": "^4.1.1",
     "colors": "^1.1.2",
     "es6-module-loader": "^0.17.11",
-    "es6-promise": "^3.2.1",
+    "es6-promise": "^3.3.1",
     "fb": "^1.1.1",
     "import-dir": "0.0.1",
     "koa": "^2.0.0",
-    "koa-better-body": "^2.0.1",
+    "koa-better-body": "^3.0.0",
     "koa-compose": "^3.1.0",
     "koa-compress": "^2.0.0",
     "koa-convert": "^1.2.0",
@@ -47,7 +47,7 @@
     "koa-router": "^7.0.1",
     "koa-static": "^3.0.0",
     "koa-static-folder": "^0.1.6",
-    "koa-views": "^5.0.2",
+    "koa-views": "^5.1.2",
     "koa2-rate-limit": "^1.0.1",
     "koajs-nunjucks": "^1.0.1",
     "mongoose": "^4.6.0",
@@ -67,7 +67,7 @@
     "babel-watch": "^2.0.2",
     "mocha": "^3.0.2",
     "nodemon": "^1.10.2",
-    "should": "^10.0.0",
+    "should": "^11.1.0",
     "supertest": "^2.0.0"
   }
 }
