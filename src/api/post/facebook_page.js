@@ -9,7 +9,7 @@ import { recaptchaCheck } from '../../auth'
 import { siteConf, fbConf } from '../../../config'
 
 // Models
-import PostModel from '../../model/post'
+import { IDModel, PostModel } from '../../model/post'
 
 export default (router) => {
 
@@ -28,8 +28,6 @@ async function post_handler(ctx, next) {
     ctx.throw(500, 'Please type the content you want to post.')
   
   FB.setAccessToken(fbConf.accessToken)
-  
-  const id = await getCount()
 
   if(fbConf.need_approve === false) {
 
@@ -38,8 +36,14 @@ async function post_handler(ctx, next) {
     //const time = (randomInt(randomEngine)) * 1000
     //const lastPost = await PostModel.findOne().sort('-created_on').exec();
     // ALL FUCKING TODO
+    var id = await getCount('Post')
 
-    const format = `#${fbConf.page.name}${id}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
+    const IDEntity = new IDModel({ id: id })
+    IDEntity.save()
+    
+    var id = await getCount('ID')
+
+    const format = `#${fbConf.page.name}${id}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n\n`
     const content = `${format} ${ctx.body["content"]}`
 
     const PostEntity = new PostModel({ content: content, status: { delivered: false }, ip: ctx.request.ip })
@@ -85,9 +89,12 @@ async function post_handler(ctx, next) {
   }
 }
 
-function getCount() {
+const getCount = (model) => {
   return new Promise((resolve, reject) => {
-    PostModel.nextCount((err, count) => { resolve(count) })
+    if(model === 'Post')
+      PostModel.nextCount((err, count) => { resolve(count) })
+    else
+      IDModel.nextCount((err, count) => { resolve(count) })
   });
 }
 

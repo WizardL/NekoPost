@@ -14,10 +14,18 @@ const PostSchema = new mongoose.Schema({
   created_on: { type: Date, default: Date.now }
 })
 
+const IDSchema = new mongoose.Schema({  // Record Post ID (Post to facebook.)
+  _id: { type: mongoose.Schema.Types.ObjectId },
+  id: { type: Number } //_id in PostSchema
+})
+
 // Initialize auto increment
 autoIncrement.initialize(mongoose.connection)
+
 // ID increment
+IDSchema.plugin(autoIncrement.plugin, 'Post')
 PostSchema.plugin(autoIncrement.plugin, 'Post')
 
 // Model initialization
-export default mongoose.model('Post', PostSchema)
+export const IDModel = mongoose.model('ID', IDSchema)
+export const PostModel = mongoose.model('Post', PostSchema)
