@@ -36,6 +36,7 @@ async function post_handler(ctx, next) {
     //const time = (randomInt(randomEngine)) * 1000
     //const lastPost = await PostModel.findOne().sort('-created_on').exec();
     // ALL FUCKING TODO
+    const time = await getTimeout()
     var id = await getCount('Post')
 
     const IDEntity = new IDModel({ id: id })
@@ -95,12 +96,29 @@ const getCount = (model) => {
       PostModel.nextCount((err, count) => { resolve(count) })
     else
       IDModel.nextCount((err, count) => { resolve(count) })
-  });
+  })
 }
 
-function msToTime(s) {
+const getTimeout = () => {
+  return new Promise((resolve, reject) => {
+    PostModel.findOne().sort('-created_on').exec((err, post) => { 
+      const postDate = new Date(post.created_on)
+      const millisecond = postDate.getTime()
 
-  function addZ(n) {
+      PostModel.find({ delivered: false }).count((err, count) => {
+        if((Date.now() - millisecond) > 120000)
+          resolve(120000 * (count + 1))
+        else
+          resolve(120000)
+      })
+
+    })
+  })
+}
+
+const msToTime = (s) => {
+
+  const addZ = (n) => {
     return (n<10? '0':'') + n;
   }
 
@@ -111,5 +129,6 @@ function msToTime(s) {
   const mins = s % 60;
   const hrs = (s - mins) / 60;
 
-  return addZ(hrs) + ':' + addZ(mins) + ':' + addZ(secs) + '.' + ms;
+  return addZ(hrs) + ':' + addZ(mins) + ':' + addZ(secs) + '.' + ms
+
 }
