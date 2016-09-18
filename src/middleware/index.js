@@ -62,7 +62,7 @@ async function nocache(ctx, next) {
 
 async function verbose(ctx, next) {
   console.log('  Request Header: '.yellow, ctx.header)
-  console.log('  Request Body: '.yellow, ctx.body)
+  console.log('  Request Body: '.yellow, ctx.request.fields)
   await next()
 }
 

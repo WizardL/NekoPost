@@ -23,7 +23,7 @@ const IDSchema = new mongoose.Schema({  // Record Post ID (Post to facebook.)
 autoIncrement.initialize(mongoose.connection)
 
 // ID increment
-IDSchema.plugin(autoIncrement.plugin, 'Post')
+IDSchema.plugin(autoIncrement.plugin, 'ID')
 PostSchema.plugin(autoIncrement.plugin, 'Post')
 
 // Model initialization
