@@ -66,13 +66,13 @@ export function recaptchaCheck() {
       await next()
     }
 
-    if (!ctx.body['g-recaptcha-response'])
+    if (!ctx.request.fields['g-recaptcha-response'])
       ctx.throw(500, `Please remember to complete the human test.`)
 
     try {
       await recaptcha.promise(
         RecaptchaConfig.secret,
-        ctx.body['g-recaptcha-response'],
+        ctx.request.fields['g-recaptcha-response'],
         ctx.request.ip
       )
     } catch (err) {

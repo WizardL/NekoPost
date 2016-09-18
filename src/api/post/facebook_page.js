@@ -37,14 +37,11 @@ async function post_handler(ctx, next) {
     //const lastPost = await PostModel.findOne().sort('-created_on').exec()
     // ALL FUCKING TODO
     const time = await getTimeout()
-    var id = await getCount('Post')
-    console.log(time)
-    const IDEntity = new IDModel({ id: id })
-    IDEntity.save()
+    const id = await getCount('Post')
 
-    var id = await getCount('ID')
+    const formatID = await getCount('ID')
 
-    const format = `#${fbConf.page.name}${id}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n\n`
+    const format = `#${fbConf.page.name}${formatID}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n\n`
     const content = `${format} ${ctx.request.fields["content"]}`
 
     const PostEntity = new PostModel({ content: content, status: { delivered: false }, ip: ctx.request.ip })
@@ -55,11 +52,18 @@ async function post_handler(ctx, next) {
         if (ctx.request.fields["type"] == 'image') {
           // TODO
           response = await FB.api(`${fbconf.page.page_username}/photos`, 'post', { message: content, url: pic })
+          
+          const IDEntity = new IDModel({ id: id })
+          await IDEntity.save()
           await PostModel.findOneAndUpdate({ _id: id }, { imgLink: pic, postid: response.postid, status: { delivered: true } }).exec()
         } else {
           const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
           const link = urlregex.exec(ctx.request.fields["content"]) ? urlregex.exec(ctx.request.fields["content"]) : ''
+
           response = await FB.api(`${fbconf.page.page_username}/feed`, 'post', { message: content, link: link })
+
+          const IDEntity = new IDModel({ id: id })
+          await IDEntity.save()
           await PostModel.findOneAndUpdate({ _id: id }, { postid: response.postid, status: { delivered: true } }).exec()
         }
 
@@ -79,7 +83,8 @@ async function post_handler(ctx, next) {
 
   } else {
 
-    const format = `#${fbConf.page.name}${id}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
+    const formatID = await getCount('ID')
+    const format = `#${fbConf.page.name}${formatID}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
     const content = `${format} ${ctx.request.fields["content"]}`
     
     const PostEntity = new PostModel({ content: content, status: { delivered: false, need_approve: true }, ip: ctx.request.ip })
