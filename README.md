@@ -4,11 +4,11 @@
 
 <img align="right" src="http://amazonmandy.com/wp-content/uploads/2015/05/misatoref.png" alt="misato" />
 
-Open Source Platform that allow user to spread words anonymously.
+Misato is an Open Source Platform that allows user to spread their words anonymously.
 
 ## Getting Started
 
-Install the dependencies
+Installing the dependencies
 ```
 git clone https://github.com/zypeh/Misato
 cd Misato
@@ -17,7 +17,7 @@ npm install
 
 Running the code
 ```
-# For development, instead
+# For development, use
 npm run test
 
 # For production, use
