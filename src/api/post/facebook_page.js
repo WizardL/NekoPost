@@ -31,40 +31,61 @@ async function post_handler(ctx, next) {
 
   if(fbConf.need_approve === false) {
 
-    const randomEngine = Random.engines.mt19937().autoSeed()
-    //const randomInt = Random.integer(10, 200)
-    //const time = (randomInt(randomEngine)) * 1000
-    //const lastPost = await PostModel.findOne().sort('-created_on').exec()
-    // ALL FUCKING TODO
     const time = await getTimeout()
     const id = await getCount('Post')
 
     const formatID = await getCount('ID')
 
-    const format = `#${fbConf.page.name}${formatID}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n\n`
+    const format = `#${fbConf.page.name}${formatID}
+    📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n\n`
     const content = `${format} ${ctx.request.fields["content"]}`
 
-    const PostEntity = new PostModel({ content: content, status: { delivered: false }, ip: ctx.request.ip })
+    const PostEntity = new PostModel({ content: content, 
+      status: { delivered: false }, 
+      ip: ctx.request.ip 
+    })
     PostEntity.save()
 
     setTimeout((async function () { 
       try {
+        // If post got image.
         if (ctx.request.fields["type"] == 'image') {
-          // TODO
-          response = await FB.api(`${fbconf.page.page_username}/photos`, 'post', { message: content, url: pic })
+          // The following code is for posting a image to a Facebook page
+          const response = await FB.api(`${fbconf.page.page_username}/photos`,
+          'post', {
+            message: content,
+            url: pic
+          })
           
           const IDEntity = new IDModel({ id: id })
           await IDEntity.save()
-          await PostModel.findOneAndUpdate({ _id: id }, { imgLink: pic, postid: response.postid, status: { delivered: true } }).exec()
-        } else {
+
+          await PostModel.findOneAndUpdate({ _id: id },{
+            imgLink: pic,
+            postid: response.postid, 
+            status: { delivered: true } 
+          }).exec()
+
+        } else { // If post don't have image.
+          // URL Matching
           const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
           const link = urlregex.exec(ctx.request.fields["content"]) ? urlregex.exec(ctx.request.fields["content"]) : ''
 
-          response = await FB.api(`${fbconf.page.page_username}/feed`, 'post', { message: content, link: link })
+          // The following code is for posting a post to a Facebook page 
+          const response = await FB.api(`${fbconf.page.page_username}/feed`,
+          'post', {
+            message: content, 
+            link: link 
+          })
 
           const IDEntity = new IDModel({ id: id })
           await IDEntity.save()
-          await PostModel.findOneAndUpdate({ _id: id }, { postid: response.postid, status: { delivered: true } }).exec()
+          
+          await PostModel.findOneAndUpdate({ _id: id }, {
+            postid: response.postid,
+            status: { delivered: true }
+          }).exec()
+          
         }
 
 
@@ -79,7 +100,11 @@ async function post_handler(ctx, next) {
       }
     }), time)
 
-    ctx.body = { success: true, id: id, countdown: msToTime(time) }
+    ctx.body = {
+      success: true, 
+      id: id,
+      countdown: msToTime(time) 
+    }
 
   } else {
 
@@ -87,10 +112,20 @@ async function post_handler(ctx, next) {
     const format = `#${fbConf.page.name}${formatID}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
     const content = `${format} ${ctx.request.fields["content"]}`
     
-    const PostEntity = new PostModel({ content: content, status: { delivered: false, need_approve: true }, ip: ctx.request.ip })
+    const PostEntity = new PostModel({ content: content, 
+      status: { 
+        delivered: false, 
+        need_approve: true 
+      }, 
+      ip: ctx.request.ip 
+    })
     await PostEntity.save()
 
-    ctx.body = { success: true, id: id, need_approve: true }
+    ctx.body = {
+      success: true, 
+      id: id, 
+      need_approve: true 
+    }
 
   }
 }

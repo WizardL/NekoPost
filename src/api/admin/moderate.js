@@ -28,17 +28,25 @@ async function postDashboard(ctx, next) {
 
 async function postAccepted(ctx, next) {
   // TODO
-  const acceptResult = await PostModel.findByIdAndUpdate(ctx.params.postid, { $set: { status: { delivered: true } } }, { safe: true, upsert: true }).exec()
+  const post = await PostModel.findByIdAndUpdate(ctx.params.postid, 
+    { $set: { status: { delivered: true } } },
+    { safe: true, upsert: true }).exec()
+
   // Check post exists or not.
-  if(acceptResult === null) {
+  if(post === null) {
+    // Even post is not exist, mongoose findByIdAndUpdate will add a new record. So I need to remove it.
     await PostModel.find({ _id: ctx.params.postid }).remove().exec()
     ctx.throw('Post not found.')
   }
 
   // Check this post need approve or not.
-  if(acceptResult.status.need_approve === false) {
+  if(post.status.need_approve === false) {
+    // If post is no need to approve, set the post to original value.
+    await PostModel.findByIdAndUpdate(ctx.params.postid,
+      { $set: { status: { delivered: post.status.delivered } } }, 
+      { safe: true, upsert: true }).exec()
+
     ctx.throw('This post don\'t need approve.')
-    await PostModel.findByIdAndUpdate(ctx.params.postid, { $set: { status: { delivered: acceptResult.status.delivered } } }, { safe: true, upsert: true }).exec()
   }
   
   const IDEntity = new IDModel({ id: ctx.params.postid })
@@ -46,19 +54,43 @@ async function postAccepted(ctx, next) {
 
   // Post to facebook
   try {
-    if(!acceptResult.status.imgLink) { //Check post type is image or not.
+    // Check post got image or not.
+    if(!post.status.imgLink) {
       // TODO
       const id = await getCount()
-      const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
-      const link = urlregex.exec(ctx.body["content"]) ? urlregex.exec(ctx.body["content"]) : ''
 
-      const response = await FB.api(`${fbconf.page.page_username}/feed`, 'post', { message: content, link: link })
-      await PostModel.findOneAndUpdate({ _id: id }, { postid: response.postid, status: { delivered: true } }).exec()
+      // URL Matching
+      const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
+      const link = urlregex.exec(ctx.body["content"]) ? urlregex.exec(ctx.body["content"])[0] : ''
+      
+      // The following code is for posting a post to a Facebook page
+      const response = await FB.api(`${fbconf.page.page_username}/feed`,
+        'post', {
+          message: content,
+          link: link
+        })
+      
+      // Update post status in db.
+      await PostModel.findOneAndUpdate({ _id: id }, { 
+        postid: response.postid, 
+        status: { delivered: true }
+      }).exec()
 
     } else {
       // TODO
-      const response = await FB.api(`${fbconf.page.page_username}/photos`, 'post', { message: content, url: acceptResult.status.imgLink })
-      await PostModel.findOneAndUpdate({ _id: id }, { imgLink: pic, postid: response.postid, status: { delivered: true } }).exec()
+      // The following code is for posting a image to a Facebook page
+      const response = await FB.api(`${fbconf.page.page_username}/photos`, 
+        'post', {
+          message: content, 
+          url: acceptResult.status.imgLink 
+        })
+
+      // Update post status in db.
+      await PostModel.findOneAndUpdate({ _id: id }, { 
+        imgLink: pic,
+        postid: response.postid, 
+        status: { delivered: true } 
+      }).exec()
 
     }
 
@@ -79,7 +111,7 @@ async function postRejected(ctx, next) {
   // TODO
 }
 
-function getCount() {
+const getCount = () => {
   return new Promise((resolve, reject) => {
     IDModel.nextCount((err, count) => { resolve(count) })
   })
