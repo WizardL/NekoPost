@@ -29,8 +29,10 @@ async function postDashboard(ctx, next) {
 async function postAccepted(ctx, next) {
   // TODO
   const post = await PostModel.findByIdAndUpdate(ctx.params.postid, 
-    { $set: { status: { delivered: true } } },
-    { safe: true, upsert: true }).exec()
+    { $set: { status: { delivered: true } } }, { 
+      safe: true, 
+      upsert: true 
+    }).exec()
 
   // Check post exists or not.
   if(post === null) {
@@ -43,8 +45,10 @@ async function postAccepted(ctx, next) {
   if(post.status.need_approve === false) {
     // If post is no need to approve, set the post to original value.
     await PostModel.findByIdAndUpdate(ctx.params.postid,
-      { $set: { status: { delivered: post.status.delivered } } }, 
-      { safe: true, upsert: true }).exec()
+      { $set: { status: { delivered: post.status.delivered } } }, { 
+        safe: true,
+        upsert: true 
+      }).exec()
 
     ctx.throw('This post don\'t need approve.')
   }
@@ -70,7 +74,7 @@ async function postAccepted(ctx, next) {
           link: link
         })
       
-      // Update post status in db.
+      // Puts the PostID into the database after the post is posted to Facebook.
       await PostModel.findOneAndUpdate({ _id: id }, { 
         postid: response.postid, 
         status: { delivered: true }
@@ -85,7 +89,7 @@ async function postAccepted(ctx, next) {
           url: acceptResult.status.imgLink 
         })
 
-      // Update post status in db.
+      // Puts the PostID and Image into the database after the post is posted to Facebook.
       await PostModel.findOneAndUpdate({ _id: id }, { 
         imgLink: pic,
         postid: response.postid, 

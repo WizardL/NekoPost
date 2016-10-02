@@ -36,9 +36,10 @@ async function post_handler(ctx, next) {
 
     const formatID = await getCount('ID')
 
-    const format = `#${fbConf.page.name}${formatID}
-    📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n\n`
-    const content = `${format} ${ctx.request.fields["content"]}`
+    const format = `#${fbConf.page.name}${formatID}\n`+
+    `📢发文请至 ${siteConf.postUrl()}\n`+
+    `👎举报滥用 ${siteConf.reportUrl()}\n`
+    const content = `${format}${ctx.request.fields["content"]}`
 
     const PostEntity = new PostModel({ content: content, 
       status: { delivered: false }, 
@@ -59,7 +60,8 @@ async function post_handler(ctx, next) {
           
           const IDEntity = new IDModel({ id: id })
           await IDEntity.save()
-
+          
+          // Puts the PostID and Image into the database after the post is posted to Facebook.
           await PostModel.findOneAndUpdate({ _id: id },{
             imgLink: pic,
             postid: response.postid, 
@@ -67,6 +69,7 @@ async function post_handler(ctx, next) {
           }).exec()
 
         } else { // If post don't have image.
+
           // URL Matching
           const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
           const link = urlregex.exec(ctx.request.fields["content"]) ? urlregex.exec(ctx.request.fields["content"]) : ''
@@ -80,7 +83,8 @@ async function post_handler(ctx, next) {
 
           const IDEntity = new IDModel({ id: id })
           await IDEntity.save()
-          
+
+          // Puts the PostID into the database after the post is posted to Facebook.
           await PostModel.findOneAndUpdate({ _id: id }, {
             postid: response.postid,
             status: { delivered: true }
@@ -109,8 +113,10 @@ async function post_handler(ctx, next) {
   } else {
 
     const formatID = await getCount('ID')
-    const format = `#${fbConf.page.name}${formatID}\n📢发文请至 ${siteConf.postUrl()}\n👎举报滥用 ${siteConf.reportUrl()}\n`
-    const content = `${format} ${ctx.request.fields["content"]}`
+    const format = `#${fbConf.page.name}${formatID}\n`+
+    `📢发文请至 ${siteConf.postUrl()}\n`+
+    `👎举报滥用 ${siteConf.reportUrl()}\n`
+    const content = `${format}${ctx.request.fields["content"]}`
     
     const PostEntity = new PostModel({ content: content, 
       status: { 
