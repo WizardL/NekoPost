@@ -47,7 +47,7 @@ async function post_handler(ctx, next) {
     })
     PostEntity.save()
 
-    setTimeout((async function () { 
+    setTimeout((async () => { 
       try {
         // If post got image.
         if (ctx.request.fields["type"] == 'image') {
