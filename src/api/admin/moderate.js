@@ -86,7 +86,7 @@ async function postAccepted(ctx, next) {
       const response = await FB.api(`${fbconf.page.page_username}/photos`, 
         'post', {
           message: content, 
-          url: acceptResult.status.imgLink 
+          url: post.status.imgLink 
         })
 
       // Puts the PostID and Image into the database after the post is posted to Facebook.
