@@ -1,7 +1,6 @@
 "use strict"
 
 import { isAuthenticated } from '../../auth'
-
 // Models
 import { IDModel, PostModel } from '../../model/post'
 
@@ -18,7 +17,7 @@ export default (router) => {
          postAccepted)
 
     .get('/post/:postid/reject',
-         isAuthenticated(),
+         //isAuthenticated(),
          postRejected)
 }
 
@@ -112,7 +111,15 @@ async function postAccepted(ctx, next) {
 }
 
 async function postRejected(ctx, next) {
-  // TODO
+  // Check post exists or not.
+  const post = await PostModel.find({ _id: ctx.params.postid })
+
+  if(!post[0])
+    ctx.throw('Post not found.')
+  else
+    await PostModel.find({ _id: ctx.params.postid }).remove().exec()
+  ctx.body = { success: true }
+  
 }
 
 const getCount = () => {
