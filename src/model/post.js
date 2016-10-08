@@ -3,6 +3,9 @@
 import mongoose from 'mongoose'
 import autoIncrement from 'mongoose-auto-increment'
 
+// Use native promises
+mongoose.Promise = global.Promise
+
 const PostSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId },
   postid: { type: String },

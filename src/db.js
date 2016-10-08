@@ -5,6 +5,7 @@ import mongoose from 'mongoose'
 
 export function DatabaseConnector(uri) {
   return new Promise((resolve, reject) => {
+
     mongoose.connection
       .on('error', error => reject(error))
       .on('close', () => console.log(`[${'!'.red}]Database connection closed`))
@@ -17,4 +18,3 @@ export function DatabaseConnector(uri) {
   })
   
 }
-
