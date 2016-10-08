@@ -115,6 +115,7 @@ async function post_handler(ctx, next) {
 
   } else {
 
+    const id = await getCount('Post')
     const formatID = await getCount('ID')
     const format = `#${fbConf.page.name}${formatID}\n`+
     `📢发文请至 ${siteConf.postUrl()}\n`+
