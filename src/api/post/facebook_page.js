@@ -16,16 +16,16 @@ export default (router) => {
   router
 
     .post('/post',
-          //recaptchaCheck(),
+          recaptchaCheck(),
           post_handler)
 
 }
 
 async function post_handler(ctx, next) {
   
-  //Verify Content
+  // Verify Content
   if(!ctx.request.fields["content"] || !ctx.request.fields["type"])
-    ctx.throw(500, 'Please type the content you want to post.')
+    ctx.throw('Please type the content you want to post.')
 
   FB.setAccessToken(fbConf.accessToken)
 
@@ -45,7 +45,10 @@ async function post_handler(ctx, next) {
       status: { delivered: false },
       ip: ctx.request.ip
     })
-    PostEntity.save()
+    await PostEntity.save()
+
+    const IDEntity = new IDModel({ id: id })
+    await IDEntity.save()
 
     setTimeout((async () => { 
       try {
@@ -80,9 +83,6 @@ async function post_handler(ctx, next) {
             message: content, 
             link: link 
           })
-
-          const IDEntity = new IDModel({ id: id })
-          await IDEntity.save()
 
           // Puts the PostID into the database after the post is posted to Facebook.
           await PostModel.findOneAndUpdate({ _id: id }, {
@@ -153,7 +153,7 @@ const getTimeout = () => {
         resolve(120000)
         return
       }
-      
+
       const postDate = new Date(post.created_on)
       const millisecond = postDate.getTime()
 
