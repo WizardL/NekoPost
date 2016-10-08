@@ -34,7 +34,7 @@ export default (router) => {
  */
 async function getPost(ctx, next) {
   // Verify Content
-  if(!ctx.request.fields["delivered"] || !ctx.request.fields["need_approve"] || !ctx.request.fields["pages"] || ctx.request.fields['sort'])
+  if(!ctx.request.fields["delivered"] || !ctx.request.fields["need_approve"] || !ctx.request.fields["pages"] || !ctx.request.fields['sort'])
     ctx.throw('Some parameters are missing.')
 
   const sort = (ctx.request.fields['sort'] === 'descending') ? "-" : "+"
