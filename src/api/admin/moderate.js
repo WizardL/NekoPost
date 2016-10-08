@@ -49,7 +49,7 @@ async function getPost(ctx, next) {
   }})
     .sort(`${sort}created_on`)
     .skip(pages > 0 ? ((pages - 1) * limitPageResult) : 0)
-     .limit(limitPageResult)
+    .limit(limitPageResult)
     .exec()
 
   ctx.body = {
