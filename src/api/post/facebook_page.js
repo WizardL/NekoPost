@@ -41,9 +41,9 @@ async function post_handler(ctx, next) {
     `👎举报滥用 ${siteConf.reportUrl()}\n`
     const content = `${format}${ctx.request.fields["content"]}`
 
-    const PostEntity = new PostModel({ content: content, 
-      status: { delivered: false }, 
-      ip: ctx.request.ip 
+    const PostEntity = new PostModel({ content: content,
+      status: { delivered: false },
+      ip: ctx.request.ip
     })
     PostEntity.save()
 
