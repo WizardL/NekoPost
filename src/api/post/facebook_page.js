@@ -16,7 +16,7 @@ export default (router) => {
   router
 
     .post('/post',
-          recaptchaCheck(),
+          //recaptchaCheck(),
           post_handler)
 
 }
@@ -149,9 +149,11 @@ const getTimeout = () => {
   return new Promise((resolve, reject) => {
     PostModel.findOne().sort('-created_on').exec((err, post) => {
 
-      if(post === null)
+      if(post === null) {
         resolve(120000)
-
+        return
+      }
+      
       const postDate = new Date(post.created_on)
       const millisecond = postDate.getTime()
 
