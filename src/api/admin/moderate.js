@@ -17,7 +17,7 @@ export default (router) => {
          postAccepted)
 
     .get('/post/:postid/reject',
-         //isAuthenticated(),
+         isAuthenticated(),
          postRejected)
 }
 
@@ -119,7 +119,7 @@ async function postRejected(ctx, next) {
   else
     await PostModel.find({ _id: ctx.params.postid }).remove().exec()
   ctx.body = { success: true }
-  
+
 }
 
 const getCount = () => {
