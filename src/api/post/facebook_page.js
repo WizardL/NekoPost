@@ -149,7 +149,7 @@ const getTimeout = () => {
   return new Promise((resolve, reject) => {
     PostModel.findOne().sort('-created_on').exec((err, post) => {
 
-      if(!post)
+      if(post === null)
         resolve(120000)
 
       const postDate = new Date(post.created_on)
