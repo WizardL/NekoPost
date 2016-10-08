@@ -22,11 +22,22 @@ export default (router) => {
          postRejected)
 }
 
+/**
+ * [post] getPost
+ * Moderator can get post from database.
+ * 
+ * @param {String} sort
+ * @param {String} pages
+ * @param {Boolean} delivered
+ * @param {Boolean} need_approve
+ * @param {Integer} limitPageResult
+ */
 async function getPost(ctx, next) {
   // Verify Content
-  if(!ctx.request.fields["delivered"] || !ctx.request.fields["need_approve"] || !ctx.request.fields["pages"])
+  if(!ctx.request.fields["delivered"] || !ctx.request.fields["need_approve"] || !ctx.request.fields["pages"] || ctx.request.fields['sort'])
     ctx.throw('Some parameters are missing.')
 
+  const sort = (ctx.request.fields['sort'] === 'descending') ? "-" : "+"
   const pages = ctx.request.fields["pages"]
   const delivered = (ctx.request.fields["delivered"] === "false") ? false : true
   const need_approve = (ctx.request.fields["delivered"] === "false") ? false : true
@@ -36,7 +47,7 @@ async function getPost(ctx, next) {
     delivered: delivered,
     need_approve: need_approve
   }})
-    .sort('-created_on')
+    .sort(`${sort}created_on`)
     .skip(pages > 0 ? ((pages - 1) * limitPageResult) : 0)
      .limit(limitPageResult)
     .exec()
