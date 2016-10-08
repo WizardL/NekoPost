@@ -60,7 +60,7 @@ async function postAccepted(ctx, next) {
   if(post === null) {
     // Even post is not exist, mongoose findByIdAndUpdate will add a new record. So I need to remove it.
     await PostModel.find({ _id: ctx.params.postid }).remove().exec()
-    ctx.throw('Post not found.')
+    ctx.throw(404, 'Post not found.')
   }
 
   // Check this post need approve or not.
@@ -138,7 +138,7 @@ async function postRejected(ctx, next) {
   const post = await PostModel.find({ _id: ctx.params.postid })
 
   if(!post[0])
-    ctx.throw('Post not found.')
+    ctx.throw(404, 'Post not found.')
   else
     await PostModel.find({ _id: ctx.params.postid }).remove().exec()
   ctx.body = { success: true }
