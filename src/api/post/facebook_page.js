@@ -42,7 +42,10 @@ async function post_handler(ctx, next) {
     const content = `${format}${ctx.request.fields["content"]}`
 
     const PostEntity = new PostModel({ content: content,
-      status: { delivered: false },
+      status: { 
+        delivered: false,
+        need_approve: false 
+      },
       ip: ctx.request.ip
     })
     await PostEntity.save()
@@ -65,10 +68,10 @@ async function post_handler(ctx, next) {
           await IDEntity.save()
           
           // Puts the PostID and Image into the database after the post is posted to Facebook.
-          await PostModel.findOneAndUpdate({ _id: id },{
+          await PostModel.findOneAndUpdate({ _id: id }, {
             imgLink: pic,
-            postid: response.postid, 
-            status: { delivered: true } 
+            postid: response.postid,
+            status: { delivered: true }
           }).exec()
 
         } else { // If post don't have image.
@@ -118,19 +121,19 @@ async function post_handler(ctx, next) {
     `👎举报滥用 ${siteConf.reportUrl()}\n`
     const content = `${format}${ctx.request.fields["content"]}`
     
-    const PostEntity = new PostModel({ content: content, 
-      status: { 
-        delivered: false, 
-        need_approve: true 
-      }, 
-      ip: ctx.request.ip 
+    const PostEntity = new PostModel({ content: content,
+      status: {
+        delivered: false,
+        need_approve: true
+      },
+      ip: ctx.request.ip
     })
     await PostEntity.save()
 
     ctx.body = {
-      success: true, 
-      id: id, 
-      need_approve: true 
+      success: true,
+      id: id,
+      need_approve: true
     }
 
   }
@@ -157,14 +160,18 @@ const getTimeout = () => {
       const postDate = new Date(post.created_on)
       const millisecond = postDate.getTime()
 
-      PostModel.find({ status: { delivered: false } }).count((err, count) => {
+      PostModel.find({ status: {
+        delivered: false,
+        need_approve: false
+      }})
+        .count((err, count) => {
 
-        if((Date.now() - millisecond) < 120000)
-          resolve(120000 * (count + 1))
-        else
-          resolve(120000)
+          if((Date.now() - millisecond) < 120000)
+            resolve(120000 * (count + 1))
+          else
+            resolve(120000)
 
-      })
+        })
 
     })
   })

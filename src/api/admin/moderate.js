@@ -1,6 +1,7 @@
 "use strict"
 
 import { isAuthenticated } from '../../auth'
+
 // Models
 import { IDModel, PostModel } from '../../model/post'
 
@@ -8,9 +9,9 @@ export default (router) => {
 
   router
 
-    .get('/dashboard',
+    .post('/getPost',
          isAuthenticated(),
-         postDashboard)
+         getPost)
   
     .get('/post/:postid/accept',
          isAuthenticated(),
@@ -21,8 +22,30 @@ export default (router) => {
          postRejected)
 }
 
-async function postDashboard(ctx, next) {
-  // TODO
+async function getPost(ctx, next) {
+  // Verify Content
+  if(!ctx.request.fields["delivered"] || !ctx.request.fields["need_approve"] || !ctx.request.fields["pages"])
+    ctx.throw('Some parameters are missing.')
+
+  const pages = ctx.request.fields["pages"]
+  const delivered = (ctx.request.fields["delivered"] === "false") ? false : true
+  const need_approve = (ctx.request.fields["delivered"] === "false") ? false : true
+  const limitPageResult = ctx.request.fields["limitPageResult"] ? ctx.request.fields["limitPageResult"] : 20
+
+  const post = await PostModel.find({ status: {
+    delivered: delivered,
+    need_approve: need_approve
+  }})
+    .sort('-created_on')
+    .skip(pages > 0 ? ((pages - 1) * limitPageResult) : 0)
+     .limit(limitPageResult)
+    .exec()
+
+  ctx.body = {
+    success: true, 
+    results: post
+  }
+
 }
 
 async function postAccepted(ctx, next) {
