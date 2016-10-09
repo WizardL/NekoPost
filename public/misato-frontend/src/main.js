@@ -8,14 +8,13 @@ Vue.use(VueRouter)
 const App = Vue.extend(require('./App'))
 
 const router = new VueRouter({
-  history: true,
-  saveScrollPosition: true
+  mode: 'history',
+  routes: App
 })
 
-// configure router
-configRouter(router)
-
-router.start(App, '#app')
+const app = new Vue({
+  router
+}).$mount('#app')
 
 // debugging
 window.router = router
