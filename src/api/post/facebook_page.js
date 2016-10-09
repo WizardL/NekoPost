@@ -1,8 +1,6 @@
 "use strict"
 
 // Dependencies
-import shortid from 'shortid'
-import Random from 'random-js'
 import FB from 'fb'
 
 import { recaptchaCheck } from '../../auth'
@@ -94,7 +92,6 @@ async function post_handler(ctx, next) {
           }).exec()
           
         }
-
 
       } catch(error) {
         if(error.response.error.code === 'ETIMEDOUT') {

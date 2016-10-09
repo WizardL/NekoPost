@@ -54,9 +54,7 @@
     "mongoose-auto-increment": "^5.0.1",
     "nodemon": "^1.11.0",
     "passport-facebook": "^2.1.1",
-    "random-js":"^1.0.8",
     "recaptcha-validator": "^1.0.4444",
-    "shortid": "^2.2.6",
     "uuid": "^2.0.3"
   },
   "devDependencies": {
