@@ -2,7 +2,7 @@
   <!-- Test large images -->
   <div class="post">
     <div class="s-wrapper">
-      <div class="media"><img src="http://i.4cdn.org/a/1473295066235.jpg"></div>
+      <div class="media"><img src="../assets/logo.png"></div>
       <div class="col"><p>大图测试</p></div>
       <div class="col">
         <div class="meta">
