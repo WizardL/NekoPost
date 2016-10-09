@@ -1,5 +1,4 @@
 <template>
-  <!-- Test large images -->
   <div class="post">
     <div class="s-wrapper">
       <div class="media"><img src="../assets/logo.png"></div>
