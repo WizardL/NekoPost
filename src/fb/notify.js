@@ -34,7 +34,6 @@ export default (userid, message, href) => {
     } else {
       
       try {
-        console.log('meowww')
         const response = await FB.api(`/${userid}/notifications`,
           'post',{
             template: message

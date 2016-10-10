@@ -70,7 +70,7 @@ async function postAccepted(ctx, next) {
   // Check post.
   checkPost(ctx, post)
 
-  //Add format to post content
+  // Add format to post content
   const formatID = await getCount()
   let post_url, report_url
   [post_url, report_url] = await Promise.all([shorten(siteConf.postUrl()), shorten(`${siteConf.reportUrl()}${formatID}`)]) // shorten url
@@ -125,7 +125,7 @@ async function postRejected(ctx, next) {
     ctx.throw(404, 'Post not found.')
   else
     await PostModel.find({ _id: ctx.params.postid }).remove().exec()
-    
+
   ctx.body = { success: true }
 
 }
