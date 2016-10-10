@@ -14,6 +14,7 @@ const PostSchema = new mongoose.Schema({
   reporter: [{ type: String }],
   status: { delivered: { type: Boolean }, need_approve: { type: Boolean }, deleted: { type: Boolean } },
   ip: { type: String },
+  notify: { type: Boolean },
   created_on: { type: Date, default: Date.now }
 })
 
