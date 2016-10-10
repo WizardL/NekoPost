@@ -32,7 +32,7 @@
     "colors": "^1.1.2",
     "es6-module-loader": "^0.17.11",
     "es6-promise": "^3.3.1",
-    "fb": "^1.1.1",
+    "fb": "next",
     "import-dir": "0.0.1",
     "koa": "^2.0.0",
     "koa-better-body": "^3.0.2",
