@@ -2,10 +2,14 @@
 
 //URL Related
 export const siteConf = {
-   siteUrl  : 'http://localhost:3000/'                     , // eg: http://meow.com/
-   postUrl  : function() { return `${this.siteUrl}` }      , // eg: http://meow.com/
-   reportUrl: function() { return `${this.siteUrl}abuse/` }, // eg: http://meow.com/abuse/
- }
+  siteUrl  : 'http://localhost:3000/', // eg: http://meow.com/
+  postUrl() {
+   return `${this.siteUrl}` // eg: http://meow.com/
+  },
+  reportUrl() { 
+    return `${this.siteUrl}abuse/` // eg: http://meow.com/abuse/
+  }
+}
 
 // Admin email
 export const adminEmail = [
