@@ -19,4 +19,3 @@ export default (router) => {
 async function callback_handler(ctx, next) {
   ctx.body = { success: true }
 }
-//TODO
