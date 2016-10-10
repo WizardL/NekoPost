@@ -2,9 +2,11 @@
 
 // Dependencies
 import FB from 'fb'
+import shorten from '../../shorten'
+import FBNotify from '../../fb/notify'
 
 import { recaptchaCheck } from '../../auth'
-import { siteConf, fbConf } from '../../../config'
+import { siteConf, fbConf, shortenConf } from '../../../config'
 
 // Models
 import { IDModel, PostModel } from '../../model/post'
@@ -14,7 +16,7 @@ export default (router) => {
   router
 
     .post('/post',
-          recaptchaCheck(),
+          //recaptchaCheck(),
           post_handler)
 
 }
@@ -25,6 +27,7 @@ async function post_handler(ctx, next) {
   if(!ctx.request.fields["content"] || !ctx.request.fields["type"])
     ctx.throw('Please type the content you want to post.')
 
+  FB.options('v2.8') // using latest facebook api
   FB.setAccessToken(fbConf.accessToken)
 
   if(fbConf.need_approve === false) {
@@ -34,9 +37,12 @@ async function post_handler(ctx, next) {
 
     const formatID = await getCount('ID')
 
+    let post_url, report_url
+    [post_url, report_url] = await Promise.all([shorten(siteConf.postUrl()), shorten(`${siteConf.reportUrl()}${formatID}`)])
+
     const format = `#${fbConf.page.name}${formatID}\n`+
-    `📢发文请至 ${siteConf.postUrl()}\n`+
-    `👎举报滥用 ${siteConf.reportUrl()}\n`
+    `📢发文请至 ${post_url}\n`+
+    `👎举报滥用 ${report_url}\n\n`
     const content = `${format}${ctx.request.fields["content"]}`
 
     const PostEntity = new PostModel({ content: content,
@@ -56,7 +62,7 @@ async function post_handler(ctx, next) {
         // If post got image.
         if (ctx.request.fields["type"] == 'image') {
           // The following code is for posting a image to a Facebook page
-          const response = await FB.api(`${fbconf.page.page_username}/photos`,
+          const response = await FB.api(`${fbConf.page.username}/photos`,
             'post', {
               message: content,
               url: pic
@@ -76,13 +82,13 @@ async function post_handler(ctx, next) {
 
           // URL Matching
           const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
-          const link = urlregex.exec(ctx.request.fields["content"]) ? urlregex.exec(ctx.request.fields["content"]) : ''
+          const link = urlregex.exec(ctx.request.fields["content"]) ? urlregex.exec(ctx.request.fields["content"])[0] : ''
 
           // The following code is for posting a post to a Facebook page 
-          const response = await FB.api(`${fbconf.page.page_username}/feed`,
+          const response = await FB.api(`${fbConf.page.username}/feed`,
              'post', {
               message: content, 
-              link: link [0]
+              link: link
             })
 
           // Puts the PostID into the database after the post is posted to Facebook.
@@ -94,13 +100,7 @@ async function post_handler(ctx, next) {
         }
 
       } catch(error) {
-        if(error.response.error.code === 'ETIMEDOUT') {
-          console.log('request timeout')
-          ctx.throw('request timeout')
-        } else {
-          console.log('error', error.message)
-          ctx.throw(error.message)
-        }
+        console.log(error)
       }
     }), time)
 
@@ -113,11 +113,7 @@ async function post_handler(ctx, next) {
   } else {
 
     const id = await getCount('Post')
-    const formatID = await getCount('ID')
-    const format = `#${fbConf.page.name}${formatID}\n`+
-    `📢发文请至 ${siteConf.postUrl()}\n`+
-    `👎举报滥用 ${siteConf.reportUrl()}\n`
-    const content = `${format}${ctx.request.fields["content"]}`
+    const content = `${ctx.request.fields["content"]}`
     
     const PostEntity = new PostModel({ content: content,
       status: {
