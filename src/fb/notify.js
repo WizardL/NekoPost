@@ -18,44 +18,30 @@ export default (userid, message, href) => {
     })
     
     FB.setAccessToken(app.access_token)
-    
+
     if(href) {
-      
-      const urlregex = new RegExp(/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/)
-      const link = urlregex.exec(href) ? urlregex.exec(href) : ''
-      
-      if(link) {
-       
-       try {
-          const response = await FB.api(`/${userid}/notifications`,
-            'post',{
-              template: message,
-              href: href
-            })
-          resolve(response)
-        } catch(error) {
-          if(error.response.error.code === 'ETIMEDOUT') {
-            reject('request timeout')
-          } else {
-            reject(`error: ${error.message}`)
-          }
-        }
+      try {
+        const response = await FB.api(`/${userid}/notifications`,
+          'post',{
+            template: message,
+            href: href
+          })
+        resolve(response)
+      } catch(error) {
+        reject(error)
       }
       
     } else {
       
       try {
+        console.log('meowww')
         const response = await FB.api(`/${userid}/notifications`,
           'post',{
             template: message
           })
         resolve(response)
       } catch(error) {
-        if(error.response.error.code === 'ETIMEDOUT') {
-          reject('request timeout')
-        } else {
-          reject(`error: ${error.message}`)
-        }
+        reject(error)
       }
       
     }

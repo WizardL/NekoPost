@@ -16,7 +16,7 @@ export default (router) => {
   router
 
     .post('/post',
-          //recaptchaCheck(),
+          recaptchaCheck(),
           post_handler)
 
 }
@@ -71,6 +71,10 @@ async function post_handler(ctx, next) {
           const IDEntity = new IDModel({ id: id })
           await IDEntity.save()
           
+          // Notify user the post is posted successfully
+          if(ctx.isAuthenticated() && ctx.request.fields["notify"] == "true")
+            FBNotify(ctx.state.user.id, 'Your post is posted successfully.', `/post/${formatID}`)
+
           // Puts the PostID and Image into the database after the post is posted to Facebook.
           await PostModel.findOneAndUpdate({ _id: id }, {
             imgLink: pic,
@@ -91,6 +95,10 @@ async function post_handler(ctx, next) {
               link: link
             })
 
+          // Notify user the post is posted successfully
+          if(ctx.isAuthenticated() && ctx.request.fields["notify"] == "true")
+            await FBNotify(ctx.state.user.id, 'Your post is posted successfully.', `/post/${formatID}`)
+
           // Puts the PostID into the database after the post is posted to Facebook.
           await PostModel.findOneAndUpdate({ _id: id }, {
             postid: response.postid,
@@ -102,7 +110,7 @@ async function post_handler(ctx, next) {
       } catch(error) {
         console.log(error)
       }
-    }), time)
+    }), 1000)
 
     ctx.body = {
       success: true, 
