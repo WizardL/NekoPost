@@ -39,8 +39,8 @@ export const fbConf = {
   need_approve: false, //Post need admin to approve before posted. 
 }
 
-// Bitly related
-export const bitlyConf = {
-  enabled : true, //Enable bitly or not.
-  apiKey  : 'bitly-api-key-here',   //Bitly API KEY
+// Shorten related
+export const shortenConf = {
+  enabled : true, // Enable google short url or not.
+  apiKey  : 'google-short-url-api-here', // Google Short Url API https://code.google.com/apis/console
 }
