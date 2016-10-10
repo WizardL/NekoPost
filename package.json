@@ -31,7 +31,7 @@
     "bitly": "^4.1.1",
     "colors": "^1.1.2",
     "es6-module-loader": "^0.17.11",
-    "es6-promise": "^3.3.1",
+    "es6-promise": "^4.0.5",
     "fb": "next",
     "import-dir": "0.0.1",
     "koa": "^2.0.0",
