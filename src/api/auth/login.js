@@ -7,7 +7,7 @@ export default (router) => {
   router
 
     .get('/auth/fb',
-         passport.authenticate('facebook'))
+         passport.authenticate('facebook', { scope: ['publish_actions', 'manage_pages', 'publish_pages', 'pages_show_list'] }))
 
     .get('/auth/fb/callback',
          passport.authenticate('facebook'),
