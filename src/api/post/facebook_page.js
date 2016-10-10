@@ -3,9 +3,15 @@
 // Dependencies
 import FB from 'fb'
 import shorten from '../../shorten'
-import FBNotify from '../../fb/notify'
 
+// FB
+import FBNotify from '../../fb/notify'
+import { PostToFB, PostImageToFB } from '../../fb/post'
+
+//Recaptcha check.
 import { recaptchaCheck } from '../../auth'
+
+// Configs
 import { siteConf, fbConf, shortenConf } from '../../../config'
 
 // Models
@@ -27,24 +33,24 @@ async function post_handler(ctx, next) {
   if(!ctx.request.fields["content"] || !ctx.request.fields["type"])
     ctx.throw('Please type the content you want to post.')
 
-  FB.options('v2.8') // using latest facebook api
-  FB.setAccessToken(fbConf.accessToken)
-
   if(fbConf.need_approve === false) {
-
+    
+    // Get timeout time.
     const time = await getTimeout()
-    const id = await getCount('Post')
 
-    const formatID = await getCount('ID')
+    const id = await getCount('Post')
+    const formatID = await getCount('ID') 
 
     let post_url, report_url
-    [post_url, report_url] = await Promise.all([shorten(siteConf.postUrl()), shorten(`${siteConf.reportUrl()}${formatID}`)])
-
+    [post_url, report_url] = await Promise.all([shorten(siteConf.postUrl()), shorten(`${siteConf.reportUrl()}${formatID}`)]) // shorten url
+    
+    // Post format.
     const format = `#${fbConf.page.name}${formatID}\n`+
     `📢发文请至 ${post_url}\n`+
     `👎举报滥用 ${report_url}\n\n`
     const content = `${format}${ctx.request.fields["content"]}`
-
+    
+    // Puts the content into database.
     const PostEntity = new PostModel({ content: content,
       status: { 
         delivered: false,
@@ -53,7 +59,8 @@ async function post_handler(ctx, next) {
       ip: ctx.request.ip
     })
     await PostEntity.save()
-
+    
+    // Save the hashtag id into database.
     const IDEntity = new IDModel({ id: id })
     await IDEntity.save()
 
@@ -62,25 +69,11 @@ async function post_handler(ctx, next) {
         // If post got image.
         if (ctx.request.fields["type"] == 'image') {
           // The following code is for posting a image to a Facebook page
-          const response = await FB.api(`${fbConf.page.username}/photos`,
-            'post', {
-              message: content,
-              url: pic
-            })
-          
-          const IDEntity = new IDModel({ id: id })
-          await IDEntity.save()
+          await PostImageToFB(id, content, picture, false)
           
           // Notify user the post is posted successfully
           if(ctx.isAuthenticated() && ctx.request.fields["notify"] == "true")
             FBNotify(ctx.state.user.id, 'Your post is posted successfully.', `/post/${formatID}`)
-
-          // Puts the PostID and Image into the database after the post is posted to Facebook.
-          await PostModel.findOneAndUpdate({ _id: id }, {
-            imgLink: pic,
-            postid: response.postid,
-            status: { delivered: true }
-          }).exec()
 
         } else { // If post don't have image.
 
@@ -89,21 +82,11 @@ async function post_handler(ctx, next) {
           const link = urlregex.exec(ctx.request.fields["content"]) ? urlregex.exec(ctx.request.fields["content"])[0] : ''
 
           // The following code is for posting a post to a Facebook page 
-          const response = await FB.api(`${fbConf.page.username}/feed`,
-             'post', {
-              message: content, 
-              link: link
-            })
+          await PostToFB(id, content, link, false)
 
           // Notify user the post is posted successfully
           if(ctx.isAuthenticated() && ctx.request.fields["notify"] == "true")
             await FBNotify(ctx.state.user.id, 'Your post is posted successfully.', `/post/${formatID}`)
-
-          // Puts the PostID into the database after the post is posted to Facebook.
-          await PostModel.findOneAndUpdate({ _id: id }, {
-            postid: response.postid,
-            status: { delivered: true }
-          }).exec()
           
         }
 
@@ -113,16 +96,19 @@ async function post_handler(ctx, next) {
     }), time)
 
     ctx.body = {
-      success: true, 
-      id: id,
-      countdown: msToTime(time) 
+      success: true,
+      data: {
+        id: id,
+        countdown: msToTime(time)
+      }
     }
 
-  } else {
+  } else { // If post need approve.
 
     const id = await getCount('Post')
     const content = `${ctx.request.fields["content"]}`
     
+    // Puts the content into database.
     const PostEntity = new PostModel({ content: content,
       status: {
         delivered: false,
@@ -134,8 +120,10 @@ async function post_handler(ctx, next) {
 
     ctx.body = {
       success: true,
-      id: id,
-      need_approve: true
+      data: {
+        id: id,
+        countdown: msToTime(time)
+      }
     }
 
   }
