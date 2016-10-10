@@ -57,10 +57,10 @@ async function post_handler(ctx, next) {
         if (ctx.request.fields["type"] == 'image') {
           // The following code is for posting a image to a Facebook page
           const response = await FB.api(`${fbconf.page.page_username}/photos`,
-          'post', {
-            message: content,
-            url: pic
-          })
+            'post', {
+              message: content,
+              url: pic
+            })
           
           const IDEntity = new IDModel({ id: id })
           await IDEntity.save()
@@ -80,10 +80,10 @@ async function post_handler(ctx, next) {
 
           // The following code is for posting a post to a Facebook page 
           const response = await FB.api(`${fbconf.page.page_username}/feed`,
-          'post', {
-            message: content, 
-            link: link 
-          })
+             'post', {
+              message: content, 
+              link: link [0]
+            })
 
           // Puts the PostID into the database after the post is posted to Facebook.
           await PostModel.findOneAndUpdate({ _id: id }, {
