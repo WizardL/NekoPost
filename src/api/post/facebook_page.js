@@ -110,7 +110,7 @@ async function post_handler(ctx, next) {
       } catch(error) {
         console.log(error)
       }
-    }), 1000)
+    }), time)
 
     ctx.body = {
       success: true, 

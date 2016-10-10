@@ -21,7 +21,7 @@ export default (router) => {
          getPost)
   
     .get('/post/:postid/accept',
-         //isAuthenticated(),
+         isAuthenticated(),
          postAccepted)
 
     .get('/post/:postid/reject',
