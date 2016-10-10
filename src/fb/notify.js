@@ -7,7 +7,7 @@ import FB from 'fb'
 import { fbConf } from '../../config'
 
 export default (userid, message, href) => {
-  return new Promise(async function(resolve, reject) {
+  return new Promise(async (resolve, reject) => {
 
     FB.options({ version: 'v2.8' })
 
