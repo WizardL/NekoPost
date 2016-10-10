@@ -40,7 +40,7 @@
     "koa-compress": "^2.0.0",
     "koa-convert": "^1.2.0",
     "koa-generic-session": "^1.11.3",
-    "koa-generic-session-mongo": "^0.2.5",
+    "koa-sqlite3-session": "^1.0.1",
     "koa-logger": "^2.0.0",
     "koa-passport": "^2.2.2",
     "koa-ratelimit": "^2.3.0",

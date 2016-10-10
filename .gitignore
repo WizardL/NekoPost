@@ -40,3 +40,6 @@ bower_components
 
 # tern project
 .tern-port
+
+#session
+session.db

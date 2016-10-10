@@ -7,7 +7,7 @@ import compose from 'koa-compose'
 import convert from 'koa-convert'
 import passport from 'koa-passport'
 import session from 'koa-generic-session'
-import  mongoStore from 'koa-generic-session-mongo'
+import sqlite3Store from 'koa-sqlite3-session'
 import { Strategy as FacebookStrategy } from 'passport-facebook'
 
 // Recaptcha
@@ -47,7 +47,7 @@ export default function auth() {
 
     // session 
     convert(session({
-      store: new mongoStore()
+      store: new sqlite3Store('./session.db', {})
     })),
 
     // passport initialization
