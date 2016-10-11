@@ -9,6 +9,7 @@ const routerConfig = [
   { folder: 'auth', prefix: '/api' },
   { folder: 'abuse', prefix: '/api' },
   { folder: 'admin', prefix: '/moderate' },
+  { folder: 'tools', prefix: '/tools' }
 ]
 
 export default function api() {

@@ -49,10 +49,10 @@ async function getPost(ctx, next) {
     delivered: delivered,
     need_approve: need_approve
   }})
-    .sort(`${sort}created_on`)
-    .skip(pages > 0 ? ((pages - 1) * limitPageResult) : 0)
-    .limit(limitPageResult)
-    .exec()
+  .sort(`${sort}created_on`)
+  .skip(pages > 0 ? ((pages - 1) * limitPageResult) : 0)
+  .limit(limitPageResult)
+  .exec()
 
   ctx.body = {
     success: true, 

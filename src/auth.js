@@ -31,6 +31,7 @@ passport.use(new FacebookStrategy({
   enableProof: true
 }, function(token, tokenSecret, profile, cb) {
   // retrieve user ...
+  profile.accessToken = token
   return cb(null, profile);
 }))
 
