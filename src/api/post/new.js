@@ -34,7 +34,7 @@ async function new_handler(ctx, next) {
   .sort('-created_on')
   .skip(pages > 0 ? ((pages - 1) * limitPageResult) : 0)
   .limit(limitPageResult)
-  .select('content created_on')
+  .select('content created_on postid')
   .exec()
 
   await Promise.all(postID.map((value) => {
