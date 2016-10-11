@@ -23,7 +23,7 @@ export const PostToFB = (id, content, link, need_approve) => {
       })
       // Puts the PostID into the database after the post is posted to Facebook.
       await PostModel.findOneAndUpdate({ _id: id }, {
-        postid: response.postid,
+        postid: response.id,
         status: { delivered: true, need_approve: need_approve }
       }).exec()
 
@@ -48,7 +48,7 @@ export const PostImageToFB = (id, content, picture, need_approve) => {
       // Puts the PostID and Image into the database after the post is posted to Facebook.
       await PostModel.findOneAndUpdate({ _id: id }, {
         imgLink: picture,
-        postid: response.postid,
+        postid: response.id,
         status: { delivered: true, need_approve: need_approve }
       }).exec()
 
