@@ -59,10 +59,6 @@ async function post_handler(ctx, next) {
       ip: ctx.request.ip
     })
     await PostEntity.save()
-    
-    // Save the hashtag id into database.
-    const IDEntity = new IDModel({ id: id })
-    await IDEntity.save()
 
     setTimeout((async () => { 
       try {
@@ -70,7 +66,11 @@ async function post_handler(ctx, next) {
         if (ctx.request.fields["type"] == 'image') {
           // The following code is for posting a image to a Facebook page
           await PostImageToFB(id, content, picture, false)
-          
+
+          // Save the hashtag id into database.
+          const IDEntity = new IDModel({ id: id })
+          await IDEntity.save()
+
           // Notify user the post is posted successfully
           if(ctx.isAuthenticated() && ctx.request.fields["notify"] == "true")
             FBNotify(ctx.state.user.id, 'Your post is posted successfully.', `/post/${formatID}`)
@@ -83,6 +83,10 @@ async function post_handler(ctx, next) {
 
           // The following code is for posting a post to a Facebook page 
           await PostToFB(id, content, link, false)
+
+          // Save the hashtag id into database.
+          const IDEntity = new IDModel({ id: id })
+          await IDEntity.save()
 
           // Notify user the post is posted successfully
           if(ctx.isAuthenticated() && ctx.request.fields["notify"] == "true")
