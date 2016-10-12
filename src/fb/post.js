@@ -59,3 +59,25 @@ export const PostImageToFB = (id, content, picture, need_approve) => {
     }
   })
 }
+
+export const getPostFromFB = (postid) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+
+      const response = await FB.api(`${postid}?fields=shares, likes.summary(true), comments.summary(true), reactions.summary(true)`)
+
+      const post = {
+        likes: (post.likes.summary.total_count + post.reactions.summary.total_count),
+        shares: (post.shares) ? post.shares.count : 0,
+        comments: post.comments.summary.total_count
+      }
+
+      post.totalScore = post.likes + (post.comments * 2) + post.shares
+
+      resolve(post)
+
+    } catch(error) {
+      reject(error)
+    }
+  })
+}
