@@ -4,7 +4,7 @@ import app from './src'
 import colors from 'colors'
 
 import { development, test, production } from './config'
-import { DatabaseConnector } from './src/db'
+import { DatabaseConnector } from './backend/db'
 const port = process.env.PORT || 3000
 const DBConfig = (process.env.NODE_DEV == 'production') ? production : development
 
@@ -15,7 +15,7 @@ const DBConfig = (process.env.NODE_DEV == 'production') ? production : developme
   } catch (err) {
     console.log(`[${'!'.red}]  Unable to connect to database`)
   }
-  await app.listen(port) 
+  await app.listen(port)
   console.log(`[${'@'.green}]  Server listening on port ${port}`)
-  
+
 })()
