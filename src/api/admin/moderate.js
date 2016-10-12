@@ -14,7 +14,7 @@ import { isAdmin, isAuthenticated } from '../../auth'
 // Models
 import { IDModel, PostModel } from '../../model/post'
 
-// Configs
+// Configurations
 import { siteConf, fbConf, shortenConf } from '../../../config'
 
 export default (router) => {

@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
 // Models
 import { IDModel, PostModel } from '../../model/post'
 
-// Configs
+// Configurations
 import { fbConf } from '../../../config'
 
 export default (router) => {

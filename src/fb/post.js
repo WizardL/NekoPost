@@ -6,7 +6,7 @@ import FB from 'fb'
 //Models
 import { PostModel } from '../model/post'
 
-// Configs
+// Configurations
 import { fbConf } from '../../config'
 
 FB.options('v2.8') // using latest facebook api

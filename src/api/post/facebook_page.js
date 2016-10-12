@@ -12,7 +12,7 @@ import { PostToFB, PostImageToFB } from '../../fb/post'
 //Recaptcha check.
 import { recaptchaCheck } from '../../auth'
 
-// Configs
+// Configurations
 import { siteConf, fbConf, shortenConf } from '../../../config'
 
 // Models

@@ -6,7 +6,7 @@ import passport from 'koa-passport'
 // Check authenication.
 import { isAdmin, isAuthenticated } from '../../auth'
 
-// Configs
+// Configurations
 import { fbConf } from '../../../config'
 
 export default (router) => {

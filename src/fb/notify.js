@@ -3,7 +3,7 @@
 // Dependencies
 import FB from 'fb'
 
-// Configs
+// Configurations
 import { fbConf } from '../../config'
 
 export default (userid, message, href) => {
