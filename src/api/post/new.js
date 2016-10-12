@@ -36,10 +36,11 @@ async function new_handler(ctx, next) {
   .limit(limitPageResult)
   .select('content created_on postid')
   .exec()
-
-  await Promise.all(postID.map((value) => {
-    const id = value['_id']
-    post[id]['_id'] = id
+  
+  await Promise.all(Object.keys(post).map((key) => {
+    const regex = /#匿名独中(\d+)/
+    const id = regex.exec(post[key].content)[1]
+    post[key]['_id'] = id
   }))
   
   ctx.body = { success: true, results: post.reverse() }
