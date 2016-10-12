@@ -4,7 +4,11 @@
   "description": "Facebook Bot that allow user to spread words anonymously.",
   "main": "index.js",
   "scripts": {
-    "babel-node": "babel-node",
+    "dev": "nodemon index.js",
+    "start": "cross-env NODE_ENV=production nodemon server",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "cross-env NODE_ENV=production webpack --config build/webpack.client.config.js --progress --hide-modules",
+    "build:server": "cross-env NODE_ENV=production webpack --config build/webpack.server.config.js --progress --hide-modules",
     "test": "mocha --compilers js:babel-register --require babel-polyfill --harmony",
     "production": "NODE_ENV=production nodemon index.js"
   },
@@ -16,6 +20,8 @@
     "koa",
     "mongoose",
     "vue",
+    "vuex",
+    "webpack",
     "facebook"
   ],
   "author": "WizardL",
