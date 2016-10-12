@@ -4,7 +4,7 @@ import FB from 'fb'
 import passport from 'koa-passport'
 
 // Check authenication.
-import { isAuthenticated } from '../../auth'
+import { isAdmin, isAuthenticated } from '../../auth'
 
 // Configs
 import { fbConf } from '../../../config'
@@ -15,6 +15,7 @@ export default (router) => {
 
     .get('/getPageToken',
          isAuthenticated(),
+         isAdmin(),
          token_handler)
 
 }

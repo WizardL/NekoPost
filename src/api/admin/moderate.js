@@ -9,7 +9,7 @@ import FBNotify from '../../fb/notify'
 import { PostToFB, PostImageToFB } from '../../fb/post'
 
 // Check authenication.
-import { isAuthenticated } from '../../auth'
+import { isAdmin, isAuthenticated } from '../../auth'
 
 // Models
 import { IDModel, PostModel } from '../../model/post'
@@ -23,14 +23,17 @@ export default (router) => {
 
     .post('/getPost',
          isAuthenticated(),
+         isAdmin(),
          getPost)
   
     .get('/post/:postid/accept',
          isAuthenticated(),
+         isAdmin(),
          postAccepted)
 
     .get('/post/:postid/reject',
          isAuthenticated(),
+         isAdmin(),
          postRejected)
 }
 
