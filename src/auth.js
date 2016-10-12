@@ -1,7 +1,7 @@
 "use strict"
 
-// Facebook configurations
-import { fbConf } from '../config'
+// Configurations
+import { fbConf, adminEmail } from '../config'
 
 import compose from 'koa-compose'
 import convert from 'koa-convert'
@@ -87,6 +87,15 @@ export function recaptchaCheck() {
 export function isAuthenticated() {
   return async (ctx, next) => {
     if (ctx.isAuthenticated())
+      await next()
+    else
+      ctx.throw(401)
+  }
+}
+
+export function isAdmin() {
+  return async (ctx, nect) => {
+    if(adminEmail.includes(ctx.state.user.emails[0]))
       await next()
     else
       ctx.throw(401)
