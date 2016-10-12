@@ -1,6 +1,6 @@
 "use strict"
 
-import app from './src'
+import app from './backend'
 import colors from 'colors'
 
 import { development, test, production } from './config'
