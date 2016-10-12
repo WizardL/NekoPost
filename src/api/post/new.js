@@ -6,6 +6,9 @@ import mongoose from 'mongoose'
 // Models
 import { IDModel, PostModel } from '../../model/post'
 
+// Configs
+import { fbConf } from '../../../config'
+
 export default (router) => {
 
   router
@@ -36,9 +39,9 @@ async function new_handler(ctx, next) {
   .limit(limitPageResult)
   .select('content created_on postid')
   .exec()
-  
+
   await Promise.all(Object.keys(post).map((key) => {
-    const regex = /#匿名独中(\d+)/
+    const regex = new RegExp(`#${fbConf.page.name}(\d+)`)
     const id = regex.exec(post[key].content)[1]
     post[key]['_id'] = id
   }))
