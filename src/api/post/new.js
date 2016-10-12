@@ -17,21 +17,21 @@ export default (router) => {
 
 async function new_handler(ctx, next) {
 
-  let post = []
+  let postKey = []
   const postID = await IDModel.find().exec()
 
   await Promise.all(postID.map((value) => {
-    post.push(value.id)
+    postKey.push(value.postKey)
   }))
   
   const pages = ctx.query["pages"]
-  const limitPageResult = ctx.query["limitPageResult"] ? ctx.query["limitPageResult"] : 20
+  const limitPageResult = ctx.query["limitPageResult"] ? ctx.query["limitPageResult"] : 5
 
-  post = await PostModel.find({
-    _id: { $in: post },
+  const post = await PostModel.find({
+    _id: { $in: postKey },
     'status.delivered' : true
   })
-  .sort('-created_on')
+  .sort('+created_on')
   .skip(pages > 0 ? ((pages - 1) * limitPageResult) : 0)
   .limit(limitPageResult)
   .select('content created_on postid')
@@ -39,9 +39,8 @@ async function new_handler(ctx, next) {
 
   await Promise.all(postID.map((value) => {
     const id = value['_id']
-    post.map((object) => {
-      return object.id = id
-    })
+    post[id]['_id'] = id
   }))
-  ctx.body = { success: true, results: post }
+  
+  ctx.body = { success: true, results: post.reverse() }
 }

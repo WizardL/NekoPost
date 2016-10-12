@@ -4,7 +4,7 @@
 import FB from 'fb'
 
 //Models
-import { IDModel, PostModel } from '../model/post'
+import { PostModel } from '../model/post'
 
 // Configs
 import { fbConf } from '../../config'

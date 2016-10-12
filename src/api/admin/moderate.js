@@ -71,11 +71,11 @@ async function postAccepted(ctx, next) {
   checkPost(ctx, post)
 
   // Add format to post content
-  const formatID = await getCount()
+  const id = await getCount()
   let post_url, report_url
-  [post_url, report_url] = await Promise.all([shorten(siteConf.postUrl()), shorten(`${siteConf.reportUrl()}${formatID}`)]) // shorten url
+  [post_url, report_url] = await Promise.all([shorten(siteConf.postUrl()), shorten(`${siteConf.reportUrl()}${id}`)]) // shorten url
 
-  const format = `#${fbConf.page.name}${formatID}\n`+
+  const format = `#${fbConf.page.name}${id}\n`+
     `📢发文请至 ${post_url}\n`+
     `👎举报滥用 ${report_url}\n\n`
   const content = `${format}${post.content}`
@@ -86,12 +86,12 @@ async function postAccepted(ctx, next) {
       upsert: true 
     }).exec()
 
-  const IDEntity = new IDModel({ id: ctx.params.postid })
+  const IDEntity = new IDModel({ postKey: ctx.params.postid })
   IDEntity.save()
 
   // Post to facebook
   try {
-    const id = ctx.params.postid
+    const postKey = ctx.params.postid
     // Check post got image or not.
     if(!post.imgLink) {
       // TODO
@@ -101,12 +101,12 @@ async function postAccepted(ctx, next) {
       const link = urlregex.exec(post.content) ? urlregex.exec(post.content)[0] : ''
       
       // The following code is for posting a post to a Facebook page
-      await PostToFB(id, content, link, true)
+      await PostToFB(postKey, content, link, true)
 
     } else {
       // TODO
       // The following code is for posting a image to a Facebook page
-      await PostImageToFB(id, content, picture, true)
+      await PostImageToFB(postKey, content, picture, true)
 
     }
 

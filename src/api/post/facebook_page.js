@@ -2,6 +2,7 @@
 
 // Dependencies
 import FB from 'fb'
+import uuid from 'uuid'
 import shorten from '../../shorten'
 
 // FB
@@ -38,20 +39,21 @@ async function post_handler(ctx, next) {
     // Get timeout time.
     const time = await getTimeout()
 
-    const id = await getCount('Post')
-    const formatID = await getCount('ID') 
+    const postKey = `${uuid.v4()}-${uuid.v4()}`
+    const id = await getCount('ID') 
 
     let post_url, report_url
-    [post_url, report_url] = await Promise.all([shorten(siteConf.postUrl()), shorten(`${siteConf.reportUrl()}${formatID}`)]) // shorten url
+    [post_url, report_url] = await Promise.all([shorten(siteConf.postUrl()), shorten(`${siteConf.reportUrl()}${id}`)]) // shorten url
     
     // Post format.
-    const format = `#${fbConf.page.name}${formatID}\n`+
+    const format = `#${fbConf.page.name}${id}\n`+
     `📢发文请至 ${post_url}\n`+
     `👎举报滥用 ${report_url}\n\n`
     const content = `${format}${ctx.request.fields["content"]}`
     
     // Puts the content into database.
-    const PostEntity = new PostModel({ content: content,
+    const PostEntity = new PostModel({ _id: postKey, 
+      content: content,
       status: { 
         delivered: false,
         need_approve: false 
@@ -65,15 +67,15 @@ async function post_handler(ctx, next) {
         // If post got image.
         if (ctx.request.fields["type"] == 'image') {
           // The following code is for posting a image to a Facebook page
-          await PostImageToFB(id, content, picture, false)
+          await PostImageToFB(postKey, content, picture, false)
 
           // Save the hashtag id into database.
-          const IDEntity = new IDModel({ id: id })
+          const IDEntity = new IDModel({ postKey: postKey })
           await IDEntity.save()
 
           // Notify user the post is posted successfully
           if(ctx.isAuthenticated() && ctx.request.fields["notify"] == "true")
-            FBNotify(ctx.state.user.id, 'Your post is posted successfully.', `/post/${formatID}`)
+            FBNotify(ctx.state.user.id, 'Your post is posted successfully.', `/post/${id}`)
 
         } else { // If post don't have image.
 
@@ -82,15 +84,15 @@ async function post_handler(ctx, next) {
           const link = urlregex.exec(ctx.request.fields["content"]) ? urlregex.exec(ctx.request.fields["content"])[0] : ''
 
           // The following code is for posting a post to a Facebook page 
-          await PostToFB(id, content, link, false)
+          await PostToFB(postKey, content, link, false)
 
           // Save the hashtag id into database.
-          const IDEntity = new IDModel({ id: id })
+          const IDEntity = new IDModel({ postKey: postKey })
           await IDEntity.save()
 
           // Notify user the post is posted successfully
           if(ctx.isAuthenticated() && ctx.request.fields["notify"] == "true")
-            await FBNotify(ctx.state.user.id, 'Your post is posted successfully.', `/post/${formatID}`)
+            await FBNotify(ctx.state.user.id, 'Your post is posted successfully.', `/post/${id}`)
           
         }
 
@@ -109,24 +111,29 @@ async function post_handler(ctx, next) {
 
   } else { // If post need approve.
 
-    const id = await getCount('Post')
+    const postKey = `${uuid.v4()}-${uuid.v4()}`
     const content = `${ctx.request.fields["content"]}`
     
+    const notify = (ctx.isAuthenticated() && ctx.request.fields["notify"] == "true") ? ctx.state.user.id : '0'
+
     // Puts the content into database.
-    const PostEntity = new PostModel({ content: content,
+    const PostEntity = new PostModel({ _id: postKey, 
+      content: content,
       status: {
         delivered: false,
         need_approve: true
       },
-      ip: ctx.request.ip
+      ip: ctx.request.ip,
+      notify: notify
     })
+
     await PostEntity.save()
 
     ctx.body = {
       success: true,
       data: {
-        id: id,
-        countdown: msToTime(time)
+        postKey: postKey,
+        need_approve: true
       }
     }
 
@@ -158,14 +165,14 @@ const getTimeout = () => {
         delivered: false,
         need_approve: false
       }})
-        .count((err, count) => {
+      .count((err, count) => {
 
-          if((Date.now() - millisecond) < 120000)
-            resolve(120000 * (count + 1))
-          else
-            resolve(120000)
+        if((Date.now() - millisecond) < 120000)
+          resolve(120000 * (count + 1))
+        else
+          resolve(120000)
 
-        })
+      })
 
     })
   })
