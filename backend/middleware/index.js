@@ -21,14 +21,15 @@ export default function middleware(app) {
 
     // Ratelimiting
     // TODO hand333 help me fill in all the API request you wish to limit
+    /*
     ratelimit({
       routes: [
-        { method: '', path: '',}
+        { method: 'POST', path: '/'}
       ],
       interval: 1 * 60 * 60 * 1000,
       max: 100
     }),
-
+    */
     // Compress response
     compress({
       filter: function (content_type) {
