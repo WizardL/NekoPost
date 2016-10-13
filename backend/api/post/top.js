@@ -1,6 +1,3 @@
-// Dependencies
-import colors from 'colors'
-
 // Models
 import { TopModel } from '../../model/top'
 
