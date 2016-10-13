@@ -6,8 +6,8 @@ import { fbConf, adminEmail } from '../config'
 import compose from 'koa-compose'
 import convert from 'koa-convert'
 import passport from 'koa-passport'
-import session from 'koa-generic-session'
-import sqlite3Store from 'koa-sqlite3-session'
+import session from 'koa-session-minimal'
+import MongoStore from 'koa-generic-session-mongo'
 import { Strategy as FacebookStrategy } from 'passport-facebook'
 
 // Recaptcha
@@ -46,9 +46,9 @@ passport.deserializeUser(function(user, done) {
 export default function auth() {
   return compose([
 
-    // session 
+    // session
     convert(session({
-      store: new sqlite3Store('./session.db', {})
+      store: new MongoStore()
     })),
 
     // passport initialization
@@ -56,7 +56,7 @@ export default function auth() {
 
     // passport session initialization
     passport.session(),
-    
+
   ])
 }
 
