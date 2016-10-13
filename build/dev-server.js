@@ -2,8 +2,8 @@ import path from 'path'
 import webpack from 'webpack'
 import memfs from 'memory-fs'
 
-import { clientConfig } from './webpack.client.config'
-import { serverConfig } from './webpack.server.config'
+const clientConfig = require('./webpack.client.config')
+const serverConfig = require('./webpack.server.config')
 
 export function setupDevServer(app, onUpdate) {
   // setup on the fly compilation + hot-reload

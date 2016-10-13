@@ -1,9 +1,7 @@
 const webpack = require('webpack')
 const base = require('./webpack.base.config')
 
-export default configObject
-
-const configObject = Object.assign({}, base, {
+module.exports = Object.assign({}, base, {
   target: 'node',
   devtool: false,
   entry: './src/server-entry.js',

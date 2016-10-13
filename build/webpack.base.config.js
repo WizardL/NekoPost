@@ -2,9 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const vueConfig = require('./vue-loader.config')
 
-export default config
-
-const config = {
+module.exports = {
   devtool: '#source-map',
   entry: {
     app: './frontend/client-entry.js',
