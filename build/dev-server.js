@@ -1,11 +1,12 @@
 import path from 'path'
 import webpack from 'webpack'
+import { devMiddleware, hotMiddleware } from 'koa-webpack-middleware'
 import memfs from 'memory-fs'
 
 const clientConfig = require('./webpack.client.config')
 const serverConfig = require('./webpack.server.config')
 
-export function setupDevServer(app, onUpdate) {
+module.exports = function setupDevServer(app, onUpdate) {
   // setup on the fly compilation + hot-reload
   clientConfig.entry.app = ['webpack-hot-middleware/client', clientConfig.entry.app]
   clientConfig.plugins.push(
@@ -14,14 +15,14 @@ export function setupDevServer(app, onUpdate) {
   )
 
   const clientCompiler = webpack(clientConfig)
-  app.use(require('webpack-dev-middleware')(clientCompiler, {
+  app.use(devMiddleware(clientCompiler, {
     publicPath: clientConfig.output.publicPath,
     stat: {
       colors: true,
       chunks: false
     }
   }))
-  app.use(require('webpack-hot-middleware')(clientCompiler))
+  app.use(hotMiddleware(clientCompiler))
 
   // watch and update server renderer on the fly
   const serverCompiler = webpack(serverConfig)
@@ -31,8 +32,8 @@ export function setupDevServer(app, onUpdate) {
   serverCompiler.watch({}, (err, stats) => {
     if (err) throw err
     stats = stats.toJson()
-    stats.error.map(err => console.error(err))
-    stats.warnings.map(warn => console.warn(warn))
+    stats.errors.forEach(err => console.error(err))
+    stats.warnings.forEach(warn => console.warn(warn))
     onUpdate(mfs.readFileSync(outputPath, 'utf-8'))
   })
 }

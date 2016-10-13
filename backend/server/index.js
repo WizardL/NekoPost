@@ -2,7 +2,6 @@
 
 import fs from 'fs'
 import path from 'path'
-import lruCache from 'lru-cache'
 import compose from 'koa-compose'
 import convert from 'koa-convert'
 import favicon from 'serve-favicon'
@@ -38,26 +37,9 @@ const html = (() => {
   }
 })()
 
-const createRenderer = (bundle) => {
-  return createBundleRenderer(bundle, {
-    cache: lruCache({ max: 1000, maxAge: 1000 * 60 * 15 })
-  })
-}
-
-// Setup the server renderer
-let renderer
-if (process.env.NODE_ENV == 'production') {
-  const bundlePath = resolve('../../dist/server-bundle.js')
-  renderer = createRenderer(fs.readFileSync(bundlePath, 'utf-8'))
-} else {
-  require('../../build/dev-server')(app, bundle => {
-    renderer = createRenderer(bundle)
-  })
-}
-
 async function SSR(ctx) {
 
-  if (!renderer) {
+  if (!ctx.renderer) {
     ctx.body = 'Loading....'
     return
   }

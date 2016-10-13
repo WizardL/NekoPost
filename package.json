@@ -81,6 +81,7 @@
     "extract-text-webpack-plugin": "^2.0.0-beta.3",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
+    "koa-webpack-middleware": "^1.0.1",
     "mocha": "^3.1.0",
     "nodemon": "^1.10.2",
     "scss-loader": "0.0.1",
@@ -89,8 +90,6 @@
     "url-loader": "^0.5.7",
     "vue-loader": "^9.7.0",
     "vue-style-loader": "^1.0.0",
-    "webpack": "^2.1.0-beta.25",
-    "webpack-dev-middleware": "^1.8.4",
-    "webpack-hot-middleware": "^2.13.0"
+    "webpack": "^2.1.0-beta.25"
   }
 }
