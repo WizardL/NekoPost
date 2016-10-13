@@ -27,6 +27,7 @@ export const updateTopPosts = async () => {
 
       const postData = await getPostFromFB(obj.postid)
       
+      const regex = new RegExp(`#${fbConf.page.name}(\d+)`)
       const id = regex.exec(post[key].content)[1]
 
       const TopEntity = new TopModel({
