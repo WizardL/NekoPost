@@ -1,7 +1,7 @@
 'use strict'
 
+import fs from 'fs'
 import path from 'path'
-import fs from 'fs-extra'
 import lruCache from 'lru-cache'
 import compose from 'koa-compose'
 import convert from 'koa-convert'
@@ -12,7 +12,7 @@ export default function server(app) {
   return compose([
 
     // favicon
-    convert(favicon(resolve('../../public/assets/logo.png'))),
+    convert(favicon(resolve('../../frontend/assets/logo.png'))),
 
     // SSR
     SSR,
@@ -26,7 +26,7 @@ const createBundleRenderer = require('vue-server-renderer').createBundleRenderer
 const resolve = (file) => path.resolve(__dirname, file)
 
 const html = (() => {
-  const template = fs.readFileSync(resolve('./index.html'), 'utf-8')
+  const template = fs.readFileSync(resolve('../../frontend/index.html'), 'utf-8')
   const i = template.indexOf('{{ APP }}')
 
   // Styles are indjected dynamically via vue-style-loader in development
@@ -47,17 +47,15 @@ const createRenderer = (bundle) => {
 // Setup the server renderer
 let renderer
 if (process.env.NODE_ENV == 'production') {
-  const bundlePath = resolve('./dist/server-bundle.js')
+  const bundlePath = resolve('../../dist/server-bundle.js')
   renderer = createRenderer(fs.readFileSync(bundlePath, 'utf-8'))
 } else {
-  require('./build/setup-dev-server')(app, bundle => {
+  require('../../build/dev-server')(app, bundle => {
     renderer = createRenderer(bundle)
   })
 }
 
 async function SSR(ctx) {
-
-  ctx.body = ''
 
   if (!renderer) {
     ctx.body = 'Loading....'
