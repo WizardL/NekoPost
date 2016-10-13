@@ -5,6 +5,7 @@ import colors from 'colors'
 
 import { development, test, production } from './config'
 import { DatabaseConnector } from './backend/db'
+import { updateTopPosts } from './backend/topPosts'
 const port = process.env.PORT || 3000
 const DBConfig = (process.env.NODE_DEV == 'production') ? production : development
 
@@ -19,3 +20,11 @@ const DBConfig = (process.env.NODE_DEV == 'production') ? production : developme
   console.log(`[${'@'.green}]  Server listening on port ${port}`)
 
 })()
+
+// updateTopPost at first run.
+updateTopPosts()
+  
+// setInterval to update top post every 12 hours.
+setInterval(() => {
+  updateTopPosts()
+}, 43200000)
