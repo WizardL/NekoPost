@@ -43,3 +43,6 @@ bower_components
 
 #session
 session.db
+
+# distribution dehydrated file
+dist
