@@ -5,7 +5,6 @@ import ratelimit from 'koa2-rate-limit'
 import compose from 'koa-compose'
 import compress from 'koa-compress'
 import convert from 'koa-convert'
-import serve from 'koa-static'
 import path from 'path'
 
 export default function middleware(app) {
@@ -18,11 +17,17 @@ export default function middleware(app) {
     errorhandling,
 
     // No cache
-    nocache,
+    // nocache,
 
     // Ratelimiting
-    /* TODO  Routes */
-    //ratelimit(),
+    // TODO hand333 help me fill in all the API request you wish to limit
+    ratelimit({
+      routes: [
+        { method: '', path: '',}
+      ],
+      interval: 1 * 60 * 60 * 1000,
+      max: 100
+    }),
 
     // Compress response
     compress({
@@ -33,12 +38,10 @@ export default function middleware(app) {
       flush: require('zlib').Z_SYNC_FLUSH
     }),
 
-    // static page
-    serve('public'),
-
     // Body Parser
+    // TODO
     convert(bodyParser({
-      uploadDir: path.join(__dirname, '/../../public/temp')
+      uploadDir: path.join(__dirname, '../../public/temp')
     })),
 
     // Echo
