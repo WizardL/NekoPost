@@ -13,6 +13,10 @@ import { fbConf } from '../config'
 import { TopModel } from './model/top'
 import { PostModel } from './model/post'
 
+/**
+ * Top posts All-Year.
+ */
+
 export const updateTopPosts = async () => {
   const thisYear = new Date(new Date().getFullYear(), 0, 1)
   const post = await PostModel.find({

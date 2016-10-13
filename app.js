@@ -6,6 +6,7 @@ import colors from 'colors'
 import { development, test, production } from './config'
 import { DatabaseConnector } from './backend/db'
 import { updateTopPosts } from './backend/topPosts'
+import { updateHotPosts } from './backend/hotPosts'
 const port = process.env.PORT || 3000
 const DBConfig = (process.env.NODE_DEV == 'production') ? production : development
 
@@ -21,10 +22,18 @@ const DBConfig = (process.env.NODE_DEV == 'production') ? production : developme
 
 })()
 
-// updateTopPost at first run.
+// updateTopPosts at first run.
 updateTopPosts()
-  
-// setInterval to update top post every 12 hours.
+
+// updateHotPosts at first run.
+updateHotPosts()
+
+// setInterval to update top posts every 12 hours.
 setInterval(() => {
   updateTopPosts()
 }, 43200000)
+
+// setInterval to update hot posts every 30 minutes.
+setInterval(() => {
+  updateHotPosts()
+}, 1800000)
