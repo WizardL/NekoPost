@@ -6,6 +6,9 @@ import colors from 'colors'
 // FB
 import { getPostFromFB } from './fb/post'
 
+// Configurations
+import { fbConf } from '../config'
+
 // Models
 import { TopModel } from './model/top'
 import { PostModel } from './model/post'
@@ -27,8 +30,8 @@ export const updateTopPosts = async () => {
 
       const postData = await getPostFromFB(obj.postid)
       
-      const regex = new RegExp(`#${fbConf.page.name}(\d+)`)
-      const id = regex.exec(post[key].content)[1]
+      const regex = new RegExp(`^#${fbConf.page.name}(\\d+)`)
+      const id = regex.exec(obj.content)[1]
 
       const TopEntity = new TopModel({
         _id: id,

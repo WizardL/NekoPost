@@ -37,11 +37,11 @@ async function new_handler(ctx, next) {
   .sort('+created_on')
   .skip(pages > 0 ? ((pages - 1) * limitPageResult) : 0)
   .limit(limitPageResult)
-  .select('postid')
+  .select('postid content')
   .exec()
 
   await Promise.all(Object.keys(post).map((key) => {
-    const regex = new RegExp(`#${fbConf.page.name}(\d+)`)
+    const regex = new RegExp(`^#${fbConf.page.name}(\\d+)`)
     const id = regex.exec(post[key].content)[1]
     post[key]['_id'] = id
   }))
