@@ -94,8 +94,8 @@ export function isAuthenticated() {
 }
 
 export function isAdmin() {
-  return async (ctx, nect) => {
-    if(adminEmail.includes(ctx.state.user.emails[0]))
+  return async (ctx, next) => {
+    if(adminEmail.includes(ctx.state.user.emails[0].value))
       await next()
     else
       ctx.throw(401)
