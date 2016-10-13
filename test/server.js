@@ -1,6 +1,6 @@
 "use strict";
 
-import Misato from '../src'
+import Misato from '../backend'
 import supertest from 'supertest'
 
 const request = supertest.agent(Misato.listen())
