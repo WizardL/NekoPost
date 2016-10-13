@@ -67,9 +67,9 @@ export const getPostFromFB = (postid) => {
       const response = await FB.api(`${postid}?fields=shares, likes.summary(true), comments.summary(true), reactions.summary(true)`)
 
       const post = {
-        likes: (post.likes.summary.total_count + post.reactions.summary.total_count),
-        shares: (post.shares) ? post.shares.count : 0,
-        comments: post.comments.summary.total_count
+        likes: (response.likes.summary.total_count + response.reactions.summary.total_count),
+        shares: (response.shares) ? response.shares.count : 0,
+        comments: response.comments.summary.total_count
       }
 
       post.totalScore = post.likes + (post.comments * 2) + post.shares
