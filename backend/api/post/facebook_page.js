@@ -65,7 +65,20 @@ async function post_handler(ctx, next) {
     setTimeout((async () => { 
       try {
         // If post got image.
-        if (ctx.request.fields["type"] == 'image') {
+        if (ctx.request.fields["type"] == 'image' && ctx.request.files["image"]) {
+          const fileName = ctx.request.files["image"].name
+          const acceptExt = [
+            "jpg",
+            "jpeg",
+            "png",
+            "pneg",
+            "bmp",
+            "gif"
+          ]
+          if(!acceptExt.includes(fileName.split('.')[fileName.split('.').length - 1].toLowerCase()))
+            console.log('File is not supported.')
+          
+          const picture = `${siteConf.siteUrl}public/temp/upload_${ctx.request.files["images"].path.split('upload_')}`
           // The following code is for posting a image to a Facebook page
           await PostImageToFB(postKey, content, picture, false)
 
@@ -116,18 +129,50 @@ async function post_handler(ctx, next) {
     
     const notify = (ctx.isAuthenticated() && ctx.request.fields["notify"] == "true") ? ctx.state.user.id : '0'
 
-    // Puts the content into database.
-    const PostEntity = new PostModel({ _id: postKey, 
-      content: content,
-      status: {
-        delivered: false,
-        need_approve: true
-      },
-      ip: ctx.request.ip,
-      notify: notify
-    })
+    if(ctx.request.fields["type"] == 'image' && ctx.request.files["image"]){
+      const fileName = ctx.request.files["image"].name
+      const acceptExt = [
+        "jpg",
+        "jpeg",
+        "png",
+        "pneg",
+        "bmp",
+        "gif"
+      ]
 
-    await PostEntity.save()
+      if(!acceptExt.includes(fileName.split('.')[fileName.split('.').length - 1].toLowerCase()))
+        console.log('Not supported file.')
+
+      const picture = `${siteConf.siteUrl}public/temp/upload_${ctx.request.files["images"].path.split('upload_')}`
+
+      // Puts the content and image into database.
+      const PostEntity = new PostModel({ _id: postKey, 
+        content: content,
+        imgLink: picture,
+        status: {
+          delivered: false,
+          need_approve: true
+        },
+        ip: ctx.request.ip,
+        notify: notify
+      })
+
+      await PostEntity.save()
+
+    } else {
+      // Puts the content into database.
+      const PostEntity = new PostModel({ _id: postKey, 
+        content: content,
+        status: {
+          delivered: false,
+          need_approve: true
+        },
+        ip: ctx.request.ip,
+        notify: notify
+      })
+
+      await PostEntity.save()
+    }
 
     ctx.body = {
       success: true,
