@@ -20,11 +20,6 @@ import { siteConf, fbConf, shortenConf } from '../../../config'
 export default (router) => {
 
   router
-
-    .post('/getPost',
-         isAuthenticated(),
-         isAdmin(),
-         getPost)
   
     .get('/post/:postid/accept',
          isAuthenticated(),
@@ -35,6 +30,18 @@ export default (router) => {
          isAuthenticated(),
          isAdmin(),
          postRejected)
+
+    .post('/post/:postid/edit',
+          isAuthenticated(),
+          isAdmin(),
+          postEdit)
+
+    .post('/getPost',
+         isAuthenticated(),
+         isAdmin(),
+         getPost)
+    
+
 }
 
 async function getPost(ctx, next) {
@@ -130,6 +137,20 @@ async function postRejected(ctx, next) {
     await PostModel.find({ _id: ctx.params.postid }).remove().exec()
 
   ctx.body = { success: true }
+
+}
+
+async function postEdit(ctx, next) {
+  if(!ctx.request.fields["content"])
+    ctx.throw("Enter the content what you want.")
+  // Find post by id.
+  const post = await PostModel.findById(ctx.params.postid).exec()
+  // Check post.
+  checkPost(ctx, post)
+  // Update content.
+  await PostModel.findByIdAndUpdate(ctx.params.postid, {
+    content: ctx.request.fields["content"]
+  }).exec()
 
 }
 
