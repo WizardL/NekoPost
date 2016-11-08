@@ -23,7 +23,7 @@ export default store = new Vuex.Store({
       return fetchIdsByType(type)
         .then(ids => commit('SET_LIST', { type, ids }))
         .then(() => dispatch('ENSURE_ACTIVE_ITEMS'))
-    }
+    },
 
     // Ensure all active items are fetched
     ENSURE_ACTIVE_ITEMS: ({ dispatch, getters }) => {
