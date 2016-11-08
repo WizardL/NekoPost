@@ -45,6 +45,7 @@ function fetch (item) {
     return Promise.resolve(cache.get(item))
   else
     return new Promise((resolve, reject) => {
+      // Bug here, wait zypeh fix it.
       api.
     });
 }
