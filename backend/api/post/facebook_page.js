@@ -67,16 +67,8 @@ async function post_handler(ctx, next) {
         // If post got image.
         if (ctx.request.fields["type"] == 'image' && ctx.request.files["image"]) {
           const fileName = ctx.request.files["image"].name
-          const acceptExt = [
-            "jpg",
-            "jpeg",
-            "png",
-            "pneg",
-            "bmp",
-            "gif"
-          ]
-          if(!acceptExt.includes(fileName.split('.')[fileName.split('.').length - 1].toLowerCase()))
-            console.log('File is not supported.')
+          if(!checkFileExt(fileName))
+            ctx.throw('File is not supported.')
           
           const picture = `${siteConf.siteUrl}public/temp/upload_${ctx.request.files["images"].path.split('upload_')}`
           // The following code is for posting a image to a Facebook page
@@ -131,17 +123,8 @@ async function post_handler(ctx, next) {
 
     if(ctx.request.fields["type"] == 'image' && ctx.request.files["image"]){
       const fileName = ctx.request.files["image"].name
-      const acceptExt = [
-        "jpg",
-        "jpeg",
-        "png",
-        "pneg",
-        "bmp",
-        "gif"
-      ]
-
-      if(!acceptExt.includes(fileName.split('.')[fileName.split('.').length - 1].toLowerCase()))
-        console.log('Not supported file.')
+      if(!checkFileExt(fileName))
+        ctx.throw('Not supported file.')
 
       const picture = `${siteConf.siteUrl}public/temp/upload_${ctx.request.files["images"].path.split('upload_')}`
 
@@ -221,6 +204,20 @@ const getTimeout = () => {
 
     })
   })
+}
+
+const checkFileExt = (fileName) => {
+  const acceptExt = [
+    "jpg",
+    "jpeg",
+    "png",
+    "pneg",
+    "bmp",
+    "gif"
+  ]
+  if(!acceptExt.includes(fileName.split('.')[fileName.split('.').length - 1].toLowerCase()))
+    return false
+  return true
 }
 
 const msToTime = (s) => {
