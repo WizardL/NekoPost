@@ -1,8 +1,11 @@
 'use strict'
 
+import fs from 'fs'
+import path from 'path'
 import lruCache from 'lru-cache'
 
 const createBundleRenderer = require('vue-server-renderer').createBundleRenderer
+const resolve = (file) => path.resolve(__dirname, file)
 
 const createRenderer = (bundle) => {
   return createBundleRenderer(bundle, {
