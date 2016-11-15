@@ -119,6 +119,8 @@ async function postAccepted(ctx, next) {
       await PostImageToFB(postKey, content, picture, true)
 
     }
+    if(post.notify != '0')
+      await FBNotify(ctx.state.user.id, 'Your post is posted successfully.', `/post/${id}`)
 
   } catch(error) {
     ctx.throw(error)
