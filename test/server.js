@@ -10,7 +10,7 @@ describe('GET /', function () {
 		request
 			.get('/')
 			.expect('Content-Type', 'text/plain; charset=utf-8')
-			.expect(200, done);
+			.expect(404, done);
 	});
 });
 
