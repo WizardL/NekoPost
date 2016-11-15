@@ -1,0 +1,160 @@
+*{
+    font-family: Microsoft Yahei;
+}
+nav{
+    max-width: 1000px;
+    margin: 0 auto;
+}
+nav{
+    max-width: 1000px;
+    background-color: transparent;
+    box-shadow: none;
+}
+.nav-wrapper  a{
+    color: white;
+}
+.header{
+    background-color:#AE1228;
+    height: 600px;
+    box-shadow:0 2px 3px rgba(0,0,0,.08);
+}
+.caption{
+    text-align: center;
+    color: white;
+    font-size: 70px;
+    font-weight:800;
+    padding: 40px;
+}
+.c-black{
+    color: black;
+    font-size: 50px;
+    font-weight: 500;
+}
+.text{
+    display: block;
+    font-weight: 100;
+    font-size: 30px;
+}
+.small-text{
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 300;
+    padding: 20px;
+    margin-top: 100px;
+}
+.small-text a{
+    padding: 0px 10px;
+    color: #AE1228;
+    border-radius: 5px;
+    margin: 5px;
+}
+.small-text .btn{
+    background-color: #F7F4F3;
+}
+.title{
+    font-size: 30px;
+    color: 564D4A;
+}
+.title small{
+    display: block;
+    font-size: 15px;
+    margin-top: -8px;
+}
+.pad{
+    padding: 20px !important;
+}
+.desc{
+    line-height: 2em;
+}
+.img{
+    padding: 20px 0px;
+    width: 100%;
+}
+.ver{
+    vertical-align: middle;
+    display: inline-block !important;
+    width: 49%;
+}
+.right{
+    text-align: right;
+}
+.main{
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.big-text{
+    font-size: 50px;
+    text-align: center;
+}
+.say .photo img , .photo{
+    width: 100%;
+    height: 400px;
+}
+.say .photo img{
+    visibility: hidden;
+}
+.say .photo{
+    background: url("../img/photo.jpg");
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.say{
+    position: relative;
+}
+.say-content{
+    position: absolute;
+    left: calc(50% - 163.5px);
+    top: calc(50% - 65px);
+    font-size: 25px;
+    color: white;
+    padding: 20px;
+    text-decoration: italic;
+}
+.say-content span {
+    font-size: 30px;
+    font-weight: 900;
+}
+.quote span{
+    font-size: 20px;
+    font-weight: 900;
+}
+.quote{
+    padding: 10px 0px;
+    display: block;
+}
+.card-title{
+    color: black;
+    font-weight: 800;
+    font-family: sans-serif;
+}
+.c-black{
+    text-align: center;
+}
+.c-black a{
+    display: block;
+    max-width: 200px;
+    font-size: 40px;
+    max-height: auto;
+    margin: 0 auto;
+}
+@media only screen and (max-width: 500px) {
+    .ver{
+        width: 100%;
+    }
+    .right ,.ver{
+        text-align: center;
+    }
+    .say-content{
+        font-size: 20px;
+        left: calc(50% - 137.5px);
+        top: calc(50% - 45px);
+    }
+    .say .photo img , .photo{
+    width: 100%;
+    height: 300px;
+    }
+    .caption{
+        padding: 40px 20px;
+    }
+}
