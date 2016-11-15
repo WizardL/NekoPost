@@ -46,3 +46,9 @@ session.db
 
 # distribution dehydrated file
 dist
+
+# yarn
+yarn*
+
+# eslint
+.eslintrc.json
