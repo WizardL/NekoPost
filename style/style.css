@@ -94,7 +94,7 @@ nav{
     visibility: hidden;
 }
 .say .photo{
-    background: url("../img/photo.jpg");
+    background: url("img/photo.jpg");
     background-position: top;
     background-size: cover;
     background-repeat: no-repeat;

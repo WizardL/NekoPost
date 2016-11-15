@@ -1,0 +1,67 @@
+*{
+    font-family: simhei;
+}
+body{
+    margin: 0;
+}
+.main{
+    width: 65%;
+    position: absolute;
+    height: 100%;
+    background: url(../img/zypeh.jpg)
+}
+.sub-main{
+    width: 600px;
+    position: absolute;
+    top: calc(50% - 320px);
+    left: calc(50% - 300px);
+    padding: 20px;
+    background-color: rgba(255,255,255,0.9);
+}
+.sidebar{
+    width:35%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background-color:#e74c3c;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    color: white;
+}
+.sub-main p{
+    white-space: pre-line;
+    font-size: 18px;
+    line-height: 1.4em;
+    font-weight: 500;
+}
+.title{
+    font-size: 50px;
+}
+.post{
+    width: 410px;
+    position: absolute;
+    top: calc(50% - 266px);
+    left: calc(50% - 225px);
+    padding: 20px;
+}
+.sidebar textarea{
+    display: block;
+    padding: 5px;
+    width: 400px;
+    height: 300px;
+    margin: 0 auto;
+}
+.btn{
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    background-color: #e74c3c;
+    border: 1px white solid;
+    transition: all 200ms;
+    cursor: pointer;
+}
+.btn:hover{
+    background-color: white;
+    color: #e74c3c
+}
