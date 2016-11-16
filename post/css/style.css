@@ -1,0 +1,80 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosanssc.css);
+*{
+    font-family: 'Noto sans SC'
+}
+body{
+    margin: 0;
+}
+.back-img{
+    position: fixed;
+    background: url('../img/photo.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+.main{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 45%;
+    min-height:  100%;
+    background-color: rgba(0,0,0,0.7);
+    min-width: 470px;
+}
+.main-content{
+    width: 450px;
+    position: absolute;
+    top: calc(50% - 197.5px);
+    right: calc(50% - 225px);
+}
+.title{
+    font-size: 25px;
+}
+.title , .content{
+    color: white;
+}
+.content{
+    white-space: pre-line;
+}
+.main-content textarea{
+    display: block;
+    margin: 20px 0px;
+    height: 150px;
+    padding: 5px;
+    width: calc(100% - 10px);
+    border: 0;
+    background-color: rgb(240,240,240);
+}
+.btn{
+    color: white;
+    border: solid 1px white;
+    display: block;
+    text-align: center;
+    padding: 5px;
+     transition: all 200ms;
+}
+.main-content textarea:focus{
+    outline: 0;
+}
+.btn:hover{
+    background-color: rgb(240,240,240);
+    color: black;
+}
+@media only screen and (max-width: 1025px) {
+    .main-content{
+        width: 350px;
+        right: calc(50% - 175px);
+    }
+}
+@media only screen and (max-width: 426px) {
+    .main{
+        width: 100%;
+        min-width: auto;
+    }
+    .main-content{
+        width: 300px;
+        right: calc(50% - 150px);
+    }
+}
