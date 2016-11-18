@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/admin.css">
+        <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <div class="sidebar">
+            <div class="brand">
+                MISATO
+            </div>
+            <ul class="side-ul">
+                <li><a href="#" class="waves-effect btn-large white active">主页</a></li>
+                <li><a href="#" class="waves-effect btn-large white">审核帖子</a></li>
+                <li><a href="#" class="waves-effect btn-large white">已审核帖子</a></li>
+                <li><a href="#" class="waves-effect btn-large white">管理员</a></li>
+            </ul>
+        </div>
+        <div class="back" onclick="menu()">&#x276C;</div>
+        <div class="main">
+            <div class="navbar-fixed">
+                <nav class="nav-bar">
+                    <div class="nav-wrapper">
+                        <a class = "menu-btn" onclick="menu()"><i class="material-icons">menu</i></a>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li><a href="sass.html">登出</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="col s12 m12 l8">
+                    <div class="card light-blue work">
+                        <div class="card-content white-text">
+                            <span class="card-title">今天工作量</span>
+                            <p>
+                                帖子数量：3810条<br>
+                                未审核帖子：1504条<br>
+                                已审核帖子：1306条<br><br>
+                            <div class="work-bar">
+                                <div class="finish-bar">
+                                    <p>1504条贴子(54%)</p>
+                                </div>
+                                <div class="n-finish-bar">
+                                    <p>1306条贴子(46%)</p>
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+                        <div class="card-action ">
+                            <a href="#" class="waves-effect waves-light btn-flat white-text">审核帖子</a>
+                            <a href="#" class="waves-effect waves-light btn-flat white-text">查看已审核帖子</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m12 l4">
+                    <div class="card red fb">
+                        <div class="card-content white-text">
+                            <span class="card-title">主页动态</span>
+                            <p> <span>获赞数量：38100人</span><br>
+                                <span>关注人数：51578人</span></p>
+                        </div>
+                        <div class="card-action ">
+                            <a href="#" class="waves-effect waves-light btn-flat white-text">前往主页</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s4">
+                    
+                </div>
+                <div class="col s4"></div>
+                <div class="col s4"></div>
+            </div>
+        </div>
+    </body>
+<script>
+    function menu(x){
+        $('.sidebar').toggleClass('w-zero');
+        $('.back').fadeToggle(100);
+    }
+</script>
+</html>

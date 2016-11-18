@@ -1,0 +1,121 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosanssc.css);
+*{
+    font-family: 'Noto sans SC'
+}
+body{
+    margin: 0;
+}
+.brand{
+    font-size: 40px;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    border-bottom: solid 1px rgba(0,0,0,0.14);
+    padding: 10px 0px;
+}
+.sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 270px;
+    color: rgba(0,0,0,0.54);
+    border-right: solid 1px rgba(0,0,0,0.14);
+    height: 100%;
+    overflow-x: hidden;
+    transition: width 200ms;
+    user-select:none;
+}
+.side-ul{
+    margin: 0;
+}
+.side-ul li a{
+    display: block;
+    color: black;
+    box-shadow: none;
+    border-right: solid 3px transparent;
+}
+.side-ul li a:hover{
+    box-shadow: none;   
+}
+.active{
+    border-right-color: rgba(0,0,0,0.54) !important;
+}
+.main{
+    width: calc(100% - 270px);
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition:width 200ms;
+}
+.work p{
+    font-size: 17px;
+}
+.work-bar{
+    display: block;
+    height: 30px;
+}
+.finish-bar{
+    width: 54%;
+    background-color: #CDDC39;
+}
+.n-finish-bar , .finish-bar{
+    display: inline-block;
+    float: left;
+    height: 30px;
+    text-align: center;
+    transition: all 200ms;
+}
+.n-finish-bar{
+    width: 46%;
+    background-color: #FFC107;
+}
+.fb p span{
+    font-size: 30px;
+    line-height: 1.14em;
+    padding: 10px 0px;
+    display: block;
+}
+.menu{
+    padding: 0px 15px;
+    display: inline-block;
+}
+.nav-bar{
+    width: calc(100% - 270px);
+    transition:width 200ms;
+}
+.w-zero{
+    width: 270px !important;
+}
+.w-full{
+    width: calc(100% - 270px) !important;
+}
+.menu-btn{
+    padding: 0px 15px;
+    display: none;
+}
+.back{
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 40px;
+    z-index: 1001;
+    padding: 10px 15px;
+    display: none;
+    cursor: pointer;
+}
+@media only screen and (max-width: 1300px) {
+    .menu-btn{
+        display: inline-block;
+    }
+    .sidebar{
+        width: 0px;
+        z-index: 1000;
+        background-color: white;
+    }
+    .sidebar div{
+        position: relative;
+        z-index: 1000;
+    }
+    .main , .nav-bar{
+        width: 100%;
+    }
+}
