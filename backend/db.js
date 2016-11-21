@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 import colors from 'colors'
 import mongoose from 'mongoose'

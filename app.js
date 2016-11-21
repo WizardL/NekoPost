@@ -1,14 +1,14 @@
-"use strict"
+'use strict'
 
 import app from './backend'
 import colors from 'colors'
 
-import { development, test, production } from './config'
+import { dbDev, dbTest, dbProd } from './config'
 import { DatabaseConnector } from './backend/db'
 import { updateTopPosts } from './backend/topPosts'
 import { updateHotPosts } from './backend/hotPosts'
 const port = process.env.PORT || 3000
-const DBConfig = (process.env.NODE_DEV == 'production') ? production : development
+const DBConfig = (process.env.NODE_DEV == 'production') ? dbProd : dbDev
 
 ;(async () => {
   try {

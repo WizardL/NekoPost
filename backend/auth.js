@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 // Configurations
 import { fbConf, adminEmail } from '../config'
@@ -12,36 +12,36 @@ import { Strategy as FacebookStrategy } from 'passport-facebook'
 
 // Recaptcha
 import {
-  recaptcha_development,
-  recaptcha_test,
-  recaptcha_production } from '../config'
+  recaptchaDev,
+  recaptchaTest,
+  recaptchaProd } from '../config'
 
 import recaptcha from 'recaptcha-validator'
 
 const RecaptchaConfig =
-        (process.env.NODE_ENV == 'production') ? recaptcha_production :
-        (process.env.NODE_ENV == 'development') ? recaptcha_development :
-        recaptcha_test
+          (process.env.NODE_ENV == 'production') ? recaptchaProd
+        : (process.env.NODE_ENV == 'development') ? recaptchaDev
+        : recaptchaTest
 
 passport.use(new FacebookStrategy({
-  clientID:     fbConf.appId,
+  clientID: fbConf.appId,
   clientSecret: fbConf.appSecret,
   callbackURL: `http://localhost:${process.env.PORT || 3000}/api/auth/fb/callback`,
   profileFields: ['id', 'displayName', 'email'],
   enableProof: true
-}, function(token, tokenSecret, profile, cb) {
+}, (token, tokenSecret, profile, cb) => {
   // retrieve user ...
   profile.accessToken = token
-  return cb(null, profile);
+  return cb(null, profile)
 }))
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
+passport.serializeUser((user, done) => {
+  done(null, user)
+})
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
+passport.deserializeUser((user, done) => {
+  done(null, user)
+})
 
 export default function auth() {
   return compose([
@@ -55,7 +55,7 @@ export default function auth() {
     passport.initialize(),
 
     // passport session initialization
-    passport.session(),
+    passport.session()
 
   ])
 }
@@ -95,7 +95,7 @@ export function isAuthenticated() {
 
 export function isAdmin() {
   return async (ctx, next) => {
-    if(adminEmail.includes(ctx.state.user.emails[0].value))
+    if (adminEmail.includes(ctx.state.user.emails[0].value))
       await next()
     else
       ctx.throw(401)

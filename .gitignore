@@ -49,6 +49,3 @@ dist
 
 # yarn
 yarn*
-
-# eslint
-.eslintrc.json
