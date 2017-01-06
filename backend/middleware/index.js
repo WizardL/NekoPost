@@ -13,6 +13,9 @@ export default function middleware(app) {
     // X-Powered-By
     misato,
 
+    // No Cache
+    nocache,
+
     // Error handling
     errorhandling,
 
@@ -32,7 +35,7 @@ export default function middleware(app) {
     */
     // Compress response
     compress({
-      filter: function (content_type) {
+      filter: function(content_type) {
         return /text/i.test(content_type)
       },
       threshold: 2048,
@@ -46,7 +49,7 @@ export default function middleware(app) {
     })),
 
     // Echo
-    verbose,
+    verbose
 
   ])
 }

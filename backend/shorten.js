@@ -5,7 +5,7 @@ import { shortenConf } from '../config'
 
 export default (url) => {
   return new Promise((resolve, reject) => {
-    if(!shortenConf.enabled)
+    if (!shortenConf.enabled)
       resolve(url)
 
     const options = {
