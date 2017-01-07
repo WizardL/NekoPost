@@ -36,6 +36,9 @@ export const fbConf = {
     name: '匿名独中', // Facebook Page Name eg: 靠北工程师
     username: 'AnonChungHwa' // Facebook Page Username eg: kobeengineer
   },
+  commentPage: { // Write/Post an anonymous comment as a page
+    'EXAMPLE PAGE': 'EXAMPLE PAGE TOKEN'
+  },
   need_approve: false // Post need admin to approve before posted.
 }
 
