@@ -12,6 +12,14 @@ import { fbConf } from '../../config'
 FB.options('v2.8') // using latest facebook api
 FB.setAccessToken(fbConf.accessToken) // set page access token.
 
+/**
+ * Post text to FB.
+ * @function
+ * @param {number} id - Post No.
+ * @param {string} content - The content you want to post.
+ * @param {string} link - External link on post.
+ * @param {boolean} need_approve - The post need to moderate by admin or not.
+ */
 export const PostToFB = (id, content, link, need_approve) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -33,6 +41,14 @@ export const PostToFB = (id, content, link, need_approve) => {
   })
 }
 
+/**
+ * Post Text & Image to FB.
+ * @function
+ * @param {number} id - Post No.
+ * @param {string} content - The content you want to post.
+ * @param {string} picture - Link of picture.
+ * @param {boolean} need_approve - The post need to moderate by admin or not.
+ */
 export const PostImageToFB = (id, content, picture, need_approve) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -56,6 +72,32 @@ export const PostImageToFB = (id, content, picture, need_approve) => {
   })
 }
 
+/**
+ * Comment on Post.
+ * @function
+ * @param {number} postid - ID of FB Post.
+ * @param {string} content - The content you want to post.
+ * @param {string} pageToken - FB Page Access Token
+ */
+export const CommentOnPost = (postid, content, pageToken) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      FB.setAccessToken(pageToken)
+      await FB.api(`${postid}/comments`,
+        'post', {
+          message: content
+        })
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+/**
+ * Get the amount of the likes, comments, reactions and shares in the post
+ * @function
+ * @param {number} postid - ID of Facebook Post.
+ */
 export const getPostFromFB = (postid) => {
   return new Promise(async (resolve, reject) => {
     try {
