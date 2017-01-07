@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 import importDir from 'import-dir'
 import compose from 'koa-compose'
@@ -17,7 +17,7 @@ export default function api() {
     const routes = importDir('./' + curr.folder)
     const router = new Router({ prefix: curr.prefix })
 
-    Object.keys(routes).map(name => routes[name](router))
+    Object.keys(routes).map((name) => routes[name](router))
     return [router.routes(), ...prev]
   }, [])
 

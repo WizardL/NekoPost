@@ -15,6 +15,7 @@
     ],
     "no-duplicate-imports": 0,
     "no-useless-escape": 0,
+    "no-unneeded-ternary": 0,
     "curly": 0,
     "no-var": 2,
     "no-return-assign": 0,

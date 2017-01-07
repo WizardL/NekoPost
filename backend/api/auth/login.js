@@ -12,8 +12,6 @@ export default (router) => {
     .get('/auth/fb/callback',
          passport.authenticate('facebook'),
          callback_handler)
-
-  
 }
 
 async function callback_handler(ctx, next) {

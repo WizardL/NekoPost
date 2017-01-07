@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 import goorl from 'goorl'
 import { shortenConf } from '../config'
