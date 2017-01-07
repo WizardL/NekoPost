@@ -3,7 +3,6 @@
 import passport from 'koa-passport'
 
 export default (router) => {
-
   router
 
     .get('/auth/fb',

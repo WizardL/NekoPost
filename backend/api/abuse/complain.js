@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 import { isAuthenticated, recaptchaCheck } from '../../auth'
 
@@ -6,7 +6,6 @@ import { isAuthenticated, recaptchaCheck } from '../../auth'
 import PostModel from '../../model/post'
 
 export default (router) => {
-
   router
 
     .post('/abuse/:postid',

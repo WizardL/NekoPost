@@ -66,7 +66,7 @@ function StringWidthHeight(string, fontFamilyKey, fontSize) {
  * @param {string} fontFamilyKey - Font used by mainString.
  * @param {string} mainFontSize - Size of mainString.
  * @param {string} signFontSize - Size of signString.
- * @param {object} customTheme - Custom theme.
+ * @param {Object} customTheme - Custom theme.
  * @param {string} customTheme.text - Text color of the picture.
  * @param {string} customTheme.background - Background color of the picture.
  */
