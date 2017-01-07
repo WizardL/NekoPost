@@ -30,6 +30,9 @@ async function post_handler(ctx, next) {
   if (!ctx.request.fields['content'] || !ctx.request.fields['type'])
     ctx.throw('Please type the content you want to post.')
 
+  // Check text length.
+  checkLength(ctx, ctx.request.fields['content'])
+
   if (fbConf.need_approve === false) {
     // Get timeout time.
     const time = await getTimeout()
@@ -219,6 +222,11 @@ const checkFileExt = (fileName) => {
   if (!acceptExt.includes(fileName.split('.')[fileName.split('.').length - 1].toLowerCase()))
     return false
   return true
+}
+
+const checkLength = (ctx, text) => {
+  if (text.length > 1024)
+    ctx.throw('You have reached your maximum limit of characters allowed.')
 }
 
 const msToTime = (s) => {
