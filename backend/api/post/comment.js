@@ -1,7 +1,10 @@
 'use strict'
 
 // FB
-import {} from '../../fb/post'
+import { CommentOnPost } from '../../fb/post'
+
+// Config
+import { fbConf } from '../../../config'
 
 // Recaptcha check.
 import { recaptchaCheck } from '../../auth'
@@ -9,11 +12,11 @@ import { recaptchaCheck } from '../../auth'
 export default (router) => {
   router
 
-    .post('/comment/:id',
+    .post('/comment/:postid',
           recaptchaCheck(),
           comment_handler)
 }
 
 async function comment_handler(ctx, next) {
-  // TODO
+  CommentOnPost(ctx.params.postid, ctx.request.fields['content'], fbConf.commentPage[ctx.request.fields['identity']])
 }
