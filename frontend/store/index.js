@@ -71,7 +71,7 @@ export default store = new Vuex.Store({
   getters: {
     // ids of the items that should be currently displayed based on
     // current list type and current pagination
-    activeIds (state) {
+    activeIds(state) {
       const { activeType, itemsPerPage, lists } = state
       const page = Number(state.route.params.page) || 1
       if (!activeType)
