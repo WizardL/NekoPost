@@ -110,7 +110,7 @@ async function postAccepted(ctx, next) {
     } else {
       // TODO
       // The following code is for posting a image to a Facebook page
-      await PostImageToFB(postKey, content, picture, true)
+      await PostImageToFB(postKey, content, post.imgLink, true)
     }
     if (post.notify != '0')
       await FBNotify(ctx.state.user.id, 'Your post is posted successfully.', `/post/${id}`)
