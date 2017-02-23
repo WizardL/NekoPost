@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 // Dependencies
 import FB from 'fb'
@@ -8,7 +8,6 @@ import { fbConf } from '../../config'
 
 export default (userid, message, href) => {
   return new Promise(async (resolve, reject) => {
-
     FB.options({ version: 'v2.8' })
 
     const app = await FB.api('oauth/access_token', {
@@ -16,34 +15,30 @@ export default (userid, message, href) => {
       client_secret: fbConf.appSecret,
       grant_type: 'client_credentials'
     })
-    
+
     FB.setAccessToken(app.access_token)
 
-    if(href) {
+    if (href) {
       try {
         const response = await FB.api(`/${userid}/notifications`,
-          'post',{
+          'post', {
             template: message,
             href: href
           })
         resolve(response)
-      } catch(error) {
+      } catch (error) {
         reject(error)
       }
-      
     } else {
-      
       try {
         const response = await FB.api(`/${userid}/notifications`,
-          'post',{
+          'post', {
             template: message
           })
         resolve(response)
-      } catch(error) {
+      } catch (error) {
         reject(error)
       }
-      
     }
-  
   })
 }

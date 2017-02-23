@@ -14,10 +14,9 @@ export default function server(app) {
     convert(favicon(resolve('../../frontend/assets/logo.png'))),
 
     // SSR
-    SSR,
+    SSR
 
   ])
-
 }
 
 const createBundleRenderer = require('vue-server-renderer').createBundleRenderer
@@ -38,7 +37,6 @@ const html = (() => {
 })()
 
 async function SSR(ctx) {
-
   if (!ctx.renderer) {
     ctx.body = 'Loading....'
     return
@@ -65,8 +63,7 @@ async function SSR(ctx) {
     console.log(`whole request took ${Data.now() - s}ms`)
   })
 
-  renderStream.on('error', err => {
+  renderStream.on('error', (err) => {
     throw err
   })
-
 }

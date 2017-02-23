@@ -1,9 +1,8 @@
-"use strict"
+'use strict'
 
 import passport from 'koa-passport'
 
 export default (router) => {
-
   router
 
     .get('/auth/fb',
@@ -12,8 +11,6 @@ export default (router) => {
     .get('/auth/fb/callback',
          passport.authenticate('facebook'),
          callback_handler)
-
-  
 }
 
 async function callback_handler(ctx, next) {

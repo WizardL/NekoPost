@@ -1,7 +1,4 @@
-"use strict"
-
-// Dependencies
-import colors from 'colors'
+'use strict'
 
 // FB
 import { getPostFromFB } from './fb/post'
@@ -20,20 +17,20 @@ import { PostModel } from './model/post'
 export const updateTopPosts = async () => {
   const thisYear = new Date(new Date().getFullYear(), 0, 1)
   const post = await PostModel.find({
-    "created_on": {
-      "$gte": thisYear.getTime(), 
-      "$lt": Date.now()
+    'created_on': {
+      '$gte': thisYear.getTime(),
+      '$lt': Date.now()
     },
     'status.delivered': true
   }).exec()
 
-  await Promise.all(post.map(async obj => {
+  await Promise.all(post.map(async (obj) => {
 
     try {
       await TopModel.remove()
 
       const postData = await getPostFromFB(obj.postid)
-      
+
       const regex = new RegExp(`^#${fbConf.page.name}(\\d+)`)
       const id = regex.exec(obj.content)[1]
 
@@ -47,10 +44,8 @@ export const updateTopPosts = async () => {
       })
 
       await TopEntity.save()
-
-    } catch(error) {
+    } catch (error) {
       console.log(`[${'!'.red}]  updateTopPost failed.\n\n Details: ${error}\n`)
     }
-
   }))
 }

@@ -46,3 +46,6 @@ session.db
 
 # distribution dehydrated file
 dist
+
+# yarn
+yarn*
