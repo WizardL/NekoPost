@@ -4,9 +4,15 @@
 
 <img align="right" src="http://amazonmandy.com/wp-content/uploads/2015/05/misatoref.png" alt="misato" />
 
-Misato is an Open Source Platform that allows user to spread their words anonymously.
+Misato is an Open Source Platform that allows users to spread their opinions anonymously.
 
 ## Getting Started
+
+Presequities
+```
+Node.js https://github.com/nodejs/node
+npm https://github.com/npm/npm
+```
 
 Installing the dependencies
 ```
