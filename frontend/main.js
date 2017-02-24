@@ -26,7 +26,7 @@ const app = new Vue({
   router,
   store,
   ...App // Object spread copying everything from App.vue
-})
+}).$mount('#app')
 
 // expose the app, the router and the store.
 // note we are not mounting the app here, since bootstrapping will be
