@@ -1,9 +1,13 @@
 {
-  "plugins": [],
   "presets": [
     // do not transform modules
-    ["es2015", { "modules": false } ],
-    "syntax-dynamic-import"
+    ["es2015", { "modules": false } ]
   ],
+
+  "plugins": [
+    "syntax-dynamic-import",
+    "transform-object-rest-spread"
+  ],
+
   "comments": false
 }
