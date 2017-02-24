@@ -12,9 +12,12 @@ import { sync } from 'vuex-router-sync'
 sync(store, router)
 
 // register global utility filters.
-Object.keys(filters).forEach(key => {
+Object.keys(filters).forEach((key) => {
   Vue.filter(key, filters[key])
 })
+
+// devtools
+Vue.config.devtools = (process.env.NODE_ENV !== 'production')
 
 // create the app instance.
 // here we inject the router and store to all child components,
