@@ -7,25 +7,12 @@
 Open Source Platform that allow user to spread words anonymously.
 
 ## Getting Started
+🚧  Working in progress... just keep refreshing.
 
-Install the dependencies
-```
-git clone https://github.com/zypeh/Misato
-cd Misato
-npm install
-```
-
-Running the code
-```
-# For development, instead
-npm run test
-
-# For production, use
-npm run production
-```
+🚧  施工中…… 等等吧。
 
 ## License
-[![](https://img.shields.io/badge/License-BSD%203%20Clause-blue.svg?style=flat-square)](https://raw.githubusercontent.com/zypeh/Misato/master/LICENSE)
+[![](https://img.shields.io/badge/License-GPL-green.svg?style=flat-square)](https://raw.githubusercontent.com/zypeh/Misato/master/LICENSE)
 
 ## Contributors
 * Zypeh

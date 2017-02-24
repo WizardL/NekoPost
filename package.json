@@ -4,13 +4,14 @@
   "description": "Facebook Bot that allow user to spread words anonymously.",
   "main": "index.js",
   "scripts": {
-    "dev:backend": "nodemon index.js",
+    "dev:backend": "nodemon --exec babel-node index.js",
     "dev:frontend": "webpack-dev-server --inline --hot",
     "prestart": "npm run build",
-    "start": "cross-env NODE_ENV=production nodemon index.js",
+    "start": "cross-env NODE_ENV=production nodemon backend-dist/index.js",
     "build": "npm run build:client && npm run build:server",
     "build:client": "cross-env NODE_ENV=production webpack -p --progress --hide-modules",
-    "build:server": "cross-env NODE_ENV=production webpack -p --progress --hide-modules"
+    "build:server": "babel src -d backend-dist/",
+    "production": "npm run start"
   },
   "repository": {
     "type": "git",
