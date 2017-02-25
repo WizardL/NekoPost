@@ -9,7 +9,6 @@ export default (router) => {
          top_handler)
 }
 
-
 async function top_handler(ctx, next) {
   let postKey = []
   const postID = await IDModel.find().exec()
