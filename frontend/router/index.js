@@ -6,7 +6,8 @@ Vue.use(Router)
 // import CreateListView from '../views/CreateListView'
 // import SubmitView from '../views/SubmitView.vue'
 // import ComplainView from '../views/ComplainView.vue'
-// import AboutView from '../views/AboutView.vue'
+import AboutView from '../views/AboutView.vue'
+import FAQView from '../views/FAQView.vue'
 // import PostView from '../views/PostView.vue'
 
 export default new Router({
@@ -19,6 +20,7 @@ export default new Router({
     // { path: '/投诉', name: 'complain', component: ComplainView },
     // { path: '/装逼', name: 'about', component: AboutView },
     // { path: '/post/:id', name: 'post', component: PostView },
-    { path: '*', redirect: '/装逼' }
+    { path: '/about', name: 'about', component: AboutView },
+    { path: '/faq', name: 'FAQ', component: FAQView }
   ]
 })

@@ -1,0 +1,46 @@
+@mixin cf {
+    &:before, &:after {
+        display: table;
+        content: "";
+    }
+    &:after { clear: both; }
+}
+
+@mixin heading {
+    font-size: 360%;
+    -webkit-font-smoothing: antialiased;
+    font-weight: bold;
+    letter-spacing: $heading-spacing;
+}
+
+@mixin sub-heading {
+    font-size: 72%;
+    font-weight: normal;
+    opacity: .5;
+}
+
+@mixin padding-offset ($pad-left, $pad-right : $pad-left) {
+    padding-left: $pad-left;
+    padding-right: $pad-right;
+}
+
+@mixin margin-offset ($mar-left, $mar-right : $mar-left) {
+    margin-left: $mar-left;
+    margin-right: $mar-right;
+}
+
+@mixin spliter {
+    $size: 3px;
+    $color: $text-color;
+
+    &::before {
+        display: block;
+        content: ' ';
+        width: $size;
+        height: $size;
+        margin: 2em auto;
+        border-radius: 50%;
+        background: $color;
+        box-shadow: ($size * 8) 0 0 0 $color, ($size * -8) 0 0 0 $color;
+    }
+}

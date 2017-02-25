@@ -29,7 +29,7 @@ const app = new Vue({
 })
 
 // mount the vue instance to DOM
-store.replaceState(window.__INITIAL_STATE__)
+// store.replaceState(window.__INITIAL_STATE__)
 app.$mount('#app')
 
 if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator)
