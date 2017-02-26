@@ -27,5 +27,4 @@
 </style>
 
 <script>
-loadImg: (path) => require(path)
 </script>
