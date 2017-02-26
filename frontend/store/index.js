@@ -10,7 +10,7 @@ export default new Vuex.Store({
     items: {/* [id: number]: Item */},
     posts: {/* [id: number]: Post */},
     lists: {
-      hot: [/* number */],
+      now: [],
       new: []
     }
   },
