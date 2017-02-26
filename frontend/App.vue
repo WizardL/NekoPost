@@ -3,6 +3,7 @@
     <nav class="navigation">
       <div><a router-link to="/" exact><img id="logo" src="logo.png" alt="logo"></a></div>
       <ul>
+        <li><router-link to="/posts">Posts</router-link></li>
         <li><router-link to="/faq">FAQ</router-link></li>
         <li><router-link to="/about">About us</router-link></li>
       </ul>
