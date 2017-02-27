@@ -64,7 +64,7 @@ button {
     outline: none;
 }
 
-a, button {
+a {
   color: $text-color;
   text-decoration: none;
   transition: color .5s ease, border-color .5s ease, background .5s ease, opacity 1.5s ease;

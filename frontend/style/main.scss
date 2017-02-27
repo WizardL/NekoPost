@@ -302,6 +302,23 @@
         }
     }
 
+    button {
+        border-radius: 2px;
+        min-width: 8em;
+        margin-bottom: 1em;
+        border-width: .25em;
+        border-style: solid;
+        color: $link-color;
+        border-color: $link-color;
+        padding: 1em;
+        transition: all 0.3s ease 0s;
+
+        &:hover {
+            background: $link-color;
+            color: $background-color;
+        }
+    }
+
     blockquote {
         position: relative;
         margin-bottom: 2.8rem;
