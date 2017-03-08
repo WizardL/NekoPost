@@ -39,13 +39,10 @@ node_modules
 bower_components
 
 # tern project
-.tern-port
+.tern-＊
 
 #session
 session.db
 
 # distribution dehydrated file
 dist
-
-# yarn
-yarn*

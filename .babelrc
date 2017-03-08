@@ -1,4 +1,13 @@
 {
-  "plugins": [],
-  "presets": [ "es2015", "stage-0" ]
+  "presets": [
+    // do not transform modules
+    ["es2015", { "modules": false } ]
+  ],
+
+  "plugins": [
+    "syntax-dynamic-import",
+    "transform-object-rest-spread"
+  ],
+
+  "comments": false
 }

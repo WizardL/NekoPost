@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
-import * as filters from './filters'
+import * as filters from './utils/filters'
 import { sync } from 'vuex-router-sync'
 
 // sync the router with the vuex store.
@@ -12,9 +12,12 @@ import { sync } from 'vuex-router-sync'
 sync(store, router)
 
 // register global utility filters.
-Object.keys(filters).forEach(key => {
+Object.keys(filters).forEach((key) => {
   Vue.filter(key, filters[key])
 })
+
+// devtools
+Vue.config.devtools = (process.env.NODE_ENV !== 'production')
 
 // create the app instance.
 // here we inject the router and store to all child components,
@@ -25,7 +28,9 @@ const app = new Vue({
   ...App // Object spread copying everything from App.vue
 })
 
-// expose the app, the router and the store.
-// note we are not mounting the app here, since bootstrapping will be
-// different depending on whether we are in a browser or on the server.
-export { app, router, store }
+// mount the vue instance to DOM
+// store.replaceState(window.__INITIAL_STATE__)
+app.$mount('#app')
+
+if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator)
+  navigator.serviceWorker.register('/service-worker.js')
