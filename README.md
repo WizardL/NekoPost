@@ -1,5 +1,5 @@
 # NekoPost
-[![Build Status](https://img.shields.io/travis/WizardL/NekoPost.svg?style=flat-square)](https://travis-ci.org/WizardL/Misato)
+[![Build Status](https://img.shields.io/travis/WizardL/NekoPost.svg?style=flat-square)](https://travis-ci.org/WizardL/NekoPost)
 [![Dependency Status](https://img.shields.io/david/WizardL/NekoPost.svg?style=flat-square)](https://david-dm.org/WizardL/Misato)
 
 <img align="right" src="http://amazonmandy.com/wp-content/uploads/2015/05/misatoref.png" alt="NekoPost" />
