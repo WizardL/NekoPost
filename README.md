@@ -1,8 +1,8 @@
-# Misato
-[![Build Status](https://img.shields.io/travis/WizardL/Misato.svg?style=flat-square)](https://travis-ci.org/WizardL/Misato)
-[![Dependency Status](https://img.shields.io/david/WizardL/Misato.svg?style=flat-square)](https://david-dm.org/WizardL/Misato)
+# NekoPost
+[![Build Status](https://img.shields.io/travis/WizardL/NekoPost.svg?style=flat-square)](https://travis-ci.org/WizardL/Misato)
+[![Dependency Status](https://img.shields.io/david/WizardL/NekoPost.svg?style=flat-square)](https://david-dm.org/WizardL/Misato)
 
-<img align="right" src="http://amazonmandy.com/wp-content/uploads/2015/05/misatoref.png" alt="misato" />
+<img align="right" src="http://amazonmandy.com/wp-content/uploads/2015/05/misatoref.png" alt="NekoPost" />
 
 Open Source Platform that allow user to spread words anonymously.
 

@@ -1,5 +1,5 @@
 {
-  "name": "misato",
+  "name": "nekopost",
   "version": "0.7.1",
   "description": "Facebook Bot that allow user to spread words anonymously.",
   "main": "index.js",
