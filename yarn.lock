@@ -217,6 +217,10 @@ autoprefixer@^6.3.1, autoprefixer@^6.5.0:
     postcss "^5.2.15"
     postcss-value-parser "^3.2.3"
 
+autosize@^3.0.21:
+  version "3.0.21"
+  resolved "https://registry.yarnpkg.com/autosize/-/autosize-3.0.21.tgz#f182f40d17757d978a139a4c9ca40c4c0e448603"
+
 aws-sign2@~0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.6.0.tgz#14342dd38dbcc94d0e5b87d763cd63612c0e794f"
@@ -5606,6 +5610,10 @@ vm-browserify@0.0.4:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
   dependencies:
     indexof "0.0.1"
+
+vue-autosize-textarea@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/vue-autosize-textarea/-/vue-autosize-textarea-0.0.1.tgz#a5e5e148cfbad9f477a23cbc679cca6251931145"
 
 vue-hot-reload-api@^2.0.1, vue-hot-reload-api@^2.0.10:
   version "2.0.10"

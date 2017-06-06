@@ -7,7 +7,7 @@
                     <small>You can now post to facebook anonymously. 😎</small>
 
                     <div class="divider"></div>
-                    <div class="neko-editor"><textarea type='text' data-role='inputContent' v-on:keyup.enter="addHeight" v-on:keyup="check">😽 Post something awesome here</div>
+                    <div class="neko-editor"><autosize-textarea value="😽 Post something awesome here"></autosize-textarea></div>
                     <div class="divider post-button">
                     <button class="neko-post">Post it on Facebook 😸</button>
                     </div>
@@ -18,11 +18,15 @@
 </template>
 
 <script>
-import dl from 'downloadjs'
+import autosizeTextArea from '../components/Autoresize-textarea.vue'
+
 const $ = document.querySelector.bind(document)
 
 export default {
     name: 'post-view',
+    components: {
+        'autosize-textarea': autosizeTextArea,
+    },
     data() {
         return {
             form: {
@@ -65,7 +69,32 @@ export default {
             // For retina display
             context.scale(2,2)
 
+            // background
+            context.fillStyle = 'black'
+            context.fillRect(0, 0, this.canvasSize.width, this.canvasSize.height)
 
+            const addText = (text, y, ratio) => {
+                context.textBaseline = 'top'
+                context.textAlign = 'left'
+
+                const squashWidth = context.measureText(text).width * ratio
+                const split = text.split('\n')
+
+                if (split.length > 1)
+                    context.textBaseline = 'middle'
+                else
+                    context.textBaseline = 'top'
+                
+                split.map((line, idx) => {
+                    const width = context.measureText('M').width
+                    context.fillText(line, 40, y + idx * width, squashWidth)
+                })
+            }
+
+            context.textBaseline = 'top'
+            // Content here
+            context.font = `700 ${this.fontSize.content}px Helvatica Neue, sans-serif`
+            addText(this.form.content, 420, 0.75)
         }
     }
 }
