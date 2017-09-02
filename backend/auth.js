@@ -47,9 +47,9 @@ export default function auth() {
   return compose([
 
     // session
-    convert(session({
+    session({
       store: new MongoStore()
-    })),
+    }),
 
     // passport initialization
     passport.initialize(),
