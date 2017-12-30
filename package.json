@@ -39,7 +39,6 @@
     "es6-promise": "^4.1.1",
     "fb": "^2.0.0",
     "goorl": "^2.0.6",
-    "import-dir": "0.0.1",
     "koa": "^2.3.0",
     "koa-better-body": "^3.0.4",
     "koa-compose": "^4.0.0",
