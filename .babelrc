@@ -1,7 +1,6 @@
 {
   "presets": [
-    // do not transform modules
-    ["es2015", { "modules": false } ]
+    ["es2015"]
   ],
 
   "plugins": [
