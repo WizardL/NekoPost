@@ -5,11 +5,11 @@ import Path from 'path'
 // First arg: dir path, 
 // second arg: ignore it, it stores loaded modules only
 function importDir(dir, mods) {
-    let me = mods || {};
+    let me = mods || {}
 
     FileSystem.readdirSync(dir).forEach(file => {
         // Mix the two folders together
-        let path = Path.resolve(dir, file);
+        let path = Path.resolve(dir, file)
 
         // If the file is a directory, do some recursive
         if (FileSystem.statSync(path).isDirectory()) { 
@@ -18,12 +18,12 @@ function importDir(dir, mods) {
         }
 
         // Load the modules
-        let module = require(path);
+        let module = require(path)
         
         // Some shenanigans
         let _module = (obj => 
             obj && obj.__esModule ? obj : { default: obj }
-        )(module); 
+        )(module)
 
         // Set the variable to the module
         // (also throws the file extension out of the var name)
