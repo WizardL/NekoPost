@@ -1,6 +1,9 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
+// Required for Webpack to find it
+import Stylesheet from './style/app.scss'
+
 class App extends React.Component {
     render() {
         return (
@@ -20,7 +23,7 @@ class App extends React.Component {
                             <Route path="/post_now" component={() => <p>Post</p>} />
                             <Route path="/faq" component={() => <p>FAQ</p>} />
                             <Route path="/about" component={() => <p>About</p>} />
-                            <Route exact path="/" component={() =>{<p>Post</p>}} />
+                            <Route exact path="/" component={() => <p>Post</p>} />
                         </transition>
                     </main>
                 </div>
