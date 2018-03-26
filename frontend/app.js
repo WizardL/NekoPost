@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
+import About from './views/about.js'
+
 // Required for Webpack to find it
 import Stylesheet from './style/app.scss'
 
@@ -22,7 +24,7 @@ class App extends React.Component {
                         <transition name="fade" mode="out-in">
                             <Route path="/post_now" component={() => <p>Post</p>} />
                             <Route path="/faq" component={() => <p>FAQ</p>} />
-                            <Route path="/about" component={() => <p>About</p>} />
+                            <Route path="/about" component={About} />
                             <Route exact path="/" component={() => <p>Post</p>} />
                         </transition>
                     </main>
