@@ -483,3 +483,11 @@
         }
     }
 }
+
+/* 
+    * This one was originally put in the *.vue files, but since we don't put
+    * <style> tags in JSX, I've decided to put it here.
+*/
+.divider {
+    padding: 10vmin 0 1rem;
+}

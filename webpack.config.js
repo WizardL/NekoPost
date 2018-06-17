@@ -18,12 +18,12 @@ module.exports = {
             ? 'build.[chunkhash:5].js'
             : 'build.js'
   },
-  resolve: {
+   resolve: {
     alias: { 'vue$': 'vue/dist/vue.common.js' }
   },
   module: {
     rules: [
-      {
+      /* {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -36,6 +36,20 @@ module.exports = {
             scss: 'style-loader!css-loader!sass-loader'
           }
         }
+      }, */
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
       },
       {
         test: /\.js$/,
@@ -109,6 +123,7 @@ if (process.env.NODE_ENV === 'production') {
     }),
     // extract vendor chunks for better caching
     // https://github.com/zypeh/memetwork
+    // ^ shameless self-advertisement right there, haha
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
     }),
